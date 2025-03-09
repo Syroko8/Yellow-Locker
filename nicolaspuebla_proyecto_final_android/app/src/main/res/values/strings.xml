@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">nicolaspuebla_proyecto_final_android</string>
+    <string name="title">Yellow Locker</string>
+    <string name="login">Log In</string>
+    <string name="login_image_description">Imagen de la pantalla de login.</string>
+    <string name="singUp">Sign Up</string>
+    <string name="email_adress">Email Adress</string>
+    <string name="passwd">Contraseña</string>
+    <string name="accountQuestion">Todavía no te has registrado?</string>
+    <string name="login_mayusc">LOGIN</string>
+</resources>
