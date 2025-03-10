@@ -11,7 +11,7 @@ import com.example.nicolaspuebla_proyecto_final.repository.LocalityRepository;
 public class LocalityService {
 
     @Autowired
-    LocalityRepository localityRepository;
+    private LocalityRepository localityRepository;
 
     public Locality getLocality(Long id){
         return localityRepository.getReferenceById(id);

@@ -11,7 +11,7 @@ import com.example.nicolaspuebla_proyecto_final.repository.MessageRepository;
 public class MessageService {
 
     @Autowired
-    MessageRepository messageRepository;
+    private MessageRepository messageRepository;
     
     public Message getMessage(Long id){
         return messageRepository.getReferenceById(id);

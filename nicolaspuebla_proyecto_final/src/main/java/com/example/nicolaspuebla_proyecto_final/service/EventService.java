@@ -12,7 +12,7 @@ import com.example.nicolaspuebla_proyecto_final.repository.EventRepository;
 public class EventService {
 
     @Autowired
-    EventRepository eventRepository;
+    private EventRepository eventRepository;
 
     public Event getEventById(Long id){
         return eventRepository.getReferenceById(id);

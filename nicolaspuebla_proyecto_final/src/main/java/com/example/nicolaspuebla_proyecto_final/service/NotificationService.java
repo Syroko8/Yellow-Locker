@@ -12,7 +12,7 @@ import com.example.nicolaspuebla_proyecto_final.repository.NotificationRepositor
 public class NotificationService {
 
     @Autowired
-    NotificationRepository notificationRepository;
+    private NotificationRepository notificationRepository;
 
     public List<Notification> getUserNotifications(Long id){
         return notificationRepository.findUserNotifications(id);

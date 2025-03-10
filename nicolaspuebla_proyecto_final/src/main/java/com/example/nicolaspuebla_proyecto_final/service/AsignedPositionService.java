@@ -8,14 +8,10 @@ import com.example.nicolaspuebla_proyecto_final.repository.AsignedPositionReposi
 public class AsignedPositionService {
 
     @Autowired
-    AsignedPositionRepository asignedPositionRepository;
+    private AsignedPositionRepository asignedPositionRepository;
 
     public AsignedPosition getAsignedPosition(AsignedPositionPK id){
         return asignedPositionRepository.getReferenceById(id);
-    }
-
-    public AsignedPosition getUserAsignedPositionInTeam(Long user_id, Long team_id){
-        return asignedPositionRepository.findByUserAndTeam(user_id, team_id);
     }
 
     public AsignedPosition createAsignedPosition(AsignedPosition newAsignedPosition){

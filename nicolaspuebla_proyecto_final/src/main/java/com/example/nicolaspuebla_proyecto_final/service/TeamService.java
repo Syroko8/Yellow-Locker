@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class TeamService {
 
     @Autowired
-    TeamRepository teamRepository;
+    private TeamRepository teamRepository;
 
     public List<Team> getTeams(){
         return teamRepository.findAll();
