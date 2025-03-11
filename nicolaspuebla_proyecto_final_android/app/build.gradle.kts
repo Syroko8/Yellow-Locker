@@ -78,4 +78,6 @@ dependencies {
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
     // Coil
     implementation("io.coil-kt:coil-compose:2.7.0")
+    // DateTextField
+    //implementation("com.github.LanarsInc:compose-date-text-field:{latest version}")
 }

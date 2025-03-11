@@ -28,7 +28,6 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
-import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -42,10 +41,8 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.graphics.toColorInt
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.nicolaspuebla_proyecto_final_android.R
 
@@ -147,7 +144,8 @@ fun MailTextField(viewModel: LoginScreenViewModel){
         Text(
             text = stringResource(R.string.email_adress),
             color = Color.Black,
-            modifier = Modifier.padding(start = 15.dp)
+            modifier = Modifier.padding(start = 15.dp),
+            fontFamily = FontFamily(Font(R.font.jura_bold))
         )
         TextField(
             colors = TextFieldDefaults.colors(
@@ -167,7 +165,7 @@ fun MailTextField(viewModel: LoginScreenViewModel){
             singleLine = true
         )
 
-        HorizontalDivider(color = Color.Yellow, thickness = 2.dp, modifier = Modifier.padding(start = 15.dp))
+        HorizontalDivider(color = Color.Yellow, thickness = 2.dp, modifier = Modifier.padding(start = 15.dp, end = 15.dp))
     }
 }
 
@@ -183,7 +181,8 @@ fun PasswdTextField(viewModel: LoginScreenViewModel){
         Text(
             text = stringResource(R.string.passwd),
             color = Color.Black,
-            modifier = Modifier.padding(start = 15.dp)
+            modifier = Modifier.padding(start = 15.dp),
+            fontFamily = FontFamily(Font(R.font.jura_bold))
         )
 
         OutlinedTextField(
@@ -211,7 +210,7 @@ fun PasswdTextField(viewModel: LoginScreenViewModel){
             singleLine = true
         )
 
-        HorizontalDivider(color = Color.Yellow, thickness = 2.dp, modifier = Modifier.padding(start = 15.dp))
+        HorizontalDivider(color = Color.Yellow, thickness = 2.dp, modifier = Modifier.padding(start = 15.dp, end = 15.dp))
     }
 }
 
@@ -227,7 +226,7 @@ fun ButtonRow(){
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 20.dp, start = 40.dp, end = 40.dp)
+                .padding(top = 20.dp, start = 20.dp, end = 40.dp)
                 .wrapContentHeight(),
             horizontalArrangement = Arrangement.Start
         ) {
@@ -249,7 +248,7 @@ fun ButtonRow(){
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent, contentColor = Color.Black)
             ) {
                 Text(
-                    text = stringResource(R.string.singUp),
+                    text = stringResource(R.string.signup),
                     fontFamily = FontFamily(Font(R.font.jura_bold)),
                     fontSize = 18.sp,
                     modifier = Modifier.drawBehind {
@@ -290,7 +289,5 @@ fun ButtonRow(){
                 )
             }
         }
-
     }
-
 }

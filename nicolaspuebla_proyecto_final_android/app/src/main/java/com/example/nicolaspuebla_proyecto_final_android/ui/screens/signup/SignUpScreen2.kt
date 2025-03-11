@@ -14,17 +14,21 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Circle
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -36,13 +40,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.nicolaspuebla_proyecto_final_android.R
 
 @Composable
-fun SignUpScreen(innerPadding: PaddingValues, viewModel: SignUpScreenViewModel = hiltViewModel()){
+fun SignUp2Screen(innerPadding: PaddingValues, viewModel: SignUpScreenViewModel = hiltViewModel()){
 
     Column(
         modifier = Modifier
@@ -52,14 +58,13 @@ fun SignUpScreen(innerPadding: PaddingValues, viewModel: SignUpScreenViewModel =
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Upper()
-        Lower(viewModel)
+        Upper2()
+        Lower2(viewModel)
     }
 }
 
 @Composable
-fun Upper(){
-
+fun Upper2(){
     Column(
         modifier = Modifier
             .padding(top = 50.dp)
@@ -86,29 +91,45 @@ fun Upper(){
 }
 
 @Composable
-fun Lower(viewModel: SignUpScreenViewModel){
+fun Lower2(viewModel: SignUpScreenViewModel){
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .clip(shape = RoundedCornerShape(topStart = 50.dp))
-            .background(Color.White)
-            .padding(bottom = 20.dp)
-            .verticalScroll(rememberScrollState()),
+            .background(Color(255,244,235))
+            .padding(bottom = 20.dp),
         verticalArrangement = Arrangement.Top
     ) {
-        LoginButtonRow()
-        NameTextField(viewModel)
-        SurnameTextField(viewModel)
-        SecondSurnameTextField(viewModel)
-        MailTextField(viewModel)
-        BirthDateTextField(viewModel)
-        ProgressionCircles()
-        NextUpButton(viewModel)
+        LoginButtonRow2()
+        ReturnButton()
+
+        Spacer(Modifier.height(20.dp))
+        Text(
+            text = stringResource(R.string.set_passwd),
+            fontFamily = FontFamily(Font(R.font.jura_bold)),
+            fontSize = 18.sp,
+            color = Color.Black,
+            modifier = Modifier.padding(start = 40.dp, top = 20.dp)
+        )
+        Spacer(Modifier.height(40.dp))
+
+        PasswdTextField(viewModel)
+        PasswdTextField2(viewModel)
+
+        Column(
+            modifier = Modifier
+                .fillMaxSize(),
+            verticalArrangement = Arrangement.Bottom
+        ) {
+            ProgressionCircles2()
+            SignUpButton(viewModel)
+        }
     }
 }
 
 @Composable
-fun LoginButtonRow(){
+fun LoginButtonRow2(){
     Row(
         modifier = Modifier
             .wrapContentWidth()
@@ -140,22 +161,54 @@ fun LoginButtonRow(){
 }
 
 @Composable
-fun NameTextField(viewModel: SignUpScreenViewModel){
+fun ReturnButton(){
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 20.dp, start = 20.dp, end = 40.dp)
+            .wrapContentHeight(),
+        horizontalArrangement = Arrangement.Start
+    ) {
+        Button(
+            onClick = { TODO() },
+            colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent, contentColor = Color.Black),
+        ) {
+            Icon(
+                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                contentDescription = stringResource(R.string.return_button_description)
+            )
+
+            Spacer(Modifier.width(10.dp))
+
+            Text(
+                text = stringResource(R.string.return_to_signup1),
+                fontFamily = FontFamily(Font(R.font.jura_bold)),
+                fontSize = 18.sp,
+                color = Color.Black
+            )
+        }
+    }
+}
+
+
+@Composable
+fun PasswdTextField(viewModel: SignUpScreenViewModel){
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 30.dp)
             .padding(horizontal = 25.dp)
             .wrapContentHeight(),
         horizontalAlignment = Alignment.Start
     ) {
         Text(
-            text = stringResource(R.string.name),
+            text = stringResource(R.string.passwd),
             color = Color.Black,
             modifier = Modifier.padding(start = 15.dp),
             fontFamily = FontFamily(Font(R.font.jura_bold))
         )
-        TextField(
+
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
             colors = TextFieldDefaults.colors(
                 focusedContainerColor = Color.Transparent,
                 unfocusedContainerColor = Color.Transparent,
@@ -163,13 +216,19 @@ fun NameTextField(viewModel: SignUpScreenViewModel){
                 unfocusedIndicatorColor = Color.Transparent,
                 disabledIndicatorColor = Color.Transparent
             ),
-            placeholder = {
-                Text(
-                    text = "adress@gmail.com"
-                )
+            value = viewModel.passwdTextFieldVal.value,
+            onValueChange = { viewModel.passwdTextFieldVal.value = it },
+            placeholder = { Text("********") },
+            visualTransformation = if(viewModel.passwdVisibility.value) VisualTransformation.None else PasswordVisualTransformation(),
+            trailingIcon ={
+
+                val icon = if (viewModel.passwdVisibility.value) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
+                val description = if (viewModel.passwdVisibility.value) "Password off" else "Password on"
+
+                IconButton(onClick = { viewModel.passwdVisibility.value = !viewModel.passwdVisibility.value }){
+                    Icon(imageVector = icon, contentDescription = description)
+                }
             },
-            onValueChange = { viewModel.nameTextFieldVal.value = it },
-            value = viewModel.nameTextFieldVal.value,
             singleLine = true
         )
 
@@ -178,22 +237,23 @@ fun NameTextField(viewModel: SignUpScreenViewModel){
 }
 
 @Composable
-fun SurnameTextField(viewModel: SignUpScreenViewModel){
+fun PasswdTextField2(viewModel: SignUpScreenViewModel){
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 20.dp)
             .padding(horizontal = 25.dp)
             .wrapContentHeight(),
         horizontalAlignment = Alignment.Start
     ) {
         Text(
-            text = stringResource(R.string.surname),
+            text = stringResource(R.string.repeat_passwd),
             color = Color.Black,
             modifier = Modifier.padding(start = 15.dp),
             fontFamily = FontFamily(Font(R.font.jura_bold))
         )
-        TextField(
+
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
             colors = TextFieldDefaults.colors(
                 focusedContainerColor = Color.Transparent,
                 unfocusedContainerColor = Color.Transparent,
@@ -201,13 +261,19 @@ fun SurnameTextField(viewModel: SignUpScreenViewModel){
                 unfocusedIndicatorColor = Color.Transparent,
                 disabledIndicatorColor = Color.Transparent
             ),
-            placeholder = {
-                Text(
-                    text = "adress@gmail.com"
-                )
+            value = viewModel.passwdTextFiel2dVal.value,
+            onValueChange = { viewModel.passwdTextFiel2dVal.value = it },
+            placeholder = { Text("********") },
+            visualTransformation = if(viewModel.passwdVisibility2.value) VisualTransformation.None else PasswordVisualTransformation(),
+            trailingIcon ={
+
+                val icon = if (viewModel.passwdVisibility2.value) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
+                val description = if (viewModel.passwdVisibility2.value) "Password off" else "Password on"
+
+                IconButton(onClick = { viewModel.passwdVisibility2.value = !viewModel.passwdVisibility2.value }){
+                    Icon(imageVector = icon, contentDescription = description)
+                }
             },
-            onValueChange = { viewModel.surnameTextFieldVal.value = it },
-            value = viewModel.surnameTextFieldVal.value,
             singleLine = true
         )
 
@@ -216,121 +282,7 @@ fun SurnameTextField(viewModel: SignUpScreenViewModel){
 }
 
 @Composable
-fun SecondSurnameTextField(viewModel: SignUpScreenViewModel){
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 30.dp)
-            .padding(horizontal = 25.dp)
-            .wrapContentHeight(),
-        horizontalAlignment = Alignment.Start
-    ) {
-        Text(
-            text = stringResource(R.string.second_surname),
-            color = Color.Black,
-            modifier = Modifier.padding(start = 15.dp),
-            fontFamily = FontFamily(Font(R.font.jura_bold))
-        )
-        TextField(
-            colors = TextFieldDefaults.colors(
-                focusedContainerColor = Color.Transparent,
-                unfocusedContainerColor = Color.Transparent,
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent,
-                disabledIndicatorColor = Color.Transparent
-            ),
-            placeholder = {
-                Text(
-                    text = "adress@gmail.com"
-                )
-            },
-            onValueChange = { viewModel.secondSurnameTextFieldVal.value = it },
-            value = viewModel.secondSurnameTextFieldVal.value,
-            singleLine = true
-        )
-
-        HorizontalDivider(color = Color.Yellow, thickness = 2.dp, modifier = Modifier.padding(start = 15.dp, end = 15.dp))
-    }
-}
-
-@Composable
-fun MailTextField(viewModel: SignUpScreenViewModel){
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 30.dp)
-            .padding(horizontal = 25.dp)
-            .wrapContentHeight(),
-        horizontalAlignment = Alignment.Start
-    ) {
-        Text(
-            text = stringResource(R.string.email_adress),
-            color = Color.Black,
-            modifier = Modifier.padding(start = 15.dp),
-            fontFamily = FontFamily(Font(R.font.jura_bold))
-        )
-        TextField(
-            colors = TextFieldDefaults.colors(
-                focusedContainerColor = Color.Transparent,
-                unfocusedContainerColor = Color.Transparent,
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent,
-                disabledIndicatorColor = Color.Transparent
-            ),
-            placeholder = {
-                Text(
-                    text = "adress@gmail.com"
-                )
-            },
-            onValueChange = { viewModel.mailTextFieldVal.value = it },
-            value = viewModel.mailTextFieldVal.value,
-            singleLine = true
-        )
-
-        HorizontalDivider(color = Color.Yellow, thickness = 2.dp, modifier = Modifier.padding(start = 15.dp, end = 15.dp))
-    }
-}
-
-@Composable
-fun BirthDateTextField(viewModel: SignUpScreenViewModel){
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 30.dp)
-            .padding(horizontal = 25.dp)
-            .wrapContentHeight(),
-        horizontalAlignment = Alignment.Start
-    ) {
-        Text(
-            text = stringResource(R.string.birth_date),
-            color = Color.Black,
-            modifier = Modifier.padding(start = 15.dp),
-            fontFamily = FontFamily(Font(R.font.jura_bold))
-        )
-        TextField(
-            colors = TextFieldDefaults.colors(
-                focusedContainerColor = Color.Transparent,
-                unfocusedContainerColor = Color.Transparent,
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent,
-                disabledIndicatorColor = Color.Transparent
-            ),
-            placeholder = {
-                Text(
-                    text = "adress@gmail.com"
-                )
-            },
-            onValueChange = { viewModel.dateTextFieldVal.value = it },
-            value = viewModel.dateTextFieldVal.value,
-            singleLine = true
-        )
-
-        HorizontalDivider(color = Color.Yellow, thickness = 2.dp, modifier = Modifier.padding(start = 15.dp, end = 15.dp))
-    }
-}
-
-@Composable
-fun ProgressionCircles(){
+fun ProgressionCircles2(){
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -341,7 +293,7 @@ fun ProgressionCircles(){
         Icon(
             imageVector = Icons.Filled.Circle,
             contentDescription = stringResource(R.string.circle_icon_description),
-            tint = Color.Black,
+            tint = Color(197,191,191),
             modifier = Modifier.size(10.dp)
         )
 
@@ -350,19 +302,20 @@ fun ProgressionCircles(){
         Icon(
             imageVector = Icons.Filled.Circle,
             contentDescription = stringResource(R.string.circle_icon_description),
-            tint = Color(197,191,191),
+            tint = Color.Black,
             modifier = Modifier.size(10.dp)
         )
     }
 }
 
 @Composable
-fun NextUpButton(viewModel: SignUpScreenViewModel){
+fun SignUpButton(viewModel: SignUpScreenViewModel){
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .padding(horizontal = 40.dp),
+            .padding(horizontal = 40.dp)
+            .padding(bottom = 20.dp),
         horizontalArrangement = Arrangement.Center
     ){
         Button(
@@ -375,7 +328,7 @@ fun NextUpButton(viewModel: SignUpScreenViewModel){
             onClick = { TODO() }
         ) {
             Text(
-                text = stringResource(R.string.next_mayus),
+                text = stringResource(R.string.signup_mayusc),
                 fontSize = 25.sp,
             )
         }

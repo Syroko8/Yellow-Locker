@@ -3,9 +3,20 @@
     <string name="title">Yellow Locker</string>
     <string name="login">Log In</string>
     <string name="login_image_description">Imagen de la pantalla de login.</string>
-    <string name="singUp">Sign Up</string>
+    <string name="signup">Sign Up</string>
     <string name="email_adress">Email Adress</string>
     <string name="passwd">Contraseña</string>
     <string name="accountQuestion">Todavía no te has registrado?</string>
     <string name="login_mayusc">LOGIN</string>
+    <string name="name">Nombre</string>
+    <string name="surname">Primer Apellido</string>
+    <string name="circle_icon_description">Icono de circulo relleno.</string>
+    <string name="signup_mayusc">SIGN UP</string>
+    <string name="second_surname">Segundo Apellido</string>
+    <string name="birth_date">Fecha de nacimiento</string>
+    <string name="next_mayus">NEXT</string>
+    <string name="repeat_passwd">Repita la contraseña</string>
+    <string name="set_passwd">Establezca su contraseña!!</string>
+    <string name="return_button_description">Flecha de retorno a la primera página del sign up.</string>
+    <string name="return_to_signup1">Volver</string>
 </resources>
