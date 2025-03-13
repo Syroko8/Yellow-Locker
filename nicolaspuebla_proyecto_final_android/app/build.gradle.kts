@@ -52,7 +52,6 @@ dependencies {
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.espresso.core)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.material.icons.extended)
@@ -72,12 +71,12 @@ dependencies {
     ksp ("com.google.dagger:hilt-compiler:2.48")
     ksp("com.google.dagger:hilt-android-compiler:2.48")
     implementation("com.google.dagger:hilt-android:2.48")
-    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
-
     // Navigation
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+    implementation(libs.androidx.navigation.compose)
     // Coil
     implementation("io.coil-kt:coil-compose:2.7.0")
     // DateTextField
-    //implementation("com.github.LanarsInc:compose-date-text-field:{latest version}")
+    implementation("com.github.LanarsInc:compose-date-text-field:1.0.2")
 }

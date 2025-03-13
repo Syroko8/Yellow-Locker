@@ -48,7 +48,7 @@ import com.example.nicolaspuebla_proyecto_final_android.R
 
 
 @Composable
-fun LoginScreen(innerPadding: PaddingValues, viewModel: LoginScreenViewModel = hiltViewModel()){
+fun LoginScreen(innerPadding: PaddingValues, onNav: (String, Int?) -> Unit , viewModel: LoginScreenViewModel = hiltViewModel()){
     Column(
         modifier = Modifier
             .fillMaxSize()

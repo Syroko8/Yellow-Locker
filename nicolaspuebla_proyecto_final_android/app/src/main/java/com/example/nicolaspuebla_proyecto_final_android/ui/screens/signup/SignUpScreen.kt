@@ -28,18 +28,25 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.nicolaspuebla_proyecto_final_android.R
+import com.lanars.compose.datetextfield.DateTextField
+import com.lanars.compose.datetextfield.Format
+import org.threeten.bp.LocalDate
+import org.threeten.bp.Year
 
 @Composable
 fun SignUpScreen(innerPadding: PaddingValues, viewModel: SignUpScreenViewModel = hiltViewModel()){
@@ -291,6 +298,7 @@ fun MailTextField(viewModel: SignUpScreenViewModel){
     }
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun BirthDateTextField(viewModel: SignUpScreenViewModel){
     Column(
@@ -307,7 +315,34 @@ fun BirthDateTextField(viewModel: SignUpScreenViewModel){
             modifier = Modifier.padding(start = 15.dp),
             fontFamily = FontFamily(Font(R.font.jura_bold))
         )
-        TextField(
+
+        DateTextField(
+            value = viewModel.dateTextFieldVal.value,
+            format = Format.MMDDYYYY,
+            // Set min and max date
+            maxDate = LocalDate.now(),
+            // Get notified about value changes
+            onValueChange = { viewModel.dateTextFieldVal.value = LocalDate.of(
+                Year(it.year),
+                it.month,
+                it.day
+            )},
+            // Apply text style to input text
+            contentTextStyle = TextStyle(fontSize = 16.sp, color = Color.Black, fontFamily = FontFamily(Font(R.font.jura_regular))),
+            // Apply text style to hint
+            hintTextStyle = TextStyle(fontSize = 16.sp, color = Color.Gray, fontFamily = FontFamily(Font(R.font.jura_regular))),
+            // Apply style to cursor
+            cursorBrush = SolidColor(Color.Red),
+            // Set custom delimiter
+            delimiter = '.',
+            // Set field to be readonly
+            readOnly = false,
+            onEditingComplete = {},
+            modifier = Modifier.padding(start = 15.dp)
+        )
+
+
+        /*TextField(
             colors = TextFieldDefaults.colors(
                 focusedContainerColor = Color.Transparent,
                 unfocusedContainerColor = Color.Transparent,
@@ -323,7 +358,7 @@ fun BirthDateTextField(viewModel: SignUpScreenViewModel){
             onValueChange = { viewModel.dateTextFieldVal.value = it },
             value = viewModel.dateTextFieldVal.value,
             singleLine = true
-        )
+        )*/
 
         HorizontalDivider(color = Color.Yellow, thickness = 2.dp, modifier = Modifier.padding(start = 15.dp, end = 15.dp))
     }

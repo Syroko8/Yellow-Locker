@@ -11,8 +11,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.nicolaspuebla_proyecto_final_android.ui.screens.login.LoginScreen
-import com.example.nicolaspuebla_proyecto_final_android.ui.screens.signup.SignUp2Screen
 import com.example.nicolaspuebla_proyecto_final_android.ui.screens.signup.SignUpScreen
 import com.example.nicolaspuebla_proyecto_final_android.ui.theme.Nicolaspuebla_proyecto_final_androidTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,7 +23,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             Nicolaspuebla_proyecto_final_androidTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    SignUp2Screen(innerPadding)
+                    SignUpScreen(innerPadding)
                 }
             }
         }
