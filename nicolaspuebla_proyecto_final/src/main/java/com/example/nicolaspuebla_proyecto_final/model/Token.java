@@ -1,9 +1,6 @@
 package com.example.nicolaspuebla_proyecto_final.model;
 
-import io.micrometer.common.lang.NonNull;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
@@ -12,10 +9,7 @@ import jakarta.persistence.OneToOne;
 public class Token {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    @NonNull
-    private String Token;
+    private Long token;
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user_id;
@@ -24,7 +18,11 @@ public class Token {
     
     public Token(User user){
         this.user_id = user;
-        
+
+        /* Generar token y asignarlo en el atributo, al introducirlo en la base de datos, ver si da un error de id duplicado, si da,
+        genero otro token y lo asigno.*/
+
+
 
     }
 }

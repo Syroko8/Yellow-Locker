@@ -38,7 +38,7 @@ public class User {
     @OneToMany(mappedBy = "user_id")
     private List<TeamRol> teamRoles = new ArrayList<>();
     @OneToOne(mappedBy = "user_id")
-    private Token token_id = null;
+    private Token token = null;
 
 
     public User(){}

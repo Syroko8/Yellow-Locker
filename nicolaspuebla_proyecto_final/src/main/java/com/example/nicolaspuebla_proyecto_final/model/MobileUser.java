@@ -1,9 +1,14 @@
 package com.example.nicolaspuebla_proyecto_final.model;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
+
 import org.springframework.lang.NonNull;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
 @Entity
@@ -15,6 +20,9 @@ public class MobileUser extends User {
     private int age;
     @OneToOne(mappedBy = "user")
     private AsignedPosition asignedPosition;
+    @OneToMany
+    @JoinColumn(name = "team_id")
+    private List<Team> teamList = new ArrayList<>();
 
     public MobileUser(){}
 

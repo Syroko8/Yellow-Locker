@@ -77,6 +77,4 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     // Coil
     implementation("io.coil-kt:coil-compose:2.7.0")
-    // DateTextField
-    implementation("com.github.LanarsInc:compose-date-text-field:1.0.2")
 }

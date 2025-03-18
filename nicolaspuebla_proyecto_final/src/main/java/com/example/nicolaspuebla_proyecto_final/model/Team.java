@@ -1,5 +1,6 @@
 package com.example.nicolaspuebla_proyecto_final.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.lang.NonNull;
@@ -37,6 +38,8 @@ public class Team {
     private List<TeamRol> teamRoles; 
     @OneToMany(mappedBy = "team_id")
     private List<Event> eventList;
+    @OneToMany(mappedBy = "team_id")
+    private List<MobileUser> members = new ArrayList<>();
 
     public Team(){}
 

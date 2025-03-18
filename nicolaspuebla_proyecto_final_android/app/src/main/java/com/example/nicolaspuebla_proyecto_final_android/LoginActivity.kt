@@ -19,10 +19,7 @@ class LoginActivity : ComponentActivity() {
         setContent {
             Nicolaspuebla_proyecto_final_androidTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+
                 }
             }
         }

@@ -10,6 +10,7 @@ object Destinations {
     const val LOGIN = "login"
     const val SIGN_IN = "sign_in"
     const val SIGN_IN_2 = "sign_in_2"
+    const val  LANDING_SCREEN = "landing_screen"
     /*const val MAIN_SCREEN = "products"
     const val PRODUCT = "product"
     const val RETURN = "return"
