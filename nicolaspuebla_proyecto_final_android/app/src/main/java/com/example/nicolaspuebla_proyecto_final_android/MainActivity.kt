@@ -18,13 +18,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.nicolaspuebla_proyecto_final_android.ui.components.FloatingMenuState
+import com.example.nicolaspuebla_proyecto_final_android.ui.components.FabItem
+import com.example.nicolaspuebla_proyecto_final_android.ui.components.FabLandingScreen
+import com.example.nicolaspuebla_proyecto_final_android.ui.components.FabState
 import com.example.nicolaspuebla_proyecto_final_android.ui.components.Identifier
-import com.example.nicolaspuebla_proyecto_final_android.ui.components.LandingMenuFloatingButton
-import com.example.nicolaspuebla_proyecto_final_android.ui.components.MenuItem
 import com.example.nicolaspuebla_proyecto_final_android.ui.screens.landingScreen.LandingScreen
 import com.example.nicolaspuebla_proyecto_final_android.ui.theme.Nicolaspuebla_proyecto_final_androidTheme
-import com.example.nicolaspuebla_proyecto_final_android.utils.toImageBitmap
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -39,28 +38,28 @@ class MainActivity : ComponentActivity() {
                     floatingActionButton = {
 
                         var landingScreenMenuState by remember{
-                            mutableStateOf(FloatingMenuState.Colapsed)
+                            mutableStateOf(FabState.Colapsed)
                         }
 
                         val items = listOf(
-                            MenuItem(
-                                icon = Icons.Filled.Settings.toImageBitmap(),
+                            FabItem(
+                                icon = Icons.Filled.Settings,
                                 label = stringResource(R.string.settings),
                                 identifier = Identifier.Settings.name
                             ),
-                            MenuItem(
-                                icon = Icons.Filled.GroupAdd.toImageBitmap(),
+                            FabItem(
+                                icon = Icons.Filled.GroupAdd,
                                 label = stringResource(R.string.create_group),
                                 identifier = Identifier.CreateGroup.name
                             ),
-                            MenuItem(
-                                icon = Icons.Filled.Groups.toImageBitmap(),
+                            FabItem(
+                                icon = Icons.Filled.Groups,
                                 label = stringResource(R.string.join_group),
                                 identifier = Identifier.JoinGroup.name
                             )
                         )
 
-                        LandingMenuFloatingButton(
+                        FabLandingScreen(
                             state = landingScreenMenuState,
                             onFloatingStateChange = {
                                 landingScreenMenuState = it

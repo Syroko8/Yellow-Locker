@@ -26,4 +26,5 @@
     <string name="settings">Ajustes</string>
     <string name="create_group">Crear grupo</string>
     <string name="join_group">Unirse</string>
+    <string name="fab_item_icon_description">Icono de item del menú de LandingScreen.</string>
 </resources>
