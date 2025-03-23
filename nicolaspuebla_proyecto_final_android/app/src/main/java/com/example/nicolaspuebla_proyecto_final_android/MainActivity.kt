@@ -23,6 +23,7 @@ import com.example.nicolaspuebla_proyecto_final_android.ui.components.FabLanding
 import com.example.nicolaspuebla_proyecto_final_android.ui.components.FabState
 import com.example.nicolaspuebla_proyecto_final_android.ui.components.Identifier
 import com.example.nicolaspuebla_proyecto_final_android.ui.screens.landingScreen.LandingScreen
+import com.example.nicolaspuebla_proyecto_final_android.ui.screens.teamWelcome.TeamWelcomeScreen
 import com.example.nicolaspuebla_proyecto_final_android.ui.theme.Nicolaspuebla_proyecto_final_androidTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -68,7 +69,7 @@ class MainActivity : ComponentActivity() {
                         )
                     }
                 ) { innerPadding ->
-                    LandingScreen(innerPadding)
+                    TeamWelcomeScreen(innerPadding)
                 }
             }
         }

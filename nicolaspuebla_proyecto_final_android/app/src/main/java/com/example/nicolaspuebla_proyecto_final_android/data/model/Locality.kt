@@ -1,4 +1,4 @@
-package com.example.nicolaspuebla_proyecto_final_android.data
+package com.example.nicolaspuebla_proyecto_final_android.data.model
 
 data class Locality (
     val id: Long,

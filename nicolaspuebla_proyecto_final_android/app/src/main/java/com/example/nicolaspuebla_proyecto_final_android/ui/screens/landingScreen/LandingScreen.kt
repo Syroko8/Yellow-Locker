@@ -32,9 +32,8 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.example.nicolaspuebla_proyecto_final_android.R
-import com.example.nicolaspuebla_proyecto_final_android.data.Team
+import com.example.nicolaspuebla_proyecto_final_android.data.model.Team
 import androidx.compose.foundation.lazy.items
-import androidx.lifecycle.viewmodel.compose.viewModel
 
 
 @Composable

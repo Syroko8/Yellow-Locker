@@ -53,7 +53,7 @@ fun LoginScreen(innerPadding: PaddingValues, onNav: (String, Int?) -> Unit , vie
         modifier = Modifier
             .fillMaxSize()
             .padding(innerPadding)
-            .background(color = Color.White),
+            .background((Color(244,235,235))),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

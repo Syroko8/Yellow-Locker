@@ -2,10 +2,8 @@ package com.example.nicolaspuebla_proyecto_final_android.ui.screens.landingScree
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.example.nicolaspuebla_proyecto_final_android.data.Locality
-import com.example.nicolaspuebla_proyecto_final_android.data.Team
+import com.example.nicolaspuebla_proyecto_final_android.data.model.Team
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
 @HiltViewModel

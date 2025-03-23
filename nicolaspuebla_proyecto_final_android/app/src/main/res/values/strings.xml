@@ -28,4 +28,10 @@
     <string name="join_group">Unirse</string>
     <string name="fab_item_icon_description">Icono de item del menú de LandingScreen.</string>
     <string name="welcome_team_logo">Logo del equipo.</string>
+    <string name="welcome_locality_label">Localidad</string>
+    <string name="welcome_members_label">Miembros</string>
+    <string name="welcome_matches_label">Jugados</string>
+    <string name="welcome_victories_label">Victorias</string>
+    <string name="welcome_loses_label">Derrotas</string>
+    <string name="welcome_draws_label">Empates</string>
 </resources>
