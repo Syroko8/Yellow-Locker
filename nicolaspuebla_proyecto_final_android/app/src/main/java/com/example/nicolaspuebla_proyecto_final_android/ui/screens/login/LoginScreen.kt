@@ -83,8 +83,7 @@ fun Upper(){
         ) {
             Text(
                 text = stringResource(R.string.title),
-                //"0xFFF1CD2F".toColorInt()
-                color = Color.Yellow,
+                color = Color(241, 205, 47),
                 fontSize = 40.sp,
                 fontFamily = FontFamily(Font(R.font.jura_regular))
             )

@@ -1,4 +1,4 @@
-package com.example.nicolaspuebla_proyecto_final_android.ui.screens.landingScreen
+package com.example.nicolaspuebla_proyecto_final_android.ui.screens.landing
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -37,11 +37,11 @@ import androidx.compose.foundation.lazy.items
 
 
 @Composable
-fun LandingScreen(innerpadding: PaddingValues, viewModel: LandingScreenViewModel = hiltViewModel()){
+fun LandingScreen(innerPadding: PaddingValues, onNav: (String, Int?) -> Unit, viewModel: LandingScreenViewModel = hiltViewModel()){
 
     Column(
         modifier = Modifier
-            .padding(innerpadding)
+            .padding(innerPadding)
             .fillMaxSize()
             .background((Color(244,235,235)))
     ){

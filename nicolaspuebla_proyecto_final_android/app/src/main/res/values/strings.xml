@@ -24,7 +24,7 @@
     <string name="no_landing_teams">El usuario no pertenece a ningún equipo.</string>
     <string name="main_menu_icon">Icono principal del menú desplegable.</string>
     <string name="settings">Ajustes</string>
-    <string name="create_group">Crear grupo</string>
+    <string name="create_team">Crear equipo</string>
     <string name="join_group">Unirse</string>
     <string name="fab_item_icon_description">Icono de item del menú de LandingScreen.</string>
     <string name="welcome_team_logo">Logo del equipo.</string>
@@ -34,4 +34,5 @@
     <string name="welcome_victories_label">Victorias</string>
     <string name="welcome_loses_label">Derrotas</string>
     <string name="welcome_draws_label">Empates</string>
+    <string name="header_logo">Logo del header</string>
 </resources>

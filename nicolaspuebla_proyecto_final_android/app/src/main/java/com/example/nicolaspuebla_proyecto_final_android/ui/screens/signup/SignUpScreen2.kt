@@ -48,7 +48,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.nicolaspuebla_proyecto_final_android.R
 
 @Composable
-fun SignUp2Screen(innerPadding: PaddingValues, viewModel: SignUpScreenViewModel = hiltViewModel()){
+fun SignUp2Screen(innerPadding: PaddingValues, onNav: (String, Int?) -> Unit, viewModel: SignUpScreenViewModel = hiltViewModel()){
 
     Column(
         modifier = Modifier
@@ -75,8 +75,7 @@ fun Upper2(){
     ) {
         Text(
             text = stringResource(R.string.title),
-            //"0xFFF1CD2F".toColorInt()
-            color = Color.Yellow,
+            color = Color(241, 205, 47),
             fontSize = 40.sp,
             fontFamily = FontFamily(Font(R.font.jura_regular))
         )
@@ -232,7 +231,7 @@ fun PasswdTextField(viewModel: SignUpScreenViewModel){
             singleLine = true
         )
 
-        HorizontalDivider(color = Color.Yellow, thickness = 2.dp, modifier = Modifier.padding(start = 15.dp, end = 15.dp))
+        HorizontalDivider(color = Color(241, 205, 47), thickness = 2.dp, modifier = Modifier.padding(start = 15.dp, end = 15.dp))
     }
 }
 
@@ -277,7 +276,7 @@ fun PasswdTextField2(viewModel: SignUpScreenViewModel){
             singleLine = true
         )
 
-        HorizontalDivider(color = Color.Yellow, thickness = 2.dp, modifier = Modifier.padding(start = 15.dp, end = 15.dp))
+        HorizontalDivider(color = Color(241, 205, 47), thickness = 2.dp, modifier = Modifier.padding(start = 15.dp, end = 15.dp))
     }
 }
 

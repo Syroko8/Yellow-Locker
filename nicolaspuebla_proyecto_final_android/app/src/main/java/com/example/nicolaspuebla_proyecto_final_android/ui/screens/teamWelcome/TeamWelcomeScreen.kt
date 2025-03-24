@@ -27,7 +27,7 @@ import com.example.nicolaspuebla_proyecto_final_android.R
 import com.example.nicolaspuebla_proyecto_final_android.data.model.Team
 
 @Composable
-fun TeamWelcomeScreen(innerPadding: PaddingValues, viewModel: TeamWelcomeScreenViewModel = hiltViewModel()){
+fun TeamWelcomeScreen(innerPadding: PaddingValues, onNav: (String, Int?) -> Unit, viewModel: TeamWelcomeScreenViewModel = hiltViewModel()){
 
     val team = viewModel.team.collectAsState().value
     val locality = viewModel.locality.collectAsState().value

@@ -44,7 +44,7 @@ import com.example.nicolaspuebla_proyecto_final_android.R
 import com.example.nicolaspuebla_proyecto_final_android.ui.components.DateTextField
 
 @Composable
-fun SignUpScreen(innerPadding: PaddingValues, viewModel: SignUpScreenViewModel = hiltViewModel()){
+fun SignUpScreen(innerPadding: PaddingValues, onNav: (String, Int?) -> Unit, viewModel: SignUpScreenViewModel = hiltViewModel()){
 
     Column(
         modifier = Modifier
@@ -72,8 +72,7 @@ fun Upper(){
     ) {
         Text(
             text = stringResource(R.string.title),
-            //"0xFFF1CD2F".toColorInt()
-            color = Color.Yellow,
+            color = Color(241, 205, 47),
             fontSize = 40.sp,
             fontFamily = FontFamily(Font(R.font.jura_regular))
         )
@@ -175,7 +174,7 @@ fun NameTextField(viewModel: SignUpScreenViewModel){
             singleLine = true
         )
 
-        HorizontalDivider(color = Color.Yellow, thickness = 2.dp, modifier = Modifier.padding(start = 15.dp, end = 15.dp))
+        HorizontalDivider(color = Color(241, 205, 47), thickness = 2.dp, modifier = Modifier.padding(start = 15.dp, end = 15.dp))
     }
 }
 
@@ -213,7 +212,7 @@ fun SurnameTextField(viewModel: SignUpScreenViewModel){
             singleLine = true
         )
 
-        HorizontalDivider(color = Color.Yellow, thickness = 2.dp, modifier = Modifier.padding(start = 15.dp, end = 15.dp))
+        HorizontalDivider(color = Color(241, 205, 47), thickness = 2.dp, modifier = Modifier.padding(start = 15.dp, end = 15.dp))
     }
 }
 
@@ -251,7 +250,7 @@ fun SecondSurnameTextField(viewModel: SignUpScreenViewModel){
             singleLine = true
         )
 
-        HorizontalDivider(color = Color.Yellow, thickness = 2.dp, modifier = Modifier.padding(start = 15.dp, end = 15.dp))
+        HorizontalDivider(color = Color(241, 205, 47), thickness = 2.dp, modifier = Modifier.padding(start = 15.dp, end = 15.dp))
     }
 }
 
@@ -289,7 +288,7 @@ fun MailTextField(viewModel: SignUpScreenViewModel){
             singleLine = true
         )
 
-        HorizontalDivider(color = Color.Yellow, thickness = 2.dp, modifier = Modifier.padding(start = 15.dp, end = 15.dp))
+        HorizontalDivider(color = Color(241, 205, 47), thickness = 2.dp, modifier = Modifier.padding(start = 15.dp, end = 15.dp))
     }
 }
 
@@ -316,7 +315,7 @@ fun BirthDateTextField(viewModel: SignUpScreenViewModel){
             onValueChange = {viewModel.dateTextFieldVal.value = it },
         )
 
-        HorizontalDivider(color = Color.Yellow, thickness = 2.dp, modifier = Modifier.padding(start = 15.dp, end = 15.dp))
+        HorizontalDivider(color = Color(241, 205, 47), thickness = 2.dp, modifier = Modifier.padding(start = 15.dp, end = 15.dp))
     }
 }
 

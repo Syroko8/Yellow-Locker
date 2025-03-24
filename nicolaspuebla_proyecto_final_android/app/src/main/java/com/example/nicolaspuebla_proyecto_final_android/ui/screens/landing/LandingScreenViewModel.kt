@@ -1,4 +1,4 @@
-package com.example.nicolaspuebla_proyecto_final_android.ui.screens.landingScreen
+package com.example.nicolaspuebla_proyecto_final_android.ui.screens.landing
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
