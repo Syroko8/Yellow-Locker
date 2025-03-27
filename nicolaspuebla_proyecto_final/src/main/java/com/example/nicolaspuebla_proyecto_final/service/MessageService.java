@@ -4,7 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.example.nicolaspuebla_proyecto_final.model.Message;
+
+import com.example.nicolaspuebla_proyecto_final.model.dataModels.Message;
 import com.example.nicolaspuebla_proyecto_final.repository.MessageRepository;
 
 @Service

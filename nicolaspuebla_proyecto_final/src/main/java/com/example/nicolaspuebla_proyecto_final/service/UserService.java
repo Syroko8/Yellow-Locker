@@ -1,6 +1,6 @@
 package com.example.nicolaspuebla_proyecto_final.service;
 
-import com.example.nicolaspuebla_proyecto_final.model.User;
+import com.example.nicolaspuebla_proyecto_final.model.dataModels.User;
 import com.example.nicolaspuebla_proyecto_final.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +14,10 @@ public class UserService {
     public User getUser(Long id){
         userRepository.findById(id);
         return null;
+    }
+
+    public User getUserByEmail(String email){
+        return userRepository.findUserByEmail(email);
     }
 
     public User createUser(User newUser){

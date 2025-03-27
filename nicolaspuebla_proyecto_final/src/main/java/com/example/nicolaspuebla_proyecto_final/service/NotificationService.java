@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.nicolaspuebla_proyecto_final.model.Notification;
+import com.example.nicolaspuebla_proyecto_final.model.dataModels.Notification;
 import com.example.nicolaspuebla_proyecto_final.repository.NotificationRepository;
 
 @Service

@@ -1,7 +1,10 @@
 package com.example.nicolaspuebla_proyecto_final.service;
 
-import com.example.nicolaspuebla_proyecto_final.model.Team;
+import com.example.nicolaspuebla_proyecto_final.model.dataModels.Team;
 import com.example.nicolaspuebla_proyecto_final.repository.TeamRepository;
+
+import jakarta.persistence.NoResultException;
+
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,8 +20,8 @@ public class TeamService {
     }
 
     public Team getTeam(Long id){
-        teamRepository.findById(id);
-        return null;
+        return teamRepository.findById(id)
+        .orElseThrow(() -> new NoResultException());
     }
 
     public Team createTeam(Team newTeam){

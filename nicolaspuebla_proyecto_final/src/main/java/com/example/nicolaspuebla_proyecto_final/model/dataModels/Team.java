@@ -1,4 +1,4 @@
-package com.example.nicolaspuebla_proyecto_final.model;
+package com.example.nicolaspuebla_proyecto_final.model.dataModels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
@@ -38,7 +39,7 @@ public class Team {
     private List<TeamRol> teamRoles; 
     @OneToMany(mappedBy = "team_id")
     private List<Event> eventList;
-    @OneToMany(mappedBy = "team_id")
+    @ManyToMany(mappedBy = "teamList")
     private List<MobileUser> members = new ArrayList<>();
 
     public Team(){}

@@ -6,9 +6,9 @@ data class User(
     val surname: String,
     val email: String,
     val password: String,
-    val disabled: Boolean,
-    val messages: List<Long>,
-    val notifications: List<Long>,
-    val teamRoles: List<Long>,
-    val token: Long
+    val disabled: Boolean = false,
+    val messages: List<Long> = emptyList(),
+    val notifications: List<Long> = emptyList(),
+    val teamRoles: List<Long> = emptyList(),
+    val token: Long? = null
 )

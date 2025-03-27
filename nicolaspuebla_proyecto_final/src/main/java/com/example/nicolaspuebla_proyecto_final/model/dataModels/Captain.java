@@ -1,4 +1,4 @@
-package com.example.nicolaspuebla_proyecto_final.model;
+package com.example.nicolaspuebla_proyecto_final.model.dataModels;
 
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
@@ -9,7 +9,7 @@ public class Captain extends TeamRol {
 
     public Captain(){}
 
-    public Captain(User user, Team team) {
+    public Captain(MobileUser user, Team team) {
         super(user, team);
     }
 }

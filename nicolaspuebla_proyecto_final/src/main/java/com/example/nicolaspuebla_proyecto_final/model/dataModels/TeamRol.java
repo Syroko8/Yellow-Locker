@@ -1,4 +1,4 @@
-package com.example.nicolaspuebla_proyecto_final.model;
+package com.example.nicolaspuebla_proyecto_final.model.dataModels;
 
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.EmbeddedId;
@@ -20,7 +20,7 @@ public class TeamRol {
     @ManyToOne
     @MapsId("user_id") 
     @JoinColumn(name = "user_id")
-    private User user_id;
+    private MobileUser user_id;
 
     @ManyToOne
     @MapsId("team_id") 
@@ -29,7 +29,7 @@ public class TeamRol {
 
     public TeamRol(){}
 
-    public TeamRol(User user, Team team) {
+    public TeamRol(MobileUser user, Team team) {
         this.user_id = user;
         this.team_id = team;
     }
@@ -42,11 +42,11 @@ public class TeamRol {
         this.id = id;
     }
 
-    public User getUser() {
+    public MobileUser getUser() {
         return user_id;
     }
 
-    public void setUser(User user) {
+    public void setUser(MobileUser user) {
         this.user_id = user;
     }
 

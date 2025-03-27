@@ -1,8 +1,11 @@
 package com.example.nicolaspuebla_proyecto_final.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.example.nicolaspuebla_proyecto_final.model.Locality;
+import org.springframework.stereotype.Repository;
 
+import com.example.nicolaspuebla_proyecto_final.model.dataModels.Locality;
+
+@Repository
 public interface LocalityRepository extends JpaRepository<Locality, Long> {
 
 }

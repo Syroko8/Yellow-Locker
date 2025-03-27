@@ -1,13 +1,15 @@
-package com.example.nicolaspuebla_proyecto_final.model;
+package com.example.nicolaspuebla_proyecto_final.model.dataModels;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-
 import org.springframework.lang.NonNull;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
@@ -15,39 +17,47 @@ import jakarta.persistence.OneToOne;
 public class MobileUser extends User {
 
     @NonNull
-    private String SecondSurname;
-    private Date BirthDate;
+    private String secondSurname;
+    private Date birthDate;
     private int age;
     @OneToOne(mappedBy = "user")
     private AsignedPosition asignedPosition;
-    @OneToMany
-    @JoinColumn(name = "team_id")
+    @ManyToMany
+    @JoinTable(
+        name = "user_team",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "team_id")
+    )
     private List<Team> teamList = new ArrayList<>();
+    @OneToMany(mappedBy = "user_id")
+    private List<Message> messages = new ArrayList<>();
+    @OneToMany(mappedBy = "user_id")
+    private List<TeamRol> teamRoles = new ArrayList<>();
 
     public MobileUser(){}
 
     public MobileUser(String name, String surname, String email, String password, boolean disabled,
             String secondSurname, Date birthDate) {
         super(name, surname, email, password, disabled);
-        SecondSurname = secondSurname;
-        BirthDate = birthDate;
+        this. secondSurname = secondSurname;
+        this. birthDate = birthDate;
         this.age = calcularEdad(birthDate);
     }
 
     public String getSecondSurname() {
-        return SecondSurname;
+        return secondSurname;
     }
 
     public void setSecondSurname(String secondSurname) {
-        SecondSurname = secondSurname;
+        this.secondSurname = secondSurname;
     }
 
     public Date getBirthDate() {
-        return BirthDate;
+        return birthDate;
     }
 
     public void setBirthDate(Date birthDate) {
-        BirthDate = birthDate;
+        this.birthDate = birthDate;
     }
 
     public int getAge() {
@@ -59,22 +69,8 @@ public class MobileUser extends User {
     }
 
     private int calcularEdad(Date fechaNacimiento) {
-        Date fechaActual = new Date(System.currentTimeMillis());
-
-        Calendar calNacimiento = Calendar.getInstance();
-        calNacimiento.setTime(fechaNacimiento);
-
-        Calendar calActual = Calendar.getInstance();
-        calActual.setTime(fechaActual);
-
-        int edad = calActual.get(Calendar.YEAR) - calNacimiento.get(Calendar.YEAR);
-
-        // Ajustar si aún no ha cumplido años este año.
-        if (calActual.get(Calendar.MONTH) < calNacimiento.get(Calendar.MONTH) ||
-           (calActual.get(Calendar.MONTH) == calNacimiento.get(Calendar.MONTH) &&
-            calActual.get(Calendar.DAY_OF_MONTH) < calNacimiento.get(Calendar.DAY_OF_MONTH))) {
-            edad--;
-        }
-        return edad;
+        LocalDate nacimiento = fechaNacimiento.toLocalDate();
+        LocalDate ahora = LocalDate.now();
+        return Period.between(nacimiento, ahora).getYears();
     }
 }

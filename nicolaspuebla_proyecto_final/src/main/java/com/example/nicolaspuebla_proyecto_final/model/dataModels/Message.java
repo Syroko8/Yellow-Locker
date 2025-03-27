@@ -1,4 +1,4 @@
-package com.example.nicolaspuebla_proyecto_final.model;
+package com.example.nicolaspuebla_proyecto_final.model.dataModels;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -16,7 +16,7 @@ public class Message {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user_id;
+    private MobileUser user_id;
 
     @ManyToOne
     @JoinColumn(name = "team_id")
@@ -24,8 +24,32 @@ public class Message {
 
     public Message(){}
 
-    public Message(User user, Team team){
+    public Message(MobileUser user, Team team){
         this.user_id = user;
         this.team_id = team;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public MobileUser getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(MobileUser user_id) {
+        this.user_id = user_id;
+    }
+
+    public Team getTeam_id() {
+        return team_id;
+    }
+
+    public void setTeam_id(Team team_id) {
+        this.team_id = team_id;
     }
 }

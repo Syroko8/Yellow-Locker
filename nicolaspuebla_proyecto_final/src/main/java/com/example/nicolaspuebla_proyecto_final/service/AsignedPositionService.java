@@ -1,10 +1,13 @@
 package com.example.nicolaspuebla_proyecto_final.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import com.example.nicolaspuebla_proyecto_final.model.AsignedPosition;
-import com.example.nicolaspuebla_proyecto_final.model.AsignedPositionPK;
+import org.springframework.stereotype.Service;
+
+import com.example.nicolaspuebla_proyecto_final.model.dataModels.AsignedPosition;
+import com.example.nicolaspuebla_proyecto_final.model.dataModels.AsignedPositionPK;
 import com.example.nicolaspuebla_proyecto_final.repository.AsignedPositionRepository;
 
+@Service
 public class AsignedPositionService {
 
     @Autowired

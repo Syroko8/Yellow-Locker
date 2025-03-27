@@ -10,14 +10,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.example.nicolaspuebla_proyecto_final.model.AsignedPosition;
-import com.example.nicolaspuebla_proyecto_final.model.AsignedPositionPK;
+import com.example.nicolaspuebla_proyecto_final.model.dataModels.AsignedPosition;
+import com.example.nicolaspuebla_proyecto_final.model.dataModels.AsignedPositionPK;
 import com.example.nicolaspuebla_proyecto_final.service.AsignedPositionService;
 
 
-@Controller
-@RequestMapping("/asigned_position")
+@RestController
+@RequestMapping("/api/asigned_position")
 public class AsignedPositionController {
 
     @Autowired

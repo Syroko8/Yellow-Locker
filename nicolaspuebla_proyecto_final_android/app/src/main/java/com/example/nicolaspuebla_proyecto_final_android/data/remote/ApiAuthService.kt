@@ -9,10 +9,10 @@ import retrofit2.http.POST
 
 interface ApiAuthService {
 
-    @POST("api/login")
+    @POST("api/user/login")
     fun login(@Body request: LoginRequest): Call<LoginResponse>
 
-    @POST("api/logout")
+    @POST("api/user/logout")
     fun logout(@Body request: LogoutRequest): Call<LoginResponse>
 
     

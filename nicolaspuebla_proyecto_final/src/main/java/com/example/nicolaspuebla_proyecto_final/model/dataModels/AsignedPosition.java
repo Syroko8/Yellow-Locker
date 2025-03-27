@@ -1,4 +1,4 @@
-package com.example.nicolaspuebla_proyecto_final.model;
+package com.example.nicolaspuebla_proyecto_final.model.dataModels;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;

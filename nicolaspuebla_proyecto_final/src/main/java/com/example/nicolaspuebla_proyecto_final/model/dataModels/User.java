@@ -1,4 +1,4 @@
-package com.example.nicolaspuebla_proyecto_final.model;
+package com.example.nicolaspuebla_proyecto_final.model.dataModels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,12 +31,8 @@ public class User {
     private String password;
     @NonNull
     private boolean disabled;
-    @OneToMany(mappedBy = "user_id")
-    private List<Message> messages = new ArrayList<>();;
     @OneToMany(mappedBy = "destinatary_id")
     private List<Notification> notifications = new ArrayList<>();;
-    @OneToMany(mappedBy = "user_id")
-    private List<TeamRol> teamRoles = new ArrayList<>();
     @OneToOne(mappedBy = "user_id")
     private Token token = null;
 
