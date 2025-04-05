@@ -2,9 +2,9 @@ package com.example.nicolaspuebla_proyecto_final.model.dataModels;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.lang.NonNull;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,7 +12,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -26,6 +25,7 @@ public class User {
     @NonNull
     private String surname;
     @NonNull
+    @Column(unique = true)
     private String email;
     @NonNull
     private String password;
@@ -33,9 +33,6 @@ public class User {
     private boolean disabled;
     @OneToMany(mappedBy = "destinatary_id")
     private List<Notification> notifications = new ArrayList<>();;
-    @OneToOne(mappedBy = "user_id")
-    private Token token = null;
-
 
     public User(){}
 

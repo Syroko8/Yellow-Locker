@@ -32,13 +32,13 @@ public class Team {
     @NonNull
     private String sport;
     @OneToMany(mappedBy = "team_id")
-    private List<TeamPositions> positions;
+    private List<TeamPositions> positions = new ArrayList<>();
     @OneToMany(mappedBy = "team_id")
-    private List<Message> messages;
+    private List<Message> messages = new ArrayList<>();
     @OneToMany(mappedBy = "team_id")
-    private List<TeamRol> teamRoles; 
+    private List<TeamRol> teamRoles = new ArrayList<>();
     @OneToMany(mappedBy = "team_id")
-    private List<Event> eventList;
+    private List<Event> eventList = new ArrayList<>();
     @ManyToMany(mappedBy = "teamList")
     private List<MobileUser> members = new ArrayList<>();
 

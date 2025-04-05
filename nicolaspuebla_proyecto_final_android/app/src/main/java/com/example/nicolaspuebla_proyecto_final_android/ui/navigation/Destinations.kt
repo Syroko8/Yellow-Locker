@@ -8,8 +8,8 @@ package com.example.laboratorio_b.ui.navigation
 object Destinations {
 
     const val LOGIN = "login"
-    const val SIGN_IN = "sign_in"
-    const val SIGN_IN_2 = "sign_in_2"
+    const val SIGN_UP = "sign_in"
+    const val SIGN_UP_2 = "sign_in_2"
     const val LANDING_SCREEN = "landing_screen"
     const val TEAM_WELCOME = "team_welcome"
 }

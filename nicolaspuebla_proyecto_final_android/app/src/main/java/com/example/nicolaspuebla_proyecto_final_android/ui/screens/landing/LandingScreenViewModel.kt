@@ -2,7 +2,7 @@ package com.example.nicolaspuebla_proyecto_final_android.ui.screens.landing
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.example.nicolaspuebla_proyecto_final_android.data.model.Team
+import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Team
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

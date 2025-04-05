@@ -4,7 +4,7 @@ import java.security.MessageDigest
 
 object Hash {
 
-    val md: MessageDigest = MessageDigest.getInstance("SHA2-256")
+    val md: MessageDigest = MessageDigest.getInstance("SHA-256")
 
     fun hashPasswd(passwd: String): String{
         // Obtenemos los bytes de la contraseña.
@@ -14,6 +14,16 @@ object Hash {
         // Obtenemos la huella.
         val hashedPasswd:ByteArray = md.digest();
         // Devolvemos la huella.
-        return String(hashedPasswd);
+        return bytesToHex(hashedPasswd);
+    }
+
+    // Función para convertir bytes a String hexadecimal
+    private fun bytesToHex(bytes: ByteArray): String {
+        val hexString = StringBuilder()
+        for (byte in bytes) {
+            val hex = String.format("%02x", byte)
+            hexString.append(hex)
+        }
+        return hexString.toString()
     }
 }

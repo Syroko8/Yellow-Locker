@@ -44,21 +44,24 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.laboratorio_b.ui.navigation.Destinations
 import com.example.nicolaspuebla_proyecto_final_android.R
 
 
 @Composable
-fun LoginScreen(innerPadding: PaddingValues, onNav: (String, Int?) -> Unit , viewModel: LoginScreenViewModel = hiltViewModel()){
+fun LoginScreen(onNav: (String) -> Unit , viewModel: LoginScreenViewModel = hiltViewModel()){
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(innerPadding)
             .background((Color(244,235,235))),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Upper()
-        Bottom(viewModel)
+        Bottom(
+            viewModel,
+            onNav = { onNav(it) }
+        )
     }
 }
 
@@ -104,18 +107,21 @@ fun Upper(){
 }
 
 @Composable
-fun Bottom(viewModel: LoginScreenViewModel){
+fun Bottom(viewModel: LoginScreenViewModel, onNav: (String) -> Unit){
     Box(
         modifier = Modifier
             .background(Color.Black)
             .fillMaxSize()
     ){
-        Formulary(viewModel)
+        Formulary(
+            viewModel,
+            onNav = { onNav(it) }
+        )
     }
 }
 
 @Composable
-fun Formulary(viewModel: LoginScreenViewModel) {
+fun Formulary(viewModel: LoginScreenViewModel, onNav: (String) -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -126,7 +132,7 @@ fun Formulary(viewModel: LoginScreenViewModel) {
         MailTextField(viewModel)
         Spacer(modifier = Modifier.height(30.dp))
         PasswdTextField(viewModel)
-        ButtonRow()
+        ButtonRow(onNav = {onNav(it)})
     }
 }
 
@@ -152,7 +158,7 @@ fun MailTextField(viewModel: LoginScreenViewModel){
                 unfocusedContainerColor = Color.Transparent,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
-                disabledIndicatorColor = Color.Transparent
+                disabledIndicatorColor = Color.Transparent,
             ),
             placeholder = {
                 Text(
@@ -214,7 +220,7 @@ fun PasswdTextField(viewModel: LoginScreenViewModel){
 }
 
 @Composable
-fun ButtonRow(){
+fun ButtonRow(onNav: (String) -> Unit){
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -243,7 +249,7 @@ fun ButtonRow(){
             horizontalArrangement = Arrangement.Start
         ) {
             Button(
-                onClick = { TODO() },
+                onClick = { onNav(Destinations.SIGN_UP) },
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent, contentColor = Color.Black)
             ) {
                 Text(

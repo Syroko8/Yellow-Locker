@@ -3,7 +3,6 @@ package com.example.nicolaspuebla_proyecto_final_android.ui.screens.signup
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -27,6 +26,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -40,22 +41,28 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.laboratorio_b.ui.navigation.Destinations
 import com.example.nicolaspuebla_proyecto_final_android.R
 import com.example.nicolaspuebla_proyecto_final_android.ui.components.DateTextField
 
 @Composable
-fun SignUpScreen(innerPadding: PaddingValues, onNav: (String, Int?) -> Unit, viewModel: SignUpScreenViewModel = hiltViewModel()){
+fun SignUpScreen(
+    onNav: (String) -> Unit,
+    viewModel: SignUpScreenViewModel = hiltViewModel()
+    ){
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(innerPadding)
             .background(color = Color.Black),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Upper()
-        Lower(viewModel)
+        Lower(
+            viewModel,
+            onNav = { onNav(it) }
+        )
     }
 }
 
@@ -87,7 +94,7 @@ fun Upper(){
 }
 
 @Composable
-fun Lower(viewModel: SignUpScreenViewModel){
+fun Lower(viewModel: SignUpScreenViewModel, onNav: (String) -> Unit){
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -97,19 +104,21 @@ fun Lower(viewModel: SignUpScreenViewModel){
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.Top
     ) {
-        LoginButtonRow()
+        LoginButtonRow(onNav = { onNav(it) })
         NameTextField(viewModel)
         SurnameTextField(viewModel)
-        SecondSurnameTextField(viewModel)
         MailTextField(viewModel)
         BirthDateTextField(viewModel)
         ProgressionCircles()
-        NextUpButton(viewModel)
+        NextUpButton(
+            viewModel,
+            onNav = { onNav(it) }
+        )
     }
 }
 
 @Composable
-fun LoginButtonRow(){
+fun LoginButtonRow(onNav: (String) -> Unit){
     Row(
         modifier = Modifier
             .wrapContentWidth()
@@ -118,7 +127,7 @@ fun LoginButtonRow(){
         horizontalArrangement = Arrangement.Start
     ) {
         Button(
-            onClick = { TODO() },
+            onClick = { onNav(Destinations.LOGIN) },
             colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent, contentColor = Color.Black)
         ) {
             Text(
@@ -142,6 +151,9 @@ fun LoginButtonRow(){
 
 @Composable
 fun NameTextField(viewModel: SignUpScreenViewModel){
+
+    val name by viewModel.getName().collectAsState()
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -169,8 +181,8 @@ fun NameTextField(viewModel: SignUpScreenViewModel){
                     text = "adress@gmail.com"
                 )
             },
-            onValueChange = { viewModel.nameTextFieldVal.value = it },
-            value = viewModel.nameTextFieldVal.value,
+            onValueChange = { viewModel.updateName(it) },
+            value = name,
             singleLine = true
         )
 
@@ -180,6 +192,9 @@ fun NameTextField(viewModel: SignUpScreenViewModel){
 
 @Composable
 fun SurnameTextField(viewModel: SignUpScreenViewModel){
+
+    val surname by viewModel.getSurname().collectAsState()
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -207,46 +222,8 @@ fun SurnameTextField(viewModel: SignUpScreenViewModel){
                     text = "adress@gmail.com"
                 )
             },
-            onValueChange = { viewModel.surnameTextFieldVal.value = it },
-            value = viewModel.surnameTextFieldVal.value,
-            singleLine = true
-        )
-
-        HorizontalDivider(color = Color(241, 205, 47), thickness = 2.dp, modifier = Modifier.padding(start = 15.dp, end = 15.dp))
-    }
-}
-
-@Composable
-fun SecondSurnameTextField(viewModel: SignUpScreenViewModel){
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 30.dp)
-            .padding(horizontal = 25.dp)
-            .wrapContentHeight(),
-        horizontalAlignment = Alignment.Start
-    ) {
-        Text(
-            text = stringResource(R.string.second_surname),
-            color = Color.Black,
-            modifier = Modifier.padding(start = 15.dp),
-            fontFamily = FontFamily(Font(R.font.jura_bold))
-        )
-        TextField(
-            colors = TextFieldDefaults.colors(
-                focusedContainerColor = Color.Transparent,
-                unfocusedContainerColor = Color.Transparent,
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent,
-                disabledIndicatorColor = Color.Transparent
-            ),
-            placeholder = {
-                Text(
-                    text = "adress@gmail.com"
-                )
-            },
-            onValueChange = { viewModel.secondSurnameTextFieldVal.value = it },
-            value = viewModel.secondSurnameTextFieldVal.value,
+            onValueChange = { viewModel.updateSurname(it) },
+            value = surname,
             singleLine = true
         )
 
@@ -256,6 +233,9 @@ fun SecondSurnameTextField(viewModel: SignUpScreenViewModel){
 
 @Composable
 fun MailTextField(viewModel: SignUpScreenViewModel){
+
+    val mail by viewModel.getMail().collectAsState()
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -283,8 +263,8 @@ fun MailTextField(viewModel: SignUpScreenViewModel){
                     text = "adress@gmail.com"
                 )
             },
-            onValueChange = { viewModel.mailTextFieldVal.value = it },
-            value = viewModel.mailTextFieldVal.value,
+            onValueChange = { viewModel.updateMail(it) },
+            value = mail,
             singleLine = true
         )
 
@@ -295,6 +275,9 @@ fun MailTextField(viewModel: SignUpScreenViewModel){
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun BirthDateTextField(viewModel: SignUpScreenViewModel){
+
+    val date by viewModel.getDate().collectAsState()
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -311,8 +294,8 @@ fun BirthDateTextField(viewModel: SignUpScreenViewModel){
         )
 
         DateTextField(
-            value = viewModel.dateTextFieldVal.value,
-            onValueChange = {viewModel.dateTextFieldVal.value = it },
+            value = date,
+            onValueChange = {viewModel.updateDate(it) },
         )
 
         HorizontalDivider(color = Color(241, 205, 47), thickness = 2.dp, modifier = Modifier.padding(start = 15.dp, end = 15.dp))
@@ -347,7 +330,7 @@ fun ProgressionCircles(){
 }
 
 @Composable
-fun NextUpButton(viewModel: SignUpScreenViewModel){
+fun NextUpButton(viewModel: SignUpScreenViewModel, onNav: (String) -> Unit){
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -362,7 +345,9 @@ fun NextUpButton(viewModel: SignUpScreenViewModel){
                 .background(Color.Transparent)
                 .clip(RoundedCornerShape(20.dp)),
             colors = ButtonDefaults.buttonColors(containerColor = Color.Black, contentColor = Color.White),
-            onClick = { TODO() }
+            onClick = {
+                onNav(Destinations.SIGN_UP_2)
+            }
         ) {
             Text(
                 text = stringResource(R.string.next_mayus),

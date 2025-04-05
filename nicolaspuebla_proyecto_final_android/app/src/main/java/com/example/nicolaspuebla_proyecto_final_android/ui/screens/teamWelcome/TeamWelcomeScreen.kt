@@ -24,17 +24,16 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.example.nicolaspuebla_proyecto_final_android.R
-import com.example.nicolaspuebla_proyecto_final_android.data.model.Team
+import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Team
 
 @Composable
-fun TeamWelcomeScreen(innerPadding: PaddingValues, onNav: (String, Int?) -> Unit, viewModel: TeamWelcomeScreenViewModel = hiltViewModel()){
+fun TeamWelcomeScreen(onNav: (String, Int?) -> Unit, viewModel: TeamWelcomeScreenViewModel = hiltViewModel()){
 
     val team = viewModel.team.collectAsState().value
     val locality = viewModel.locality.collectAsState().value
 
     Column(
         modifier = Modifier
-            .padding(innerPadding)
             .fillMaxSize()
             .background((Color(244,235,235)))
     ) {

@@ -1,9 +1,13 @@
-package com.example.nicolaspuebla_proyecto_final_android.ui.screens.signup
+package com.example.nicolaspuebla_proyecto_final_android.ui.screens.signup2
 
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.TextView
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,26 +21,29 @@ import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Circle
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -45,21 +52,32 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.laboratorio_b.ui.navigation.Destinations
 import com.example.nicolaspuebla_proyecto_final_android.R
 
+
 @Composable
-fun SignUp2Screen(innerPadding: PaddingValues, onNav: (String, Int?) -> Unit, viewModel: SignUpScreenViewModel = hiltViewModel()){
+fun SignUp2Screen(onNav: (String) -> Unit, viewModel: SignUp2ScreenViewModel = hiltViewModel()){
+
+    val signed by viewModel.signed.collectAsState()
+    val context = LocalContext.current
+
+    LaunchedEffect(signed) {
+        if(signed) showToast(context)
+    }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(innerPadding)
             .background(color = Color.Black),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Upper2()
-        Lower2(viewModel)
+        Lower2(
+            viewModel,
+            onNav = { onNav(it) }
+        )
     }
 }
 
@@ -90,18 +108,18 @@ fun Upper2(){
 }
 
 @Composable
-fun Lower2(viewModel: SignUpScreenViewModel){
+fun Lower2(viewModel: SignUp2ScreenViewModel, onNav: (String) -> Unit){
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .clip(shape = RoundedCornerShape(topStart = 50.dp))
-            .background(Color(255,244,235))
+            .background(Color(255, 244, 235))
             .padding(bottom = 20.dp),
         verticalArrangement = Arrangement.Top
     ) {
-        LoginButtonRow2()
-        ReturnButton()
+        LoginButtonRow2(onNav = { onNav(it) })
+        ReturnButton(onNav = { onNav(it) })
 
         Spacer(Modifier.height(20.dp))
         Text(
@@ -121,14 +139,14 @@ fun Lower2(viewModel: SignUpScreenViewModel){
                 .fillMaxSize(),
             verticalArrangement = Arrangement.Bottom
         ) {
-            ProgressionCircles2()
+            ProgressionCircles2(viewModel)
             SignUpButton(viewModel)
         }
     }
 }
 
 @Composable
-fun LoginButtonRow2(){
+fun LoginButtonRow2(onNav: (String) -> Unit){
     Row(
         modifier = Modifier
             .wrapContentWidth()
@@ -137,7 +155,7 @@ fun LoginButtonRow2(){
         horizontalArrangement = Arrangement.Start
     ) {
         Button(
-            onClick = { TODO() },
+            onClick = { onNav(Destinations.LOGIN) },
             colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent, contentColor = Color.Black)
         ) {
             Text(
@@ -160,7 +178,7 @@ fun LoginButtonRow2(){
 }
 
 @Composable
-fun ReturnButton(){
+fun ReturnButton(onNav: (String) -> Unit){
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -169,7 +187,7 @@ fun ReturnButton(){
         horizontalArrangement = Arrangement.Start
     ) {
         Button(
-            onClick = { TODO() },
+            onClick = { onNav(Destinations.SIGN_UP) },
             colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent, contentColor = Color.Black),
         ) {
             Icon(
@@ -191,7 +209,10 @@ fun ReturnButton(){
 
 
 @Composable
-fun PasswdTextField(viewModel: SignUpScreenViewModel){
+fun PasswdTextField(viewModel: SignUp2ScreenViewModel){
+
+    val passwd by viewModel.getPasswd().collectAsState()
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -215,8 +236,8 @@ fun PasswdTextField(viewModel: SignUpScreenViewModel){
                 unfocusedIndicatorColor = Color.Transparent,
                 disabledIndicatorColor = Color.Transparent
             ),
-            value = viewModel.passwdTextFieldVal.value,
-            onValueChange = { viewModel.passwdTextFieldVal.value = it },
+            value = passwd,
+            onValueChange = { viewModel.updatePasswd(it) },
             placeholder = { Text("********") },
             visualTransformation = if(viewModel.passwdVisibility.value) VisualTransformation.None else PasswordVisualTransformation(),
             trailingIcon ={
@@ -232,11 +253,18 @@ fun PasswdTextField(viewModel: SignUpScreenViewModel){
         )
 
         HorizontalDivider(color = Color(241, 205, 47), thickness = 2.dp, modifier = Modifier.padding(start = 15.dp, end = 15.dp))
+        Spacer(Modifier.height(20.dp))
     }
 }
 
 @Composable
-fun PasswdTextField2(viewModel: SignUpScreenViewModel){
+fun PasswdTextField2(viewModel: SignUp2ScreenViewModel){
+
+    val checkPasswd by viewModel.getPasswdCheck().collectAsState()
+    val passwd1 by viewModel.getPasswd().collectAsState()
+
+    var fontColor = if ((checkPasswd != passwd1) && checkPasswd != "") Color.Red else Color.Black
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -245,8 +273,9 @@ fun PasswdTextField2(viewModel: SignUpScreenViewModel){
         horizontalAlignment = Alignment.Start
     ) {
         Text(
-            text = stringResource(R.string.repeat_passwd),
-            color = Color.Black,
+            text = if(fontColor == Color.Black) stringResource(R.string.repeat_passwd) else
+                stringResource(R.string.repeat_passwd_exclamation),
+            color = fontColor,
             modifier = Modifier.padding(start = 15.dp),
             fontFamily = FontFamily(Font(R.font.jura_bold))
         )
@@ -260,8 +289,8 @@ fun PasswdTextField2(viewModel: SignUpScreenViewModel){
                 unfocusedIndicatorColor = Color.Transparent,
                 disabledIndicatorColor = Color.Transparent
             ),
-            value = viewModel.passwdTextFiel2dVal.value,
-            onValueChange = { viewModel.passwdTextFiel2dVal.value = it },
+            value = checkPasswd,
+            onValueChange = { viewModel.updatePasswdCheck(it) },
             placeholder = { Text("********") },
             visualTransformation = if(viewModel.passwdVisibility2.value) VisualTransformation.None else PasswordVisualTransformation(),
             trailingIcon ={
@@ -281,34 +310,46 @@ fun PasswdTextField2(viewModel: SignUpScreenViewModel){
 }
 
 @Composable
-fun ProgressionCircles2(){
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .wrapContentHeight()
-            .padding(top = 40.dp, bottom = 10.dp),
-        horizontalArrangement = Arrangement.Center
-    ) {
-        Icon(
-            imageVector = Icons.Filled.Circle,
-            contentDescription = stringResource(R.string.circle_icon_description),
-            tint = Color(197,191,191),
-            modifier = Modifier.size(10.dp)
-        )
+fun ProgressionCircles2(viewModel: SignUp2ScreenViewModel){
 
-        Spacer(Modifier.width(10.dp))
+    val loading by viewModel.isLoading.collectAsState()
+    val signed by viewModel.signed.collectAsState()
 
-        Icon(
-            imageVector = Icons.Filled.Circle,
-            contentDescription = stringResource(R.string.circle_icon_description),
-            tint = Color.Black,
-            modifier = Modifier.size(10.dp)
-        )
+    if(!loading && !signed){
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight()
+                .padding(top = 40.dp, bottom = 10.dp),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Icon(
+                imageVector = Icons.Filled.Circle,
+                contentDescription = stringResource(R.string.circle_icon_description),
+                tint = Color(197,191,191),
+                modifier = Modifier.size(10.dp)
+            )
+
+            Spacer(Modifier.width(10.dp))
+
+            Icon(
+                imageVector = Icons.Filled.Circle,
+                contentDescription = stringResource(R.string.circle_icon_description),
+                tint = Color.Black,
+                modifier = Modifier.size(10.dp)
+            )
+        }
     }
 }
 
 @Composable
-fun SignUpButton(viewModel: SignUpScreenViewModel){
+fun SignUpButton(viewModel: SignUp2ScreenViewModel){
+
+    val loading by viewModel.isLoading.collectAsState()
+    val passwd by viewModel.getPasswd().collectAsState()
+    val passwdCheck by viewModel.getPasswdCheck().collectAsState()
+    val signed by viewModel.signed.collectAsState()
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -317,19 +358,35 @@ fun SignUpButton(viewModel: SignUpScreenViewModel){
             .padding(bottom = 20.dp),
         horizontalArrangement = Arrangement.Center
     ){
-        Button(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(50.dp)
-                .background(Color.Transparent)
-                .clip(RoundedCornerShape(20.dp)),
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Black, contentColor = Color.White),
-            onClick = { TODO() }
-        ) {
-            Text(
-                text = stringResource(R.string.signup_mayusc),
-                fontSize = 25.sp,
-            )
+
+        if(loading && !signed){
+            CircularProgressIndicator()
+            Spacer(Modifier.height(40.dp))
+        } else if(!signed){
+            Button(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(50.dp)
+                    .background(Color.Transparent)
+                    .clip(RoundedCornerShape(20.dp)),
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Black, contentColor = Color.White),
+                onClick = {
+                    if(viewModel.filledFields() && (passwd == passwdCheck)) viewModel.signUp()
+                }
+            ) {
+                Text(
+                    text = stringResource(R.string.signup_mayusc),
+                    fontSize = 25.sp,
+                )
+            }
         }
     }
+}
+
+fun showToast(context: Context) {
+    val toast = Toast(context).apply {
+        duration = Toast.LENGTH_LONG
+        view = LayoutInflater.from(context).inflate(R.layout.toast_layout, null)
+    }
+    toast.show()
 }

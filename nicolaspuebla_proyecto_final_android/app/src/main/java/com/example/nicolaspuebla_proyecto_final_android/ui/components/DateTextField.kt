@@ -3,6 +3,7 @@ package com.example.nicolaspuebla_proyecto_final_android.ui.components
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -41,6 +42,10 @@ fun DateTextField(
 
     OutlinedTextField(
         value = value,
+        colors = OutlinedTextFieldDefaults.colors(
+            focusedBorderColor = Color.Transparent,
+            unfocusedBorderColor = Color.Transparent
+        ),
         visualTransformation = DateFormatVisualTransformation(LocalTextStyle.current),
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Number,

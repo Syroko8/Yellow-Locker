@@ -1,6 +1,6 @@
 package com.example.nicolaspuebla_proyecto_final_android.utils
 
-import com.example.nicolaspuebla_proyecto_final_android.data.model.User
+import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.User
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
@@ -16,4 +16,6 @@ object SessionManager {
     fun setLogOut(value: Boolean) {
         _logOut.value = value
     }
+
+    val logged: Boolean = false
 }

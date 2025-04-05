@@ -4,7 +4,7 @@
     <string name="login">Log In</string>
     <string name="login_image_description">Imagen de la pantalla de login.</string>
     <string name="signup">Sign Up</string>
-    <string name="email_adress">Email Adress</string>
+    <string name="email_adress">Correo</string>
     <string name="passwd">Contraseña</string>
     <string name="accountQuestion">Todavía no te has registrado?</string>
     <string name="login_mayusc">LOGIN</string>
@@ -35,4 +35,7 @@
     <string name="welcome_loses_label">Derrotas</string>
     <string name="welcome_draws_label">Empates</string>
     <string name="header_logo">Logo del header</string>
+    <string name="internal_server_err">Internal server error</string>
+    <string name="repeat_passwd_exclamation">Repita la contraseña !!!</string>
+    <string name="achieved_signup">Usuario creado con éxito</string>
 </resources>

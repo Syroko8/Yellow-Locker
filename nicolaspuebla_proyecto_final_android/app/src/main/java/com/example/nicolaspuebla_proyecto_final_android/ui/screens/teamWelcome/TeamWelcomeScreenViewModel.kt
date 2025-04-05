@@ -1,7 +1,7 @@
 package com.example.nicolaspuebla_proyecto_final_android.ui.screens.teamWelcome
 
 import androidx.lifecycle.ViewModel
-import com.example.nicolaspuebla_proyecto_final_android.data.model.Team
+import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Team
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
