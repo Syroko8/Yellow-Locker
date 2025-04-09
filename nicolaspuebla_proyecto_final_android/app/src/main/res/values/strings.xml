@@ -38,4 +38,9 @@
     <string name="internal_server_err">Internal server error</string>
     <string name="repeat_passwd_exclamation">Repita la contraseña !!!</string>
     <string name="achieved_signup">Usuario creado con éxito</string>
+    <string name="ok">Ok</string>
+    <string name="retry">Reintentar</string>
+    <string name="failedLogin">Login fallido</string>
+    <string name="must_fill">Debe rellenar todos los campos.</string>
+    <string name="bad_auth_param">El correo o contraseña son incorrectos.</string>
 </resources>

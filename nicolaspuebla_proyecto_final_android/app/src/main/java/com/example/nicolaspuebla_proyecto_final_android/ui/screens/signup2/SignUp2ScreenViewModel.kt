@@ -60,7 +60,10 @@ class SignUp2ScreenViewModel @Inject constructor(
 
             try {
                 val response = userRepository.signUp(buildUser())
-                _signed.value = true
+
+                if (response != null){
+                    _signed.value = true
+                }
             } catch (e: HttpException){
                 if(e.code() == 500){
                     _errorMessage.value = R.string.internal_server_err.toString()

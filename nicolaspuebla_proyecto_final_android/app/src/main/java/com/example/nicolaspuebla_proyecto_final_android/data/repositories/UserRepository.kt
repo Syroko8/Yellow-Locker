@@ -2,6 +2,7 @@ package com.example.nicolaspuebla_proyecto_final_android.data.repositories
 
 import com.example.nicolaspuebla_proyecto_final_android.data.model.apiClases.UserSignUp
 import com.example.nicolaspuebla_proyecto_final_android.data.model.auth.LoginRequest
+import com.example.nicolaspuebla_proyecto_final_android.data.model.auth.LoginResponse
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.User
 import com.example.nicolaspuebla_proyecto_final_android.data.remote.RetrofitInstance
 import kotlinx.coroutines.Dispatchers
@@ -41,10 +42,9 @@ class UserRepository {
                     null
                 }
             } catch (e: Exception) {
-                println("SignU`p request failed: ${e.message}")
+                println("SignUp request failed: ${e.message}")
                 null
             }
         }
     }
-
 }

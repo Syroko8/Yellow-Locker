@@ -83,15 +83,18 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> logIn(@RequestBody LoginRequest loginRequest) {
         try {
+            loginRequest.setEmail(loginRequest.getEmail().trim());
+            loginRequest.setPasswd(loginRequest.getPasswd().trim());
+
             User user = userService.getUserByEmail(loginRequest.getEmail());
-            System.out.println(user);
+            System.out.println("\n\n/>>>>>>>>>>>>>>>>:" + user);
             Boolean auth = (user.getPassword().equals(loginRequest.getPasswd())) && (!user.isDisabled()) ? true : false;
             ResponseEntity<LoginResponse> response = auth ? 
                 logUser(user) : 
                 ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
             return response;
         } catch (NoResultException e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);

@@ -1,11 +1,12 @@
 package com.example.nicolaspuebla_proyecto_final_android.ui.screens.login
 
+import android.app.AlertDialog
+import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,6 +22,7 @@ import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -29,12 +31,16 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
@@ -45,24 +51,54 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.laboratorio_b.ui.navigation.Destinations
+import com.example.nicolaspuebla_proyecto_final_android.LoginActivity
 import com.example.nicolaspuebla_proyecto_final_android.R
+import com.example.nicolaspuebla_proyecto_final_android.ui.components.ErrorDialog
+import com.example.nicolaspuebla_proyecto_final_android.ui.components.MustFillDialog
 
 
 @Composable
-fun LoginScreen(onNav: (String) -> Unit , viewModel: LoginScreenViewModel = hiltViewModel()){
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background((Color(244,235,235))),
-        verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Upper()
-        Bottom(
-            viewModel,
-            onNav = { onNav(it) }
-        )
+fun LoginScreen(
+    onNav: (String) -> Unit,
+    viewModel: LoginScreenViewModel = hiltViewModel(),
+    onLogin: () -> Unit
+){
+
+    val logged by viewModel.logged.collectAsState()
+    val err by viewModel.errorMessage.collectAsState()
+    val mustFill by viewModel.mustFill.collectAsState()
+
+    LaunchedEffect(logged) {
+        if(logged){
+            onLogin()
+        }
     }
+
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background((Color(244,235,235))),
+            verticalArrangement = Arrangement.Top,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Upper()
+            Bottom(
+                viewModel,
+                onNav = { onNav(it) }
+            )
+        }
+
+        if(err != ""){
+            ErrorDialog(
+                err,
+                onRetry = { viewModel.login() },
+                onOk = { viewModel.unsetError() }
+            )
+        }
+
+        if(mustFill){
+            MustFillDialog(onOk = { viewModel.setMustFill(false) })
+        }
 }
 
 @Composable
@@ -132,7 +168,7 @@ fun Formulary(viewModel: LoginScreenViewModel, onNav: (String) -> Unit) {
         MailTextField(viewModel)
         Spacer(modifier = Modifier.height(30.dp))
         PasswdTextField(viewModel)
-        ButtonRow(onNav = {onNav(it)})
+        ButtonRow(viewModel, onNav = {onNav(it)})
     }
 }
 
@@ -220,78 +256,99 @@ fun PasswdTextField(viewModel: LoginScreenViewModel){
 }
 
 @Composable
-fun ButtonRow(onNav: (String) -> Unit){
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .wrapContentWidth(),
-        verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.Start
-    ){
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 20.dp, start = 20.dp, end = 40.dp)
-                .wrapContentHeight(),
-            horizontalArrangement = Arrangement.Start
-        ) {
-            Text(
-                text = stringResource(R.string.accountQuestion),
-                color = Color.Black
-            )
-        }
+fun ButtonRow(viewModel: LoginScreenViewModel, onNav: (String) -> Unit){
 
-        Row(
-            modifier = Modifier
-                .wrapContentWidth()
-                .padding(start = 40.dp, end = 40.dp)
-                .wrapContentHeight(),
-            horizontalArrangement = Arrangement.Start
-        ) {
-            Button(
-                onClick = { onNav(Destinations.SIGN_UP) },
-                colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent, contentColor = Color.Black)
-            ) {
-                Text(
-                    text = stringResource(R.string.signup),
-                    fontFamily = FontFamily(Font(R.font.jura_bold)),
-                    fontSize = 18.sp,
-                    modifier = Modifier.drawBehind {
-                        val strokeWidthPx = 2.dp.toPx()
-                        val verticalOffset = size.height - 2.sp.toPx()
-                        drawLine(
-                            color = Color.Black,
-                            strokeWidth = strokeWidthPx,
-                            start = Offset(0f, verticalOffset),
-                            end = Offset(size.width, verticalOffset)
-                        )
-                    }
-                )
-            }
-        }
+    val loading by viewModel.loading.collectAsState()
+    val context: Context = LocalContext.current
 
-        Row(
+    if(loading){
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight()
-                .padding(horizontal = 40.dp)
-                .padding(top = 10.dp),
-            horizontalArrangement = Arrangement.Center
-
+                .fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
         ){
-            Button(
+            CircularProgressIndicator()
+        }
+    } else {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentWidth(),
+            verticalArrangement = Arrangement.Top,
+            horizontalAlignment = Alignment.Start
+        ){
+            Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(50.dp)
-                    .background(Color.Transparent)
-                    .clip(RoundedCornerShape(20.dp)),
-                colors = ButtonDefaults.buttonColors(containerColor = Color.Black, contentColor = Color.White),
-                onClick = { TODO() }
+                    .padding(top = 20.dp, start = 20.dp, end = 40.dp)
+                    .wrapContentHeight(),
+                horizontalArrangement = Arrangement.Start
             ) {
                 Text(
-                    text = stringResource(R.string.login_mayusc),
-                    fontSize = 25.sp,
+                    text = stringResource(R.string.accountQuestion),
+                    color = Color.Black
                 )
+            }
+
+            Row(
+                modifier = Modifier
+                    .wrapContentWidth()
+                    .padding(start = 40.dp, end = 40.dp)
+                    .wrapContentHeight(),
+                horizontalArrangement = Arrangement.Start
+            ) {
+                Button(
+                    onClick = { onNav(Destinations.SIGN_UP) },
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent, contentColor = Color.Black)
+                ) {
+                    Text(
+                        text = stringResource(R.string.signup),
+                        fontFamily = FontFamily(Font(R.font.jura_bold)),
+                        fontSize = 18.sp,
+                        modifier = Modifier.drawBehind {
+                            val strokeWidthPx = 2.dp.toPx()
+                            val verticalOffset = size.height - 2.sp.toPx()
+                            drawLine(
+                                color = Color.Black,
+                                strokeWidth = strokeWidthPx,
+                                start = Offset(0f, verticalOffset),
+                                end = Offset(size.width, verticalOffset)
+                            )
+                        }
+                    )
+                }
+            }
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+                    .padding(horizontal = 40.dp)
+                    .padding(top = 10.dp),
+                horizontalArrangement = Arrangement.Center
+
+            ){
+                Button(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(50.dp)
+                        .background(Color.Transparent)
+                        .clip(RoundedCornerShape(20.dp)),
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.Black, contentColor = Color.White),
+                    onClick = {
+                        if(viewModel.mailTextFieldVal.value != "" && viewModel.passwdTextFieldVal.value != ""){
+                            viewModel.login()
+                        } else {
+                            viewModel.setMustFill(true)
+                        }
+                    }
+                ) {
+                    Text(
+                        text = stringResource(R.string.login_mayusc),
+                        fontSize = 25.sp,
+                    )
+                }
             }
         }
     }

@@ -16,7 +16,8 @@ import com.example.nicolaspuebla_proyecto_final_android.ui.screens.signup.SignUp
 fun InitialAppNavGraph(
     navController: NavHostController,
     innerPadding: PaddingValues,
-    onNav: (String) ->Unit
+    onNav: (String) ->Unit,
+    onLogin: () -> Unit
 ){
 
     Column(Modifier.padding(innerPadding)){
@@ -24,7 +25,8 @@ fun InitialAppNavGraph(
 
             composable (Destinations.LOGIN){
                 LoginScreen(
-                    onNav = { onNav(it) }
+                    onNav = { onNav(it) },
+                    onLogin = { onLogin() }
                 )
             }
 

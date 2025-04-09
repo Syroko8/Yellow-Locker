@@ -61,7 +61,7 @@ class SignUpData {
             _nameTextFieldVal.value == "" ||
             _surnameTextFieldVal.value == "" ||
             _mailTextFieldVal.value == "" ||
-            _dateTextFieldVal.value.text == "" ||
+            _dateTextFieldVal.value.text == TextFieldDateFormatter.format(TextFieldValue("")) ||
             _passwdTextFieldVal.value == ""
             ){
             return false

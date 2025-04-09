@@ -2,8 +2,6 @@ package com.example.nicolaspuebla_proyecto_final_android.ui.screens.signup2
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -54,6 +52,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.laboratorio_b.ui.navigation.Destinations
 import com.example.nicolaspuebla_proyecto_final_android.R
+import kotlinx.coroutines.delay
 
 
 @Composable
@@ -63,7 +62,7 @@ fun SignUp2Screen(onNav: (String) -> Unit, viewModel: SignUp2ScreenViewModel = h
     val context = LocalContext.current
 
     LaunchedEffect(signed) {
-        if(signed) showToast(context)
+        if(signed) showToast(context, onNav = { onNav(it) })
     }
 
     Column(
@@ -383,10 +382,16 @@ fun SignUpButton(viewModel: SignUp2ScreenViewModel){
     }
 }
 
-fun showToast(context: Context) {
+suspend fun showToast(context: Context, onNav: (String) -> Unit) {
     val toast = Toast(context).apply {
         duration = Toast.LENGTH_LONG
-        view = LayoutInflater.from(context).inflate(R.layout.toast_layout, null)
+        view = LayoutInflater.from(context).inflate(R.layout.achieved_signup_toast_layout, null)
     }
     toast.show()
+    returnToLoging(onNav = { onNav(it) })
+}
+
+suspend fun returnToLoging(onNav: (String) -> Unit){
+    delay(1)
+    onNav(Destinations.LOGIN)
 }

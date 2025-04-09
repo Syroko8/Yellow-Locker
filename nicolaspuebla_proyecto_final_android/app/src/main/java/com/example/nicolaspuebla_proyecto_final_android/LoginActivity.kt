@@ -76,7 +76,8 @@ fun App(advance: () -> Unit){
                         navController.navigate(route)
                     }
                 }
-            }
+            },
+            onLogin = { advance() }
         )
     }
 }

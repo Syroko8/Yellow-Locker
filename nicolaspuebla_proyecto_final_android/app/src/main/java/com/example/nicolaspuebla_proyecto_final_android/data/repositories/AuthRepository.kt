@@ -9,14 +9,16 @@ import kotlinx.coroutines.withContext
 
 class AuthRepository {
 
-    suspend fun login(email: String, password: String): LoginResponse? {
+    suspend fun login(request: LoginRequest): Any? {
         return withContext(Dispatchers.IO) {
             try {
-                val call = RetrofitInstance.yellowLockerAuth.login(LoginRequest(email, password))
+                val call = RetrofitInstance.yellowLockerAuth.login(request)
                 val response = call.execute()
 
                 if (response.isSuccessful) {
                     response.body()
+                } else if(response.code() == 401){
+                    "401"
                 } else {
                     println("Login failed with code: ${response.code()} and message: ${response.message()}")
                     null

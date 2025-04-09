@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -21,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.Font
@@ -31,26 +33,10 @@ import com.example.nicolaspuebla_proyecto_final_android.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopBar(){
-    Box{
-        TopAppBar(
-            title = { stringResource(R.string.title) },
-            navigationIcon = {
-                Image(
-                    imageVector = ImageVector.vectorResource(R.drawable.lockerlogo),
-                    contentDescription = stringResource(R.string.header_logo),
-                    modifier = Modifier.size(100.dp)
-                )
-            },
-            modifier = Modifier.padding(0.dp, 60.dp, 0.dp, 0.dp)
-        )
-    }
-}
-
-/*
-
- Row(
+fun TopBar(innerPadding: PaddingValues){
+    Row(
         modifier = Modifier
+            .padding(innerPadding)
             .fillMaxWidth()
             .wrapContentHeight()
             .background(Color(105, 62, 62)),
@@ -58,7 +44,7 @@ fun TopBar(){
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
-            imageVector = ImageVector.vectorResource(R.drawable.lockerlogo),
+            painter = painterResource(R.drawable.lockerlogo),
             contentDescription = stringResource(R.string.header_logo),
             modifier = Modifier.size(100.dp)
         )
@@ -70,5 +56,4 @@ fun TopBar(){
             color = Color(241, 205, 47)
         )
     }
-
-* */
+}
