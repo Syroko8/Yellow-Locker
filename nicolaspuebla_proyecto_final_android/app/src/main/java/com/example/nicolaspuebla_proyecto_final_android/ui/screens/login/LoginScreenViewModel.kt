@@ -2,13 +2,11 @@ package com.example.nicolaspuebla_proyecto_final_android.ui.screens.login
 
 import android.content.Context
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.nicolaspuebla_proyecto_final_android.R
 import com.example.nicolaspuebla_proyecto_final_android.data.model.auth.LoginRequest
 import com.example.nicolaspuebla_proyecto_final_android.data.repositories.AuthRepository
-import com.example.nicolaspuebla_proyecto_final_android.data.repositories.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow

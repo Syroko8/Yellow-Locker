@@ -19,7 +19,7 @@
     <string name="set_passwd">Establezca su contraseña!!</string>
     <string name="return_button_description">Flecha de retorno a la primera página del sign up.</string>
     <string name="return_to_signup1">Volver</string>
-    <string name="landing_title">Equipos</string>
+    <string name="landing_title">Tus Equipos</string>
     <string name="team_logo_description">Logo del equipo.</string>
     <string name="no_landing_teams">El usuario no pertenece a ningún equipo.</string>
     <string name="main_menu_icon">Icono principal del menú desplegable.</string>
@@ -43,4 +43,5 @@
     <string name="failedLogin">Login fallido</string>
     <string name="must_fill">Debe rellenar todos los campos.</string>
     <string name="bad_auth_param">El correo o contraseña son incorrectos.</string>
+    <string name="top_bar_image_description">Logo de la aplicación ubicado en la topBar.</string>
 </resources>

@@ -3,7 +3,6 @@ package com.example.nicolaspuebla_proyecto_final_android.ui.screens.teamWelcome
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,6 +11,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,10 +27,18 @@ import com.example.nicolaspuebla_proyecto_final_android.R
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Team
 
 @Composable
-fun TeamWelcomeScreen(onNav: (String, Int?) -> Unit, viewModel: TeamWelcomeScreenViewModel = hiltViewModel()){
+fun TeamWelcomeScreen(
+    onNav: (String, Int?) -> Unit,
+    teamId: Int,
+    viewModel: TeamWelcomeScreenViewModel = hiltViewModel()
+){
 
     val team = viewModel.team.collectAsState().value
     val locality = viewModel.locality.collectAsState().value
+
+    LaunchedEffect(teamId) {
+        viewModel.getTeam()
+    }
 
     Column(
         modifier = Modifier

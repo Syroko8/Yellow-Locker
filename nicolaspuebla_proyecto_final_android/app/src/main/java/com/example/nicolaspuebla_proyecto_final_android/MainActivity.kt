@@ -30,7 +30,6 @@ import com.example.nicolaspuebla_proyecto_final_android.ui.components.FabLanding
 import com.example.nicolaspuebla_proyecto_final_android.ui.components.FabState
 import com.example.nicolaspuebla_proyecto_final_android.ui.components.Identifier
 import com.example.nicolaspuebla_proyecto_final_android.ui.components.TopBar
-import com.example.nicolaspuebla_proyecto_final_android.ui.screens.teamWelcome.TeamWelcomeScreen
 import com.example.nicolaspuebla_proyecto_final_android.ui.theme.Nicolaspuebla_proyecto_final_androidTheme
 import com.example.nicolaspuebla_proyecto_final_android.utils.SessionManager
 import dagger.hilt.android.AndroidEntryPoint

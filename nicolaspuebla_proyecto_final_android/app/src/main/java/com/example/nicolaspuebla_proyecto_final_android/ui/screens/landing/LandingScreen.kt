@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,10 +13,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -31,9 +30,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
+import com.example.laboratorio_b.ui.navigation.Destinations
 import com.example.nicolaspuebla_proyecto_final_android.R
-import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Team
-import androidx.compose.foundation.lazy.items
+import com.example.nicolaspuebla_proyecto_final_android.data.model.apiClases.LandingScreenTeams
 
 
 @Composable
@@ -45,7 +44,7 @@ fun LandingScreen(onNav: (String, Int?) -> Unit, viewModel: LandingScreenViewMod
             .background((Color(244,235,235)))
     ){
         Title()
-        TeamList(viewModel)
+        TeamList(viewModel, onNav = { screen, id -> onNav(screen, id) })
     }
 }
 
@@ -53,34 +52,32 @@ fun LandingScreen(onNav: (String, Int?) -> Unit, viewModel: LandingScreenViewMod
 fun Title(){
     Column(
         modifier = Modifier
-            .padding(top = 30.dp)
+            .padding(top = 30.dp, start = 40.dp)
             .wrapContentHeight()
             .fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.Start
     ) {
             Text(
-                text = stringResource(R.string.landing_title),
+                text = "${stringResource(R.string.landing_title)}:",
                 fontFamily = FontFamily(Font(R.font.jura_bold)),
-                fontSize = 36.sp,
+                fontSize = 28.sp,
                 color = Color.Black
             )
-            Spacer(Modifier.height(10.dp))
-            HorizontalDivider(color = Color.Black, thickness = 2.dp, modifier = Modifier.padding(start = 40.dp, end = 40.dp))
     }
 }
 
 @Composable
-fun TeamList(viewModel: LandingScreenViewModel){
+fun TeamList(viewModel: LandingScreenViewModel, onNav: (String, Int?) -> Unit){
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .padding(top = 40.dp, start = 40.dp, end = 40.dp),
+            .padding(top = 20.dp, start = 40.dp, end = 40.dp, bottom = 20.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         if(viewModel.teamList.value.size != 0){
             items(viewModel.teamList.value){ team ->
-                TeamCard(team, viewModel.getTeamLocality(team.locality))
+                TeamCard(team, onNav = { screen, id -> onNav(screen, id)})
             }
         } else{
             item {
@@ -108,14 +105,15 @@ fun NoTeams(){
 }
 
 @Composable
-fun TeamCard(team: Team, locality: String){
+fun TeamCard(team: LandingScreenTeams, onNav: (String, Int?) -> Unit){
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .height(100.dp),
         elevation = CardDefaults.cardElevation(5.dp),
         shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White)
+        colors = CardDefaults.cardColors(containerColor = Color.White),
+        onClick = { onNav(Destinations.TEAM_WELCOME, team.id.toInt()) }
     ){
         Row(
             modifier = Modifier
@@ -154,7 +152,13 @@ fun TeamCard(team: Team, locality: String){
                 )
 
                 Text(
-                    text = locality,
+                    text = team.locality.name,
+                    fontFamily = FontFamily(Font(R.font.jura_semi_bold)),
+                    color = Color.Black,
+                    fontSize = 16.sp
+                )
+                Text(
+                    text = team.sport,
                     fontFamily = FontFamily(Font(R.font.jura_semi_bold)),
                     color = Color.Black,
                     fontSize = 16.sp

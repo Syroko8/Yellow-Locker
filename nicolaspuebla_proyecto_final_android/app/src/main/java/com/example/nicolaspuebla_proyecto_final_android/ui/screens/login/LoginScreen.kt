@@ -1,6 +1,5 @@
 package com.example.nicolaspuebla_proyecto_final_android.ui.screens.login
 
-import android.app.AlertDialog
 import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -51,7 +50,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.laboratorio_b.ui.navigation.Destinations
-import com.example.nicolaspuebla_proyecto_final_android.LoginActivity
 import com.example.nicolaspuebla_proyecto_final_android.R
 import com.example.nicolaspuebla_proyecto_final_android.ui.components.ErrorDialog
 import com.example.nicolaspuebla_proyecto_final_android.ui.components.MustFillDialog

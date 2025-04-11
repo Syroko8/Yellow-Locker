@@ -32,7 +32,7 @@ public class User {
     @NonNull
     private boolean disabled;
     @OneToMany(mappedBy = "destinatary_id")
-    private List<Notification> notifications = new ArrayList<>();;
+    private List<Notification> notifications = new ArrayList<>();
 
     public User(){}
 

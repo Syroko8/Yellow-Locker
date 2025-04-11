@@ -1,13 +1,10 @@
 package com.example.nicolaspuebla_proyecto_final_android.ui.screens.signup2
 
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.nicolaspuebla_proyecto_final_android.R
 import com.example.nicolaspuebla_proyecto_final_android.data.model.apiClases.UserSignUp
-import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.User
 import com.example.nicolaspuebla_proyecto_final_android.data.repositories.UserRepository
 import com.example.nicolaspuebla_proyecto_final_android.utils.Hash
 import com.example.nicolaspuebla_proyecto_final_android.utils.SignUpData
@@ -17,7 +14,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import javax.inject.Inject
-import kotlin.math.sign
 
 @HiltViewModel
 class SignUp2ScreenViewModel @Inject constructor(
