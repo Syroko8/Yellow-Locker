@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.example.nicolaspuebla_proyecto_final_android.R
+import com.example.nicolaspuebla_proyecto_final_android.data.model.apiClases.TeamResponse
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Team
 
 @Composable
@@ -34,10 +35,9 @@ fun TeamWelcomeScreen(
 ){
 
     val team = viewModel.team.collectAsState().value
-    val locality = viewModel.locality.collectAsState().value
 
     LaunchedEffect(teamId) {
-        viewModel.getTeam()
+        viewModel.getTeam(teamId.toLong())
     }
 
     Column(
@@ -47,12 +47,12 @@ fun TeamWelcomeScreen(
     ) {
         Title(team)
         Logo(team)
-        TeamInfo(team, locality)
+        TeamInfo(team)
     }
 }
 
 @Composable
-fun Title(team: Team?){
+fun Title(team: TeamResponse?){
     Row(
         modifier = Modifier
             .padding(top = 80.dp)
@@ -72,7 +72,7 @@ fun Title(team: Team?){
 }
 
 @Composable
-fun Logo(team: Team?){
+fun Logo(team: TeamResponse?){
     Row(
         modifier = Modifier
             .padding(top = 80.dp)
@@ -92,7 +92,7 @@ fun Logo(team: Team?){
 }
 
 @Composable
-fun TeamInfo(team: Team?, locality: String){
+fun TeamInfo(team: TeamResponse?){
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -101,7 +101,7 @@ fun TeamInfo(team: Team?, locality: String){
     ) {
         InfoText(
             label = stringResource(R.string.welcome_locality_label),
-            value = locality
+            value = team?.locality?.name ?: stringResource(R.string.not_found)
         )
 
         InfoText(

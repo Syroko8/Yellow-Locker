@@ -8,7 +8,7 @@ import kotlinx.coroutines.withContext
 
 class TeamRepository {
 
-    suspend fun getTeam(id: Long): TeamResponse?{
+    suspend fun getTeam(id: Long): Any?{
         return withContext(Dispatchers.IO){
             try {
                 val call = RetrofitInstance.yellowLockerTeamService.getTeam(id)
@@ -16,6 +16,8 @@ class TeamRepository {
 
                 if(response.isSuccessful){
                     response.body()
+                } else if(response.code() == 401) {
+                    "401"
                 } else {
                     println("Fetch failed with code: ${response.code()} and message: ${response.message()}")
                     null

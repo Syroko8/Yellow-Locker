@@ -44,4 +44,7 @@
     <string name="must_fill">Debe rellenar todos los campos.</string>
     <string name="bad_auth_param">El correo o contraseña son incorrectos.</string>
     <string name="top_bar_image_description">Logo de la aplicación ubicado en la topBar.</string>
+    <string name="expired_session">Sesión expirada.</string>
+    <string name="failed_fetch">Error al cargar el contenido.</string>
+    <string name="not_found">No encontrado</string>
 </resources>
