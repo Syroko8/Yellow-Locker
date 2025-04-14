@@ -6,10 +6,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.GroupAdd
-import androidx.compose.material.icons.filled.Groups
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -19,18 +15,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
 import com.example.laboratorio_b.ui.navigation.AppNavGraph
 import com.example.nicolaspuebla_proyecto_final_android.data.preferences.PreferencesViewModel
-import com.example.nicolaspuebla_proyecto_final_android.ui.components.FabItem
-import com.example.nicolaspuebla_proyecto_final_android.ui.components.FabLandingScreen
+import com.example.nicolaspuebla_proyecto_final_android.ui.components.FabMenu
 import com.example.nicolaspuebla_proyecto_final_android.ui.components.FabState
-import com.example.nicolaspuebla_proyecto_final_android.ui.components.Identifier
 import com.example.nicolaspuebla_proyecto_final_android.ui.components.TopBar
 import com.example.nicolaspuebla_proyecto_final_android.ui.theme.Nicolaspuebla_proyecto_final_androidTheme
+import com.example.nicolaspuebla_proyecto_final_android.utils.ButtonItemLists
 import com.example.nicolaspuebla_proyecto_final_android.utils.SessionManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -84,23 +78,6 @@ fun App(onLogOutIntent: () ->Unit, viewModel: PreferencesViewModel = hiltViewMod
         }
     }
 
-    val landingScreenButtonList = listOf(
-        FabItem(
-            icon = Icons.Filled.Settings,
-            label = stringResource(R.string.settings),
-            identifier = Identifier.Settings.name
-        ),
-        FabItem(
-            icon = Icons.Filled.GroupAdd,
-            label = stringResource(R.string.create_team),
-            identifier = Identifier.CreateGroup.name
-        ),
-        FabItem(
-            icon = Icons.Filled.Groups,
-            label = stringResource(R.string.join_group),
-            identifier = Identifier.JoinGroup.name
-        )
-    )
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -113,16 +90,22 @@ fun App(onLogOutIntent: () ->Unit, viewModel: PreferencesViewModel = hiltViewMod
                 mutableStateOf(FabState.Colapsed)
             }
 
-            // TODO: cambia la lista de fabitems dependiendo de la screen
-            var items = landingScreenButtonList
+            var items = ButtonItemLists.landingScreenButtonList
 
-                FabLandingScreen(
-                    state = landingScreenMenuState,
-                    onFloatingStateChange = {
-                        landingScreenMenuState = it
-                    },
-                    items = items
-                )
+            FabMenu(
+                state = landingScreenMenuState,
+                onFloatingStateChange = {
+                    landingScreenMenuState = it
+                },
+                items = items,
+                onItemClick = { route ->
+                    scope.launch {
+                        if (currentRoute.value != route) {
+                            navController.navigate(route)
+                        }
+                    }
+                }
+            )
         }
     ) { innerPadding ->
         /**

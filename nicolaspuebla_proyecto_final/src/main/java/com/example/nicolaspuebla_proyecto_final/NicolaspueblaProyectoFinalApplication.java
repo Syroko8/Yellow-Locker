@@ -3,7 +3,7 @@ package com.example.nicolaspuebla_proyecto_final;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import org.springframework.context.annotation.Bean;
+/*import org.springframework.context.annotation.Bean;
 import org.springframework.boot.CommandLineRunner;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Locality;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Team;
@@ -11,7 +11,7 @@ import com.example.nicolaspuebla_proyecto_final.model.dataModels.User;
 import com.example.nicolaspuebla_proyecto_final.service.LocalityService;
 import com.example.nicolaspuebla_proyecto_final.service.TeamService;
 import com.example.nicolaspuebla_proyecto_final.service.UserService;
-
+*/
 @SpringBootApplication
 public class NicolaspueblaProyectoFinalApplication {
 
@@ -20,7 +20,7 @@ public class NicolaspueblaProyectoFinalApplication {
 	}
 
  
-	@Bean
+/* 	@Bean
     public CommandLineRunner init(TeamService ts, UserService rs, LocalityService ls) {
         return args -> {
             Locality locality = new Locality("dede");
@@ -32,6 +32,6 @@ public class NicolaspueblaProyectoFinalApplication {
             rs.createUser(user);
 
         };
-    }
+    }*/
 
 }

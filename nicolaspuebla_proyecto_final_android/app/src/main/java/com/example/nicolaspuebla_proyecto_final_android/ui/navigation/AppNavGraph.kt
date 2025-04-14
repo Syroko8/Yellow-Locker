@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.nicolaspuebla_proyecto_final_android.ui.screens.joinTeam.JoinTeamScreen
 import com.example.nicolaspuebla_proyecto_final_android.ui.screens.landing.LandingScreen
 import com.example.nicolaspuebla_proyecto_final_android.ui.screens.teamWelcome.TeamWelcomeScreen
 
@@ -47,7 +48,9 @@ fun AppNavGraph(
                 )
             }
 
-
+            composable (Destinations.JOIN_TEAM){
+                JoinTeamScreen()
+            }
         }
     }
 }

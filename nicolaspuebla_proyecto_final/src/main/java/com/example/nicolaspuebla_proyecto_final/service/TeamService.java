@@ -1,5 +1,6 @@
 package com.example.nicolaspuebla_proyecto_final.service;
 
+import com.example.nicolaspuebla_proyecto_final.model.apiModels.LandingScreenTeams;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Team;
 import com.example.nicolaspuebla_proyecto_final.repository.TeamRepository;
 

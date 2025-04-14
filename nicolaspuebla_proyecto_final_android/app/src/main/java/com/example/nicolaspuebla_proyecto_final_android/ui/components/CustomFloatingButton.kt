@@ -36,6 +36,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.laboratorio_b.ui.navigation.Destinations
 import com.example.nicolaspuebla_proyecto_final_android.R
 
 enum class FabState{
@@ -49,6 +50,12 @@ enum class Identifier{
     CreateGroup
 }
 
+class FabItemData(
+    val icon:ImageVector,
+    val label: Int,
+    val identifier: String
+)
+
 class FabItem(
     val icon:ImageVector,
     val label: String,
@@ -56,11 +63,11 @@ class FabItem(
 )
 
 @Composable
-fun FabLandingScreen(
+fun FabMenu(
     state: FabState,
-
     onFloatingStateChange: (FabState) -> Unit,
-    items: List<FabItem>
+    items: List<FabItemData>,
+    onItemClick: (String) -> Unit
 ){
     val transition = updateTransition(targetState = state, label = "transition")
 
@@ -98,15 +105,24 @@ fun FabLandingScreen(
 
         if(state == FabState.Expanded){
             items.forEach{
+
+                val item = FabItem(
+                    it.icon,
+                    stringResource(it.label),
+                    it.identifier)
+
                 FabItemBuild(
-                    item = it,
+                    item = item,
                     onItemClick = {
-                        when(it.identifier){
+                        when(item.identifier){
                             Identifier.Settings.name -> {
 
                             }
                             Identifier.JoinGroup.name -> {
-
+                                onFloatingStateChange(
+                                    FabState.Colapsed
+                                )
+                                onItemClick(Destinations.JOIN_TEAM)
                             }
                             Identifier.CreateGroup.name -> {
 

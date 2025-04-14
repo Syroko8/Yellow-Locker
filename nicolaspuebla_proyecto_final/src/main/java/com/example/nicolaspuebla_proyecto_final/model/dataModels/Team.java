@@ -99,4 +99,8 @@ public class Team {
     public void setSport(String sport) {
         this.sport = sport;
     }
+
+    public void addMember(MobileUser user){
+        this.members.add(user);
+    }
 }

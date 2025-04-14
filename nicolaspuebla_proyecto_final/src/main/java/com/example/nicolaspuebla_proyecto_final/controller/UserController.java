@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.example.nicolaspuebla_proyecto_final.model.apiModels.LandingScreenTeams;
 import com.example.nicolaspuebla_proyecto_final.model.apiModels.LoginRequest;
 import com.example.nicolaspuebla_proyecto_final.model.apiModels.LoginResponse;
 import com.example.nicolaspuebla_proyecto_final.model.apiModels.UserSignUp;
@@ -27,6 +29,8 @@ import io.jsonwebtoken.Jwts;
 import jakarta.persistence.NoResultException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/api/user")

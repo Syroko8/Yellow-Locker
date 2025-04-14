@@ -1,6 +1,7 @@
 package com.example.laboratorio_b.di
 
 import com.example.nicolaspuebla_proyecto_final_android.data.repositories.AuthRepository
+import com.example.nicolaspuebla_proyecto_final_android.data.repositories.TeamRepository
 import com.example.nicolaspuebla_proyecto_final_android.data.repositories.UserRepository
 import com.example.nicolaspuebla_proyecto_final_android.utils.SignUpData
 import dagger.Module
@@ -23,6 +24,12 @@ object AppModule {
     @Singleton
     fun provideUserRepository(): UserRepository{
         return UserRepository()
+    }
+
+    @Provides
+    @Singleton
+    fun provideTeamRepository(): TeamRepository{
+        return TeamRepository()
     }
 
     @Provides
