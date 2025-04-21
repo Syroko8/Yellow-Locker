@@ -5,7 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
-import jakarta.persistence.OneToOne;
 
 @Entity
 public class AsignedPosition {
@@ -13,7 +12,7 @@ public class AsignedPosition {
     @EmbeddedId
     private AsignedPositionPK id;
     
-    @OneToOne
+    @ManyToOne
     @MapsId("user_id")
     @JoinColumn(name = "user_id")
     private MobileUser user;
@@ -23,7 +22,9 @@ public class AsignedPosition {
     @JoinColumn(name = "team_id")
     private Team team;
 
-    private Long position_id;
+    @ManyToOne
+    @JoinColumn(name = "position_id")
+    private TeamPosition position;
 
     public AsignedPosition() {}
 
@@ -51,11 +52,11 @@ public class AsignedPosition {
         this.team = team;
     }
 
-    public Long getPosition_id() {
-        return position_id;
+    public TeamPosition getPosition() {
+        return position;
     }
 
-    public void setPosition_id(Long position_id) {
-        this.position_id = position_id;
+    public void setPosition_id(TeamPosition position) {
+        this.position = position;
     }    
 }

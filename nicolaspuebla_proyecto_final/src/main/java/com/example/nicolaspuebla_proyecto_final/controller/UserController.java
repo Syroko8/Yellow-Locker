@@ -16,11 +16,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.example.nicolaspuebla_proyecto_final.model.apiModels.LandingScreenTeams;
 import com.example.nicolaspuebla_proyecto_final.model.apiModels.LoginRequest;
 import com.example.nicolaspuebla_proyecto_final.model.apiModels.LoginResponse;
 import com.example.nicolaspuebla_proyecto_final.model.apiModels.UserSignUp;
+import com.example.nicolaspuebla_proyecto_final.model.dataModels.MobileUser;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Token;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.User;
 import com.example.nicolaspuebla_proyecto_final.service.TokenService;
@@ -29,7 +28,6 @@ import io.jsonwebtoken.Jwts;
 import jakarta.persistence.NoResultException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
@@ -61,7 +59,7 @@ public class UserController {
 		return "Bearer " + token;
 	}
 
-    private ResponseEntity<LoginResponse> logUser(User user){
+    private ResponseEntity<LoginResponse> logUser(MobileUser user){
         try {
             String newToken = getJWTToken(user.getName());
             Token token = new Token(newToken, user.getId());
@@ -90,7 +88,7 @@ public class UserController {
             loginRequest.setEmail(loginRequest.getEmail().trim());
             loginRequest.setPasswd(loginRequest.getPasswd().trim());
 
-            User user = userService.getUserByEmail(loginRequest.getEmail());
+            MobileUser user = (MobileUser) userService.getUserByEmail(loginRequest.getEmail());
             System.out.println("\n\n/>>>>>>>>>>>>>>>>:" + user);
             Boolean auth = (user.getPassword().equals(loginRequest.getPasswd())) && (!user.isDisabled()) ? true : false;
             ResponseEntity<LoginResponse> response = auth ? 

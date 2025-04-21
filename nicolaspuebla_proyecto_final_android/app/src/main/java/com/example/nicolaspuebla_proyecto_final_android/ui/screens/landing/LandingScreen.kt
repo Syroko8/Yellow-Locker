@@ -32,7 +32,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.example.laboratorio_b.ui.navigation.Destinations
 import com.example.nicolaspuebla_proyecto_final_android.R
-import com.example.nicolaspuebla_proyecto_final_android.data.model.apiClases.LandingScreenTeams
+import com.example.nicolaspuebla_proyecto_final_android.data.model.apiClases.TeamInfo
+import com.example.nicolaspuebla_proyecto_final_android.ui.components.TeamCard
 
 
 @Composable
@@ -75,9 +76,13 @@ fun TeamList(viewModel: LandingScreenViewModel, onNav: (String, Int?) -> Unit){
         verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        if(viewModel.teamList.value.size != 0){
+        if(viewModel.teamList.value.isNotEmpty()){
             items(viewModel.teamList.value){ team ->
-                TeamCard(team, onNav = { screen, id -> onNav(screen, id)})
+                TeamCard(
+                    team,
+                    onNav = { screen, id -> onNav(screen, id)},
+                    destination = Destinations.TEAM_WELCOME
+                )
             }
         } else{
             item {
@@ -104,66 +109,3 @@ fun NoTeams(){
     }
 }
 
-@Composable
-fun TeamCard(team: LandingScreenTeams, onNav: (String, Int?) -> Unit){
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(100.dp),
-        elevation = CardDefaults.cardElevation(5.dp),
-        shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White),
-        onClick = { onNav(Destinations.TEAM_WELCOME, team.id.toInt()) }
-    ){
-        Row(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(10.dp)
-        ) {
-            Box(
-                modifier = Modifier
-                    .width(80.dp)
-                    .height(80.dp)
-                    .clip(RoundedCornerShape(20.dp))
-                    .background(Color.LightGray)
-            ){
-                AsyncImage(
-                    model = team.logo,
-                    contentDescription = stringResource(R.string.team_logo_description),
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .clip(RoundedCornerShape(20.dp))
-                )
-            }
-
-            Spacer(Modifier.width(20.dp))
-
-            Column(
-                modifier = Modifier
-                    .fillMaxSize(),
-                horizontalAlignment = Alignment.Start,
-                verticalArrangement = Arrangement.Center
-            ) {
-                Text(
-                    text = team.name,
-                    fontFamily = FontFamily(Font(R.font.jura_semi_bold)),
-                    color = Color.Black,
-                    fontSize = 16.sp
-                )
-
-                Text(
-                    text = team.locality.name,
-                    fontFamily = FontFamily(Font(R.font.jura_semi_bold)),
-                    color = Color.Black,
-                    fontSize = 16.sp
-                )
-                Text(
-                    text = team.sport,
-                    fontFamily = FontFamily(Font(R.font.jura_semi_bold)),
-                    color = Color.Black,
-                    fontSize = 16.sp
-                )
-            }
-        }
-    }
-}

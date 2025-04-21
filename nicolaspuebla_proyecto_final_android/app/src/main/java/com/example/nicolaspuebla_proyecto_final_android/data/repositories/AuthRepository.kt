@@ -6,10 +6,12 @@ import com.example.nicolaspuebla_proyecto_final_android.data.remote.RetrofitInst
 import com.example.nicolaspuebla_proyecto_final_android.utils.SessionManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlin.jvm.Throws
 
 class AuthRepository {
 
-    suspend fun login(request: LoginRequest): Any? {
+    @Throws(Exception::class)
+    suspend fun login(request: LoginRequest): LoginResponse? {
         return withContext(Dispatchers.IO) {
             try {
                 val call = RetrofitInstance.yellowLockerAuth.login(request)
@@ -18,7 +20,7 @@ class AuthRepository {
                 if (response.isSuccessful) {
                     response.body()
                 } else if(response.code() == 401){
-                    "401"
+                    throw Exception("401")
                 } else {
                     println("Login failed with code: ${response.code()} and message: ${response.message()}")
                     null

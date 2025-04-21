@@ -1,5 +1,7 @@
 package com.example.nicolaspuebla_proyecto_final.model.dataModels;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,17 +18,19 @@ public class Message {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private MobileUser user_id;
+    @JsonBackReference("user-messajes")
+    private MobileUser user;
 
     @ManyToOne
     @JoinColumn(name = "team_id")
-    private Team team_id;
+    @JsonBackReference("team-messajes")
+    private Team team;
 
     public Message(){}
 
     public Message(MobileUser user, Team team){
-        this.user_id = user;
-        this.team_id = team;
+        this.user = user;
+        this.team = team;
     }
 
     public Long getId() {
@@ -37,19 +41,19 @@ public class Message {
         this.id = id;
     }
 
-    public MobileUser getUser_id() {
-        return user_id;
+    public MobileUser getUser() {
+        return user;
     }
 
-    public void setUser_id(MobileUser user_id) {
-        this.user_id = user_id;
+    public void setUser(MobileUser user) {
+        this.user = user;
     }
 
-    public Team getTeam_id() {
-        return team_id;
+    public Team getTeam() {
+        return team;
     }
 
-    public void setTeam_id(Team team_id) {
-        this.team_id = team_id;
+    public void setTeam(Team team) {
+        this.team = team;
     }
 }

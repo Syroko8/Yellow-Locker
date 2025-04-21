@@ -11,6 +11,6 @@ import com.example.nicolaspuebla_proyecto_final.model.dataModels.Message;
 @Repository
 public interface MessageRepository extends JpaRepository<Message, Long> {
 
-    @Query("select m from Message m where m.team_id = ?1")
+    @Query("select m from Message m where m.team = ?1")
     List<Message> findTeamMessages(Long team_id);
 }

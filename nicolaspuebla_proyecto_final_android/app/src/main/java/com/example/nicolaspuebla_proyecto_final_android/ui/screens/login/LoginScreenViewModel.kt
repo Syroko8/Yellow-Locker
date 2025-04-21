@@ -5,8 +5,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.nicolaspuebla_proyecto_final_android.R
+import com.example.nicolaspuebla_proyecto_final_android.data.model.apiClases.MobileUserInfo
 import com.example.nicolaspuebla_proyecto_final_android.data.model.auth.LoginRequest
+import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.MobileUser
 import com.example.nicolaspuebla_proyecto_final_android.data.repositories.AuthRepository
+import com.example.nicolaspuebla_proyecto_final_android.utils.SessionManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -45,15 +48,20 @@ class LoginScreenViewModel @Inject constructor(
 
                 val loginRequest = LoginRequest(mailTextFieldVal.value, passwdTextFieldVal.value)
                 val response = authRepository.login(loginRequest)
-                if((response != null) && (response != "401")){
+                if((response != null)){
                     _logged.value = true
-                } else if(response == "401") {
-                    _errorMessage.value = context.getString(R.string.bad_auth_param)
+                    SessionManager.user = response.user
+                    SessionManager.bearerToken = response.token
                 } else {
                     _errorMessage.value = context.getString(R.string.failedLogin)
                 }
             } catch (e:Exception){
-                _errorMessage.value = e.message?:""
+                if(e.message == "401"){
+                    _errorMessage.value = context.getString(R.string.bad_auth_param)
+
+                } else{
+                    _errorMessage.value = e.message?:""
+                }
             } finally {
                 _loading.value = false
             }

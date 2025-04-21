@@ -22,7 +22,7 @@ public class Event {
     private long id;
     @ManyToOne
     @JoinColumn(name = "team_id")
-    private Team team_id;
+    private Team team;
     private String address;
     private int latitude;
     private int longitude;
@@ -31,7 +31,7 @@ public class Event {
     public Event(){}
 
     public Event(Team team, String address, int latitude, int longitude, Date date) {
-        this.team_id= team;
+        this.team= team;
         this.address = address;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -46,12 +46,12 @@ public class Event {
         this.id = id;
     }
 
-    public Team getTeam_id() {
-        return team_id;
+    public Team getTeam() {
+        return team;
     }
 
-    public void setTeam_id(Team team) {
-        this.team_id = team;
+    public void setTeam(Team team) {
+        this.team = team;
     }
 
     public String getAddress() {

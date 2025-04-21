@@ -13,6 +13,4 @@ interface ApiAuthService {
 
     @POST("api/user/logout")
     fun logout(@Body request: String): Call<String>
-
-    
 }

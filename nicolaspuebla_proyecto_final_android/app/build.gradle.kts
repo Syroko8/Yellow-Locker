@@ -77,4 +77,6 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     // Coil
     implementation("io.coil-kt:coil-compose:2.7.0")
+    // Gson
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.15.2")
 }

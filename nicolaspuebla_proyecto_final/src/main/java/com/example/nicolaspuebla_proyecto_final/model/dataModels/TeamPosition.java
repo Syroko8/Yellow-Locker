@@ -1,30 +1,36 @@
 package com.example.nicolaspuebla_proyecto_final.model.dataModels;
 
-import org.springframework.lang.NonNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
-public class TeamPositions {
+public class TeamPosition {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @ManyToOne
-    @JoinColumn(name = "team")
-    private Team team_id;
-    @NonNull
+    @JoinColumn(name = "team_id")
+    private Team team;
+    @Column(nullable = false)
     private String name;
+    @OneToMany(mappedBy = "position")
+    private List<AsignedPosition> asignedpositions = new ArrayList<>();
 
-    public TeamPositions(){}
+    public TeamPosition(){}
     
-    public TeamPositions(Team team, String name){
-        this.team_id = team;
+    public TeamPosition(Team team, String name){
+        this.team = team;
         this.name = name;
     }
 
@@ -37,11 +43,11 @@ public class TeamPositions {
     }
 
     public Team getTeam() {
-        return team_id;
+        return team;
     }
 
     public void setTeam(Team team) {
-        this.team_id = team;
+        this.team = team;
     }
 
     public String getName() {

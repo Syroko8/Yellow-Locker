@@ -5,23 +5,21 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.lang.NonNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 
 @Entity
 public class MobileUser extends User {
 
-    @NonNull
-    private String secondSurname;
     private Date birthDate;
     private int age;
-    @OneToOne(mappedBy = "user")
-    private AsignedPosition asignedPosition;
     @ManyToMany
     @JoinTable(
         name = "user_team",
@@ -29,27 +27,20 @@ public class MobileUser extends User {
         inverseJoinColumns = @JoinColumn(name = "team_id")
     )
     private List<Team> teamList = new ArrayList<>();
-    @OneToMany(mappedBy = "user_id")
+    @OneToMany(mappedBy = "user")
+    @JsonManagedReference("user-messajes")
     private List<Message> messages = new ArrayList<>();
-    @OneToMany(mappedBy = "user_id")
+    @OneToMany(mappedBy = "user")
     private List<TeamRol> teamRoles = new ArrayList<>();
-
+    @OneToMany(mappedBy = "user")
+    private List<AsignedPosition> asignedPositions = new ArrayList<>();
+    
     public MobileUser(){}
 
-    public MobileUser(String name, String surname, String email, String password, boolean disabled,
-            String secondSurname, Date birthDate) {
+    public MobileUser(String name, String surname, String email, String password, boolean disabled, Date birthDate) {
         super(name, surname, email, password, disabled);
-        this. secondSurname = secondSurname;
         this. birthDate = birthDate;
         this.age = calcularEdad(birthDate);
-    }
-
-    public String getSecondSurname() {
-        return secondSurname;
-    }
-
-    public void setSecondSurname(String secondSurname) {
-        this.secondSurname = secondSurname;
     }
 
     public Date getBirthDate() {
@@ -66,6 +57,38 @@ public class MobileUser extends User {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public List<AsignedPosition> getAsignedPositions() {
+        return asignedPositions;
+    }
+
+    public void setAsignedPositions(List<AsignedPosition> asignedPositions) {
+        this.asignedPositions = asignedPositions;
+    }
+
+    public List<Team> getTeamList() {
+        return teamList;
+    }
+
+    public void setTeamList(List<Team> teamList) {
+        this.teamList = teamList;
+    }
+
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
+    }
+
+    public List<TeamRol> getTeamRoles() {
+        return teamRoles;
+    }
+
+    public void setTeamRoles(List<TeamRol> teamRoles) {
+        this.teamRoles = teamRoles;
     }
 
     private int calcularEdad(Date fechaNacimiento) {

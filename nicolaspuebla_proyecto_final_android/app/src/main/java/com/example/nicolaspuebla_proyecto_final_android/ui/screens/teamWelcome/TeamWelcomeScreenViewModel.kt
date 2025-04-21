@@ -3,13 +3,11 @@ package com.example.nicolaspuebla_proyecto_final_android.ui.screens.teamWelcome
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.nicolaspuebla_proyecto_final_android.R
 import com.example.nicolaspuebla_proyecto_final_android.data.model.apiClases.TeamResponse
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Event
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Locality
-import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Team
-import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.TeamPositions
+import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.TeamPosition
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.TeamRol
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.User
 import com.example.nicolaspuebla_proyecto_final_android.data.repositories.TeamRepository
@@ -31,15 +29,15 @@ class TeamWelcomeScreenViewModel @Inject constructor(
         TeamResponse(
                 id = 1L,
             name = "Real Madrid CF",
-            locality = Locality(32L, "Madrid", listOf(1L)),
+            locality = Locality(32L, "Madrid"),
             logo = "https://ejemplo.com/logos/realmadrid.png",
             chatKey = "CHAT_RM_123",
             sport = "Fútbol",
             positions = listOf(
-                TeamPositions(1L, 1L, "Delantero"),
-                TeamPositions(2L, 1L, "Centrocampista"),
-                TeamPositions(3L, 1L, "Defensa"),
-                TeamPositions(4L, 1L, "Portero")
+                TeamPosition(1L, 1L, "Delantero"),
+                TeamPosition(2L, 1L, "Centrocampista"),
+                TeamPosition(3L, 1L, "Defensa"),
+                TeamPosition(4L, 1L, "Portero")
             ),
             messages = listOf(101L, 102L, 103L),
             teamRoles = listOf(

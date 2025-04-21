@@ -11,6 +11,6 @@ import com.example.nicolaspuebla_proyecto_final.model.dataModels.Notification;
 @Repository
 public interface NotificationRepository extends JpaRepository<Notification, Long> {
 
-    @Query("select n from Notification n where n.destinatary_id = ?1")
+    @Query("select n from Notification n where n.destinatary = ?1")
     List<Notification> findUserNotifications(Long user_id);
 }

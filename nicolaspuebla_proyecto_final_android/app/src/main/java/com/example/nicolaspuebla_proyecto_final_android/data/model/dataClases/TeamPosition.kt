@@ -1,6 +1,6 @@
 package com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases
 
-data class TeamPositions (
+data class TeamPosition (
     val id: Long,
     val teamId:Long,
     val name:String

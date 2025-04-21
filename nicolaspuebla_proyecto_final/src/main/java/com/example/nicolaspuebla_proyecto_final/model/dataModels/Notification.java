@@ -24,14 +24,14 @@ public class Notification {
     private long id;
     @ManyToOne
     @JoinColumn(name = "destinatary_id")
-    private User destinatary_id;
+    private User destinatary;
     @NonNull
     private Date creationDate;
  
     public Notification(){}
 
     public Notification(User destinataryId, Date creationDate) {
-        this.destinatary_id = destinataryId;
+        this.destinatary = destinataryId;
         this.creationDate = creationDate;
     }
 
@@ -44,11 +44,11 @@ public class Notification {
     }
 
     public User getDestinataryId() {
-        return destinatary_id;
+        return destinatary;
     }
 
-    public void setDestinataryId(User destinatary_id) {
-        this.destinatary_id = destinatary_id;
+    public void setDestinataryId(User destinatary) {
+        this.destinatary = destinatary;
     }
 
     public Date getCreationDate() {

@@ -20,18 +20,18 @@ public class TeamRol {
     @ManyToOne
     @MapsId("user_id") 
     @JoinColumn(name = "user_id")
-    private MobileUser user_id;
+    private MobileUser user;
 
     @ManyToOne
     @MapsId("team_id") 
     @JoinColumn(name = "team_id")
-    private Team team_id;
+    private Team team;
 
     public TeamRol(){}
 
     public TeamRol(MobileUser user, Team team) {
-        this.user_id = user;
-        this.team_id = team;
+        this.user = user;
+        this.team = team;
     }
 
     public TeamRolPK getId() {
@@ -43,18 +43,18 @@ public class TeamRol {
     }
 
     public MobileUser getUser() {
-        return user_id;
+        return user;
     }
 
     public void setUser(MobileUser user) {
-        this.user_id = user;
+        this.user = user;
     }
 
     public Team getTeam() {
-        return team_id;
+        return team;
     }
 
     public void setTeam(Team team) {
-        this.team_id = team;
+        this.team = team;
     }    
 }

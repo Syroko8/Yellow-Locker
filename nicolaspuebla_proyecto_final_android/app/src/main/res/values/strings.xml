@@ -47,4 +47,15 @@
     <string name="expired_session">Sesión expirada.</string>
     <string name="failed_fetch">Error al cargar el contenido.</string>
     <string name="not_found">No encontrado</string>
+    <string name="team_name">Nombre del equipo</string>
+    <string name="search_icon_description">Icono de la barra de búsqueda.</string>
+    <string name="qr_icon_description">Icono del botón que abre la cámara para escanear qr.</string>
+    <string name="err_exception">No se ha podido obtener la información.</string>
+    <string name="search_team_demand">Busque el equipo por su nombre.</string>
+    <string name="join_group_choice_question">Quiere unirse al equipo</string>
+    <string name="cancel">Cancelar</string>
+    <string name="confirm">Confirmar</string>
+    <string name="achieved_join_team">Unión al equipo exitosa</string>
+    <string name="already_belong_to_team">Usted ya pertenece a este equipo</string>
+    <string name="search_team_empty">No se han encontrado equipos con ese nombre.</string>
 </resources>

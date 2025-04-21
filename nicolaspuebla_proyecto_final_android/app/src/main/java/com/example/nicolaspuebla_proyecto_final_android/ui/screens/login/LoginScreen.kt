@@ -72,31 +72,31 @@ fun LoginScreen(
         }
     }
 
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background((Color(244,235,235))),
-            verticalArrangement = Arrangement.Top,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Upper()
-            Bottom(
-                viewModel,
-                onNav = { onNav(it) }
-            )
-        }
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background((Color(244,235,235))),
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Upper()
+        Bottom(
+            viewModel,
+            onNav = { onNav(it) }
+        )
+    }
 
-        if(err != ""){
-            ErrorDialog(
-                err,
-                onRetry = { viewModel.login() },
-                onOk = { viewModel.unsetError() }
-            )
-        }
+    if(err != ""){
+        ErrorDialog(
+            err,
+            onRetry = { viewModel.login() },
+            onOk = { viewModel.unsetError() }
+        )
+    }
 
-        if(mustFill){
-            MustFillDialog(onOk = { viewModel.setMustFill(false) })
-        }
+    if(mustFill){
+        MustFillDialog(onOk = { viewModel.setMustFill(false) })
+    }
 }
 
 @Composable

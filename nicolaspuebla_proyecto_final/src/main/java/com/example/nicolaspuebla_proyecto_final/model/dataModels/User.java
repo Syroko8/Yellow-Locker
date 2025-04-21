@@ -2,8 +2,6 @@ package com.example.nicolaspuebla_proyecto_final.model.dataModels;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.lang.NonNull;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,18 +18,17 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @NonNull
+    @Column(nullable = false)
     private String name;
-    @NonNull
+    @Column(nullable = false)
     private String surname;
-    @NonNull
-    @Column(unique = true)
+    @Column(nullable = false, unique = true)
     private String email;
-    @NonNull
+    @Column(nullable = false)
     private String password;
-    @NonNull
+    @Column(nullable = false)
     private boolean disabled;
-    @OneToMany(mappedBy = "destinatary_id")
+    @OneToMany(mappedBy = "destinatary")
     private List<Notification> notifications = new ArrayList<>();
 
     public User(){}

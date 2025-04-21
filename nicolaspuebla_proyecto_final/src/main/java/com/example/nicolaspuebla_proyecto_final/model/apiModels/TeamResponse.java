@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Event;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Locality;
-import com.example.nicolaspuebla_proyecto_final.model.dataModels.TeamPositions;
+import com.example.nicolaspuebla_proyecto_final.model.dataModels.TeamPosition;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.TeamRol;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.User;
 
@@ -15,7 +15,7 @@ public class TeamResponse {
     private String logo;
     private String chatkey;
     private String sport;
-    private List<TeamPositions> positions = new ArrayList<>();
+    private List<TeamPosition> positions = new ArrayList<>();
     private List<Long> messages = new ArrayList<>();
     private List<TeamRol> teamRoles = new ArrayList<>();
     private List<Event> eventList = new ArrayList<>();
@@ -80,11 +80,11 @@ public class TeamResponse {
         this.sport = sport;
     }
 
-    public List<TeamPositions> getPositions() {
+    public List<TeamPosition> getPositions() {
         return positions;
     }
 
-    public void setPositions(List<TeamPositions> positions) {
+    public void setPositions(List<TeamPosition> positions) {
         this.positions = positions;
     }
 

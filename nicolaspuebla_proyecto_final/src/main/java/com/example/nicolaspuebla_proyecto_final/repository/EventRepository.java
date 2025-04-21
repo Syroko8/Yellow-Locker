@@ -11,6 +11,6 @@ import com.example.nicolaspuebla_proyecto_final.model.dataModels.Event;
 @Repository
 public interface EventRepository extends JpaRepository<Event, Long> {
 
-    @Query("select e from Event e where e.team_id = ?1")
+    @Query("select e from Event e where e.team = ?1")
     List<Event> findTeamEvents(Long team_id);
 }

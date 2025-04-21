@@ -4,7 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.lang.NonNull;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,7 +28,8 @@ public class Team {
     @NonNull
     private String name;
     @ManyToOne
-    @JoinColumn(name = "locality")
+    @JoinColumn(name = "locality_id")
+    @JsonManagedReference("team-locality")
     private Locality locality;
     @NonNull
     private String logo;
@@ -31,16 +37,19 @@ public class Team {
     private String chatKey;
     @NonNull
     private String sport;
-    @OneToMany(mappedBy = "team_id")
-    private List<TeamPositions> positions = new ArrayList<>();
-    @OneToMany(mappedBy = "team_id")
+    @OneToMany(mappedBy = "team")
+    private List<TeamPosition> positions = new ArrayList<>();
+    @OneToMany(mappedBy = "team")
+    @JsonManagedReference("team-messajes")
     private List<Message> messages = new ArrayList<>();
-    @OneToMany(mappedBy = "team_id")
+    @OneToMany(mappedBy = "team")
     private List<TeamRol> teamRoles = new ArrayList<>();
-    @OneToMany(mappedBy = "team_id")
+    @OneToMany(mappedBy = "team")
     private List<Event> eventList = new ArrayList<>();
     @ManyToMany(mappedBy = "teamList")
     private List<MobileUser> members = new ArrayList<>();
+    @OneToMany(mappedBy = "team")
+    private List<AsignedPosition> asignedPositions = new ArrayList<>();
 
     public Team(){}
 
@@ -102,5 +111,6 @@ public class Team {
 
     public void addMember(MobileUser user){
         this.members.add(user);
+        user.getTeamList().add(this);
     }
 }

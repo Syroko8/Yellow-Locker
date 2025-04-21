@@ -1,20 +1,22 @@
 package com.example.nicolaspuebla_proyecto_final.service;
 
-import com.example.nicolaspuebla_proyecto_final.model.apiModels.LandingScreenTeams;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Team;
 import com.example.nicolaspuebla_proyecto_final.repository.TeamRepository;
-
+import com.example.nicolaspuebla_proyecto_final.model.dataModels.MobileUser;
 import jakarta.persistence.NoResultException;
-
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.example.nicolaspuebla_proyecto_final.repository.UserRepository;;
 
 @Service
 public class TeamService {
 
     @Autowired
     private TeamRepository teamRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     public List<Team> getTeams(){
         return teamRepository.findAll();
@@ -35,5 +37,22 @@ public class TeamService {
 
     public void deleteTeam(Team team){
         teamRepository.delete(team);
+    }
+
+    public MobileUser addUser(Long teamId, Long userId) throws Exception {
+        try {
+            Team team = teamRepository.findById(teamId)
+            .orElseThrow(() -> new NoResultException());
+
+            MobileUser user = (MobileUser) userRepository.findById(userId)
+            .orElseThrow(() -> new NoResultException());
+           
+            team.addMember(user);
+            teamRepository.save(team);
+            
+            return user;
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
     }
 }
