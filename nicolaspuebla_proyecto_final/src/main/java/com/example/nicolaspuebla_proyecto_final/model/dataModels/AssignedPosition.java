@@ -7,10 +7,10 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 
 @Entity
-public class AsignedPosition {
+public class AssignedPosition {
     
     @EmbeddedId
-    private AsignedPositionPK id;
+    private AssignedPositionPK id;
     
     @ManyToOne
     @MapsId("user_id")
@@ -26,13 +26,19 @@ public class AsignedPosition {
     @JoinColumn(name = "position_id")
     private TeamPosition position;
 
-    public AsignedPosition() {}
+    public AssignedPosition() {}
 
-    public AsignedPositionPK getId() {
+    public AssignedPosition(MobileUser user, Team team, TeamPosition position){
+        this.user = user;
+        this.team = team;
+        this.position = position;
+    }
+
+    public AssignedPositionPK getId() {
         return id;
     }
 
-    public void setId(AsignedPositionPK id) {
+    public void setId(AssignedPositionPK id) {
         this.id = id;
     }
 

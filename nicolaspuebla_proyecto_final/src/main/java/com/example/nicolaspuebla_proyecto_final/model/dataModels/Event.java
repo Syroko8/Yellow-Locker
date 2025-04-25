@@ -19,7 +19,7 @@ public class Event {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
     @ManyToOne
     @JoinColumn(name = "team_id")
     private Team team;

@@ -1,62 +1,43 @@
 package com.example.nicolaspuebla_proyecto_final_android.ui.screens.teamWelcome
 
 import android.content.Context
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.nicolaspuebla_proyecto_final_android.R
-import com.example.nicolaspuebla_proyecto_final_android.data.model.apiClases.TeamResponse
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Event
-import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Locality
-import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.TeamPosition
-import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.TeamRol
-import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.User
+import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Match
+import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.MobileUser
+import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Team
+import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.TeamRolPK
 import com.example.nicolaspuebla_proyecto_final_android.data.repositories.TeamRepository
+import com.example.nicolaspuebla_proyecto_final_android.data.repositories.TeamRolRepository
+import com.example.nicolaspuebla_proyecto_final_android.utils.SessionManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import java.sql.Date
 import javax.inject.Inject
 
 @HiltViewModel
 class TeamWelcomeScreenViewModel @Inject constructor(
     private val teamRepository: TeamRepository,
+    private val teamRolRepository: TeamRolRepository,
     @ApplicationContext private val context: Context
 ): ViewModel() {
-    private val _team = MutableStateFlow<TeamResponse?>(
-        TeamResponse(
-                id = 1L,
-            name = "Real Madrid CF",
-            locality = Locality(32L, "Madrid"),
-            logo = "https://ejemplo.com/logos/realmadrid.png",
-            chatKey = "CHAT_RM_123",
-            sport = "Fútbol",
-            positions = listOf(
-                TeamPosition(1L, 1L, "Delantero"),
-                TeamPosition(2L, 1L, "Centrocampista"),
-                TeamPosition(3L, 1L, "Defensa"),
-                TeamPosition(4L, 1L, "Portero")
-            ),
-            messages = listOf(101L, 102L, 103L),
-            teamRoles = listOf(
-                TeamRol(1001L, 1L),
-                TeamRol(1002L, 1L),
-                TeamRol(1003L, 1L)
-            ),
-            eventList = listOf(
-                Event(201L, 1L, 28001L, 40, -3, Date(2023, 10, 15)),
-                Event(202L, 1L, 28002L, 41, -4, Date(2023, 11, 20))
-            ),
-            members = listOf(
-                User(1001L, "Juan", "Pérez", "juan@realmadrid.com", "pass123"),
-                User(1002L, "Carlos", "Gómez", "carlos@realmadrid.com", "pass456"),
-                User(1003L, "Luis", "Martínez", "luis@realmadrid.com", "pass789")
-            )
-        )
-    )
-    val team: StateFlow<TeamResponse?> = _team.asStateFlow()
+
+    private val _team = MutableStateFlow<Team?>(null)
+    val team: StateFlow<Team?> = _team.asStateFlow()
+
+    val matches = mutableStateOf<Int>(0)
+
+    val victories = mutableStateOf<Int>(0)
+
+    val loses = mutableStateOf<Int>(0)
+
+    val draws = mutableStateOf<Int>(0)
 
     private val _logout = MutableStateFlow<Boolean>(false)
     val logout: StateFlow<Boolean> get() = _logout
@@ -72,23 +53,53 @@ class TeamWelcomeScreenViewModel @Inject constructor(
 
     fun getTeam(id:Long){
         viewModelScope.launch {
-
             _loading.value = true
             _errMessage.value = ""
-
             try {
-                val response = teamRepository.getTeam(id = id)
-
-                if(response != "401" && response != null){
-                    _team.value = response as TeamResponse?
-                }else if(response == "401"){
-                        _errMessage.value = context.getString(R.string.expired_session)
-                        _showDialog.value = true
-                } else {
+                val response = teamRepository.getTeam(id)
+                _team.value = response
+                calculateStatistics()
+            } catch (e: Error){
+                if(e.message == "401"){
+                    _errMessage.value = context.getString(R.string.expired_session)
+                    _showDialog.value = true
+                } else if(e.message == "500") {
                     _errMessage.value = context.getString(R.string.failed_fetch)
                 }
-            } catch (e: Error){
-                _errMessage.value = e.message.toString()
+            } finally {
+                _loading.value = false
+            }
+        }
+    }
+
+    private fun calculateStatistics(){
+        if(_team.value?.eventList?.isNotEmpty() == true){
+            _team.value?.eventList?.forEach {
+                if(it is Match){
+                    matches.value++
+                    when {
+                        (it.ownGoals ?: 0) > (it.oponentGoals ?: 0) -> victories.value++
+                        (it.ownGoals ?: 0) < (it.oponentGoals ?: 0) -> loses.value--
+                        else -> draws.value++
+                    }
+                }
+            }
+        }
+    }
+
+    fun getTeamRolLevel(){
+        viewModelScope.launch {
+            _loading.value = true
+            _errMessage.value = ""
+            try {
+                val response = teamRolRepository.getRolLevel(TeamRolPK(_team.value?.id!!, SessionManager.user?.id!!))
+                SessionManager.setTeamRole(response)
+            } catch (e: Exception){
+                if(e.message == "401"){
+                    _logout.value = true
+                } else {
+                    _errMessage.value = e.message ?: "Error"
+                }
             } finally {
                 _loading.value = false
             }

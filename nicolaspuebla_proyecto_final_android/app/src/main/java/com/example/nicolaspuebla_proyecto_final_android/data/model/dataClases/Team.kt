@@ -11,7 +11,8 @@ data class Team (
     val messages: List<Message> = emptyList(),
     val teamRoles: List<TeamRol> = emptyList(),
     val eventList: List<Event> = emptyList(),
-    val members: List<MobileUser> = emptyList()
+    val members: List<MobileUser> = emptyList(),
+    val assignedPositions: List<AssignedPosition> = emptyList()
 )
 
 

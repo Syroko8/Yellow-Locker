@@ -25,7 +25,7 @@ public class TeamPosition {
     @Column(nullable = false)
     private String name;
     @OneToMany(mappedBy = "position")
-    private List<AsignedPosition> asignedpositions = new ArrayList<>();
+    private List<AssignedPosition> assignedpositions = new ArrayList<>();
 
     public TeamPosition(){}
     

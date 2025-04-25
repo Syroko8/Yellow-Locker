@@ -6,7 +6,5 @@ data class UserSignUp(
     val email: String,
     val password: String,
     val disabled: Boolean = false,
-    val messages: List<Long> = emptyList(),
-    val notifications: List<Long> = emptyList(),
-    val teamRoles: List<Long> = emptyList()
+    val birthDate: String
 )

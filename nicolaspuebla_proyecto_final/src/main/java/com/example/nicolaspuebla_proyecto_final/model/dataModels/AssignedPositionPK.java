@@ -5,14 +5,14 @@ import java.io.Serializable;
 import jakarta.persistence.Embeddable;
 
 @Embeddable
-public class AsignedPositionPK implements Serializable {
+public class AssignedPositionPK implements Serializable {
     
     private Long user_id;
     private Long team_id;
 
-    public AsignedPositionPK(){}
+    public AssignedPositionPK(){}
 
-    public AsignedPositionPK(Long user_id, Long team_id) {
+    public AssignedPositionPK(Long user_id, Long team_id) {
         this.user_id = user_id;
         this.team_id = team_id;
     }

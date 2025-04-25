@@ -6,7 +6,7 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Entity;
@@ -26,6 +26,7 @@ public class MobileUser extends User {
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "team_id")
     )
+    @JsonIgnoreProperties("members")
     private List<Team> teamList = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     @JsonManagedReference("user-messajes")
@@ -33,7 +34,7 @@ public class MobileUser extends User {
     @OneToMany(mappedBy = "user")
     private List<TeamRol> teamRoles = new ArrayList<>();
     @OneToMany(mappedBy = "user")
-    private List<AsignedPosition> asignedPositions = new ArrayList<>();
+    private List<AssignedPosition> assignedPositions = new ArrayList<>();
     
     public MobileUser(){}
 
@@ -59,12 +60,12 @@ public class MobileUser extends User {
         this.age = age;
     }
 
-    public List<AsignedPosition> getAsignedPositions() {
-        return asignedPositions;
+    public List<AssignedPosition> getAssignedPositions() {
+        return assignedPositions;
     }
 
-    public void setAsignedPositions(List<AsignedPosition> asignedPositions) {
-        this.asignedPositions = asignedPositions;
+    public void setAsignedPositions(List<AssignedPosition> assignedPositions) {
+        this.assignedPositions = assignedPositions;
     }
 
     public List<Team> getTeamList() {
@@ -95,5 +96,10 @@ public class MobileUser extends User {
         LocalDate nacimiento = fechaNacimiento.toLocalDate();
         LocalDate ahora = LocalDate.now();
         return Period.between(nacimiento, ahora).getYears();
+    }
+
+    public MobileUser addRol(TeamRol newRol){
+        this.teamRoles.add(newRol);
+        return this;
     }
 }

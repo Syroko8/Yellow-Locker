@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.nicolaspuebla_proyecto_final_android.R
-import com.example.nicolaspuebla_proyecto_final_android.data.model.apiClases.TeamInfo
+import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Team
 import com.example.nicolaspuebla_proyecto_final_android.data.repositories.TeamRepository
 import com.example.nicolaspuebla_proyecto_final_android.utils.SessionManager
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,10 +21,10 @@ class JoinTeamScreenViewModel @Inject constructor(
     @ApplicationContext private val context: Context
 ): ViewModel() {
 
-    private val teamList = MutableStateFlow<List<TeamInfo>>(emptyList())
+    private val teamList = MutableStateFlow<List<Team>>(emptyList())
 
-    private val _filteredTeamList = MutableStateFlow<List<TeamInfo>>(emptyList())
-    val filteredTeamList: StateFlow<List<TeamInfo>> get() = _filteredTeamList
+    private val _filteredTeamList = MutableStateFlow<List<Team>>(emptyList())
+    val filteredTeamList: StateFlow<List<Team>> get() = _filteredTeamList
 
     private val _loading = MutableStateFlow<Boolean>(false)
     val loading: StateFlow<Boolean> get() = _loading
@@ -38,8 +38,8 @@ class JoinTeamScreenViewModel @Inject constructor(
     private val _choseTeam = MutableStateFlow<Boolean>(false)
     val choseTeam: StateFlow<Boolean> get() = _choseTeam
 
-    private val _chosenTeam = MutableStateFlow<TeamInfo?>(null)
-    val chosenTeam: StateFlow<TeamInfo?> get() = _chosenTeam
+    private val _chosenTeam = MutableStateFlow<Team?>(null)
+    val chosenTeam: StateFlow<Team?> get() = _chosenTeam
 
     private val _successfullyJoined = MutableStateFlow<Boolean>(false)
     val successfullyJoined: StateFlow<Boolean> get() = _successfullyJoined
@@ -106,7 +106,7 @@ class JoinTeamScreenViewModel @Inject constructor(
         _choseTeam.value = value
     }
 
-    fun setChosenTeam(team: TeamInfo) {
+    fun setChosenTeam(team: Team) {
         _chosenTeam.value = team
     }
 

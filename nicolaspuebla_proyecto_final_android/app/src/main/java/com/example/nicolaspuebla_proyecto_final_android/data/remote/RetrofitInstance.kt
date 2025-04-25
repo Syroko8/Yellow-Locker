@@ -1,5 +1,6 @@
 package com.example.nicolaspuebla_proyecto_final_android.data.remote
 
+import com.example.nicolaspuebla_proyecto_final_android.data.repositories.TeamRolRepository
 import com.example.nicolaspuebla_proyecto_final_android.utils.SessionManager
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -7,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object RetrofitInstance {
-    private const val BASE_URL = "http://192.168.0.32:8080"
+    private const val BASE_URL = "http://192.168.0.15:8080"
 
     // Crear un cliente HTTP con el Interceptor para el token
     private val client = OkHttpClient.Builder()
@@ -48,6 +49,15 @@ object RetrofitInstance {
             .client(client)
             .build()
             .create(UserService::class.java)
+    }
+
+    val yellowLockerTeamRolService: TeamRolService by lazy {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+            .create(TeamRolService::class.java)
     }
 
 }

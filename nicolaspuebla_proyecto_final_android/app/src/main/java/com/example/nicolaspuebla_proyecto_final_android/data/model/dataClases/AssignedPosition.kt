@@ -1,7 +1,7 @@
 package com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases
 
-data class AsignedPosition (
-    val id: AsignedPositionPk,
+data class AssignedPosition (
+    val id: AssignedPositionPk,
     val user: MobileUser,
     val team: Team
 )

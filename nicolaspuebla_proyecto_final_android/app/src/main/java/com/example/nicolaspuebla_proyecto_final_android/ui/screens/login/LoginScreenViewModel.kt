@@ -9,6 +9,7 @@ import com.example.nicolaspuebla_proyecto_final_android.data.model.apiClases.Mob
 import com.example.nicolaspuebla_proyecto_final_android.data.model.auth.LoginRequest
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.MobileUser
 import com.example.nicolaspuebla_proyecto_final_android.data.repositories.AuthRepository
+import com.example.nicolaspuebla_proyecto_final_android.utils.Hash
 import com.example.nicolaspuebla_proyecto_final_android.utils.SessionManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -46,7 +47,7 @@ class LoginScreenViewModel @Inject constructor(
                 _loading.value = true
                 _errorMessage.value = ""
 
-                val loginRequest = LoginRequest(mailTextFieldVal.value, passwdTextFieldVal.value)
+                val loginRequest = LoginRequest(mailTextFieldVal.value, Hash.hashPasswd(passwdTextFieldVal.value))
                 val response = authRepository.login(loginRequest)
                 if((response != null)){
                     _logged.value = true

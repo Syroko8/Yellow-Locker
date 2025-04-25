@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.nicolaspuebla_proyecto_final_android.R
 import com.example.nicolaspuebla_proyecto_final_android.data.model.apiClases.UserSignUp
+import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.MobileUser
 import com.example.nicolaspuebla_proyecto_final_android.data.repositories.UserRepository
 import com.example.nicolaspuebla_proyecto_final_android.utils.Hash
 import com.example.nicolaspuebla_proyecto_final_android.utils.SignUpData
@@ -74,10 +75,11 @@ class SignUp2ScreenViewModel @Inject constructor(
 
     fun buildUser(): UserSignUp{
         return UserSignUp(
-            signUpData.nameTextFieldVal.value,
-            signUpData.surnameTextFieldVal.value,
-            signUpData.mailTextFieldVal.value,
-            Hash.hashPasswd(signUpData.passwdTextFieldVal.value)
+            name = signUpData.nameTextFieldVal.value,
+            surname = signUpData.surnameTextFieldVal.value,
+            email =  signUpData.mailTextFieldVal.value,
+            password = Hash.hashPasswd(signUpData.passwdTextFieldVal.value),
+            birthDate = signUpData.dateTextFieldVal.value.text.replace('-', '/')
         )
     }
 

@@ -22,9 +22,9 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.example.nicolaspuebla_proyecto_final_android.R
-import com.example.nicolaspuebla_proyecto_final_android.data.model.apiClases.TeamResponse
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Team
 
 @Composable
@@ -36,8 +36,9 @@ fun TeamWelcomeScreen(
 
     val team = viewModel.team.collectAsState().value
 
-    LaunchedEffect(teamId) {
+    LaunchedEffect(Unit) {
         viewModel.getTeam(teamId.toLong())
+        viewModel.getTeamRolLevel()
     }
 
     Column(
@@ -45,14 +46,14 @@ fun TeamWelcomeScreen(
             .fillMaxSize()
             .background((Color(244,235,235)))
     ) {
-        Title(team)
-        Logo(team)
-        TeamInfo(team)
+        Title(team, viewModel)
+        Logo(team, viewModel)
+        TeamInfo(team, viewModel)
     }
 }
 
 @Composable
-fun Title(team: TeamResponse?){
+fun Title(team: Team?, viewModel: TeamWelcomeScreenViewModel){
     Row(
         modifier = Modifier
             .padding(top = 80.dp)
@@ -72,7 +73,7 @@ fun Title(team: TeamResponse?){
 }
 
 @Composable
-fun Logo(team: TeamResponse?){
+fun Logo(team: Team?, viewModel: TeamWelcomeScreenViewModel){
     Row(
         modifier = Modifier
             .padding(top = 80.dp)
@@ -92,7 +93,7 @@ fun Logo(team: TeamResponse?){
 }
 
 @Composable
-fun TeamInfo(team: TeamResponse?){
+fun TeamInfo(team: Team?, viewModel: TeamWelcomeScreenViewModel){
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -111,22 +112,22 @@ fun TeamInfo(team: TeamResponse?){
 
         InfoText(
             label = stringResource(R.string.welcome_matches_label),
-            value = team?.members?.size.toString()
+            value = viewModel.matches.value.toString()
         )
 
         InfoText(
             label = stringResource(R.string.welcome_victories_label),
-            value = team?.members?.size.toString()
+            value = viewModel.victories.value.toString()
         )
 
         InfoText(
             label = stringResource(R.string.welcome_loses_label),
-            value = team?.members?.size.toString()
+            value = viewModel.loses.value.toString()
         )
 
         InfoText(
             label = stringResource(R.string.welcome_draws_label),
-            value = team?.members?.size.toString()
+            value = viewModel.draws.value.toString()
         )
     }
 }

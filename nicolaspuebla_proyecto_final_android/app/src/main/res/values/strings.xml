@@ -58,4 +58,10 @@
     <string name="achieved_join_team">Unión al equipo exitosa</string>
     <string name="already_belong_to_team">Usted ya pertenece a este equipo</string>
     <string name="search_team_empty">No se han encontrado equipos con ese nombre.</string>
+    <string name="return_to_landing">Volver</string>
+    <string name="members">Miembros</string>
+    <string name="matches">Partidos</string>
+    <string name="calendar">Calendario</string>
+    <string name="chat">Chat</string>
+    <string name="edit">Editar</string>
 </resources>

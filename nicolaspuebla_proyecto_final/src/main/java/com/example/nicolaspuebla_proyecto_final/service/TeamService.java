@@ -1,6 +1,7 @@
 package com.example.nicolaspuebla_proyecto_final.service;
 
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Team;
+import com.example.nicolaspuebla_proyecto_final.model.dataModels.TeamRolHolder;
 import com.example.nicolaspuebla_proyecto_final.repository.TeamRepository;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.MobileUser;
 import jakarta.persistence.NoResultException;
@@ -39,7 +40,7 @@ public class TeamService {
         teamRepository.delete(team);
     }
 
-    public MobileUser addUser(Long teamId, Long userId) throws Exception {
+    public TeamRolHolder addUser(Long teamId, Long userId) throws Exception {
         try {
             Team team = teamRepository.findById(teamId)
             .orElseThrow(() -> new NoResultException());
@@ -50,9 +51,13 @@ public class TeamService {
             team.addMember(user);
             teamRepository.save(team);
             
-            return user;
+            return new TeamRolHolder(user, team);
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
+    }
+
+    public Team getTeamWithMembers(Long teamId) {
+        return teamRepository.findTeamWithMembers(teamId);
     }
 }

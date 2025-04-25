@@ -4,12 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.lang.NonNull;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -47,9 +44,10 @@ public class Team {
     @OneToMany(mappedBy = "team")
     private List<Event> eventList = new ArrayList<>();
     @ManyToMany(mappedBy = "teamList")
+    @JsonIgnoreProperties("teamList")
     private List<MobileUser> members = new ArrayList<>();
     @OneToMany(mappedBy = "team")
-    private List<AsignedPosition> asignedPositions = new ArrayList<>();
+    private List<AssignedPosition> assignedPositions = new ArrayList<>();
 
     public Team(){}
 
@@ -113,4 +111,59 @@ public class Team {
         this.members.add(user);
         user.getTeamList().add(this);
     }
+
+    public List<TeamPosition> getPositions() {
+        return positions;
+    }
+
+    public void setPositions(List<TeamPosition> positions) {
+        this.positions = positions;
+    }
+
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
+    }
+
+    public List<TeamRol> getTeamRoles() {
+        return teamRoles;
+    }
+
+    public void setTeamRoles(List<TeamRol> teamRoles) {
+        this.teamRoles = teamRoles;
+    }
+
+    public List<Event> getEventList() {
+        return eventList;
+    }
+
+    public void setEventList(List<Event> eventList) {
+        this.eventList = eventList;
+    }
+
+    public List<MobileUser> getMembers() {
+        return members;
+    }
+
+    public void setMembers(List<MobileUser> members) {
+        this.members = members;
+    }
+
+    public List<AssignedPosition> getAssignedPositions() {
+        return assignedPositions;
+    }
+
+    public void setAssignedPositions(List<AssignedPosition> assignedPositions) {
+        this.assignedPositions = assignedPositions;
+    }
+
+    public Team addRol(TeamRol newRol) {
+        this.teamRoles.add(newRol);
+        return this;
+    }
+
+
 }

@@ -2,9 +2,7 @@ package com.example.nicolaspuebla_proyecto_final.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,22 +10,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.nicolaspuebla_proyecto_final.model.dataModels.AsignedPosition;
-import com.example.nicolaspuebla_proyecto_final.model.dataModels.AsignedPositionPK;
-import com.example.nicolaspuebla_proyecto_final.service.AsignedPositionService;
+import com.example.nicolaspuebla_proyecto_final.model.dataModels.AssignedPosition;
+import com.example.nicolaspuebla_proyecto_final.model.dataModels.AssignedPositionPK;
+import com.example.nicolaspuebla_proyecto_final.service.AssignedPositionService;
 
 
 @RestController
 @RequestMapping("/api/asigned_position")
-public class AsignedPositionController {
+public class AssignedPositionController {
 
     @Autowired
-    private AsignedPositionService asignedPositionService;
+    private AssignedPositionService assignedPositionService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<AsignedPosition> getAsignedPosition(@PathVariable AsignedPositionPK id) {
+    public ResponseEntity<AssignedPosition> getAssignedPosition(@PathVariable AssignedPositionPK id) {
         try {
-            AsignedPosition position = asignedPositionService.getAsignedPosition(id);
+            AssignedPosition position = assignedPositionService.getAssignedPosition(id);
             return ResponseEntity.ok().body(position);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
@@ -35,9 +33,9 @@ public class AsignedPositionController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<AsignedPosition> createAsignedPosition(@RequestBody AsignedPosition newAsignedPosition) {
+    public ResponseEntity<AssignedPosition> createAssignedPosition(@RequestBody AssignedPosition newAssignedPosition) {
         try {
-            AsignedPosition position = asignedPositionService.createAsignedPosition(newAsignedPosition);
+            AssignedPosition position = assignedPositionService.createAssignedPosition(newAssignedPosition);
             return ResponseEntity.ok().body(position);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);

@@ -1,5 +1,7 @@
 package com.example.nicolaspuebla_proyecto_final.model.dataModels;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -18,18 +20,21 @@ public class TeamRol {
     private TeamRolPK id;
 
     @ManyToOne
-    @MapsId("user_id") 
+    @MapsId("userId")
+    @JsonIgnore 
     @JoinColumn(name = "user_id")
     private MobileUser user;
 
     @ManyToOne
-    @MapsId("team_id") 
+    @MapsId("teamId") 
+    @JsonIgnore
     @JoinColumn(name = "team_id")
     private Team team;
 
     public TeamRol(){}
 
     public TeamRol(MobileUser user, Team team) {
+        this.id = new TeamRolPK(user.getId(), team.getId());
         this.user = user;
         this.team = team;
     }

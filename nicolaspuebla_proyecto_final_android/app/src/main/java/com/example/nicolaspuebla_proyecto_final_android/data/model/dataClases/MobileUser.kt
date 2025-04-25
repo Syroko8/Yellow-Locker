@@ -16,5 +16,5 @@ data class MobileUser (
     val teamList: List<Team> = emptyList(),
     val messages: List<MessageId> = emptyList(),
     val teamRoles: List<TeamRol> = emptyList(),
-    val asignedPositions: List<AsignedPosition> = emptyList()
+    val asignedPositions: List<AssignedPosition> = emptyList()
 )

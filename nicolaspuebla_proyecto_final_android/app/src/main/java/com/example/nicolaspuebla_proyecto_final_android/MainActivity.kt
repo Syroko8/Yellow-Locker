@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -26,6 +27,7 @@ import com.example.nicolaspuebla_proyecto_final_android.ui.components.TopBar
 import com.example.nicolaspuebla_proyecto_final_android.ui.theme.Nicolaspuebla_proyecto_final_androidTheme
 import com.example.nicolaspuebla_proyecto_final_android.utils.ButtonItemLists
 import com.example.nicolaspuebla_proyecto_final_android.utils.SessionManager
+import com.example.nicolaspuebla_proyecto_final_android.utils.TeamRoles
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -89,8 +91,8 @@ fun App(onLogOutIntent: () ->Unit, viewModel: PreferencesViewModel = hiltViewMod
             var landingScreenMenuState by remember{
                 mutableStateOf(FabState.Colapsed)
             }
-
-            var items = ButtonItemLists.landingScreenButtonList
+            val rol by SessionManager.actualTeamRole.collectAsState()
+            var items = ButtonItemLists.getButtonListForView(currentRoute.value?:"", rol ?: TeamRoles.Player)
 
             FabMenu(
                 state = landingScreenMenuState,

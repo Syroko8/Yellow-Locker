@@ -47,7 +47,13 @@ enum class FabState{
 enum class Identifier{
     Settings,
     JoinGroup,
-    CreateGroup
+    CreateGroup,
+    Return,
+    Members,
+    Matches,
+    Calendar,
+    Chat,
+    Edit
 }
 
 class FabItemData(
@@ -126,6 +132,12 @@ fun FabMenu(
                             }
                             Identifier.CreateGroup.name -> {
 
+                            }
+                            Identifier.Return.name ->{
+                                onFloatingStateChange(
+                                    FabState.Colapsed
+                                )
+                                onItemClick(Destinations.LANDING_SCREEN)
                             }
                         }
                     },

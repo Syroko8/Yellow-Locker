@@ -2,11 +2,8 @@ package com.example.nicolaspuebla_proyecto_final.service;
 
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.User;
 import com.example.nicolaspuebla_proyecto_final.repository.UserRepository;
-
 import jakarta.persistence.NoResultException;
-
 import java.util.NoSuchElementException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -7,26 +7,26 @@ import jakarta.persistence.Embeddable;
 @Embeddable
 public class TeamRolPK implements Serializable {
 
-    private long user_id;
-    private long team_id;
+    private long userId;
+    private long teamId;
     
     public TeamRolPK(){}
 
-    public TeamRolPK(Long user_id, Long team_id){
-        this.user_id = user_id;
-        this.team_id = team_id;
+    public TeamRolPK(Long userId, Long teamId){
+        this.userId = userId;
+        this.teamId = teamId;
     }
 
     public long getUserId() {
-        return user_id;
+        return userId;
     }
     public void setUserId(long userId) {
-        this.user_id = userId;
+        this.userId = userId;
     }
     public long getTeamId() {
-        return team_id;
+        return teamId;
     }
     public void setTeamId(long teamId) {
-        this.team_id = teamId;
+        this.teamId = teamId;
     }
 }

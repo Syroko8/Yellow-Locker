@@ -3,7 +3,6 @@ package com.example.nicolaspuebla_proyecto_final_android.ui.screens.joinTeam
 import android.content.Context
 import android.view.LayoutInflater
 import android.widget.Toast
-import androidx.annotation.RestrictTo
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -32,7 +31,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
-import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -59,13 +57,12 @@ import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.example.nicolaspuebla_proyecto_final_android.R
-import com.example.nicolaspuebla_proyecto_final_android.data.model.apiClases.TeamInfo
+import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Team
 import com.example.nicolaspuebla_proyecto_final_android.ui.components.ErrorDialog
 import com.example.nicolaspuebla_proyecto_final_android.utils.SessionManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import javax.inject.Scope
 
 @Composable
 fun JoinTeamScreen(viewModel: JoinTeamScreenViewModel = hiltViewModel()){
@@ -270,7 +267,7 @@ fun List(viewModel: JoinTeamScreenViewModel) {
 }
 
 @Composable
-fun TeamCard(team: TeamInfo, onClick: (TeamInfo) -> Unit){
+fun TeamCard(team: Team, onClick: (Team) -> Unit){
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -337,7 +334,7 @@ fun TeamCard(team: TeamInfo, onClick: (TeamInfo) -> Unit){
 fun ChoiceDialog(
     viewModel: JoinTeamScreenViewModel,
     onDismiss: () -> Unit,
-    onConfirm: (TeamInfo) -> Unit
+    onConfirm: (Team) -> Unit
 ) {
 
     val chosenTeam by viewModel.chosenTeam.collectAsState()

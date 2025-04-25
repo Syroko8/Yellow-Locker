@@ -1,6 +1,7 @@
 package com.example.nicolaspuebla_proyecto_final.controller;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -71,17 +72,6 @@ public class UserController {
         }
     }
 
-    private User parseSignUpUser(UserSignUp user){
-        User parsed = new User(
-            user.getName(), 
-            user.getSurname(), 
-            user.getEmail(), 
-            user.getPassword(), 
-            user.getDisabled()
-        );
-        return parsed;
-    }
-
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> logIn(@RequestBody LoginRequest loginRequest) {
         try {
@@ -111,6 +101,56 @@ public class UserController {
             return ResponseEntity.ok().body(user);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+    private User parseSignUpUser(UserSignUp user){
+        User parsed = new User(
+            user.getName(), 
+            user.getSurname(), 
+            user.getEmail(), 
+            user.getPassword(), 
+            user.getDisabled()
+        );
+        return parsed;
+    }
+
+    @PostMapping("/signup_mobile")
+    public ResponseEntity<User> signUpMobileUser(@RequestBody UserSignUp newUser) {
+        try {
+            MobileUser user = parseSignUpUserToMobile(newUser);
+            userService.createUser(user);
+            return ResponseEntity.ok().body(user);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+    private MobileUser parseSignUpUserToMobile(UserSignUp user) throws Exception {
+        try {
+            MobileUser parsed = new MobileUser(
+                user.getName(), 
+                user.getSurname(), 
+                user.getEmail(), 
+                user.getPassword(), 
+                false,
+                strToDate(user.getBirthDate())
+            );
+            return parsed;
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    private java.sql.Date  strToDate(String date) throws Exception{
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            java.util.Date utilDate = sdf.parse(date);
+            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime()); 
+            return sqlDate;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception(e.getMessage());
         }
     }
 
