@@ -2,6 +2,8 @@ package com.example.nicolaspuebla_proyecto_final.model.dataModels;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,6 +23,7 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @ManyToOne
+    @JsonIgnoreProperties("eventList")
     @JoinColumn(name = "team_id")
     private Team team;
     private String address;

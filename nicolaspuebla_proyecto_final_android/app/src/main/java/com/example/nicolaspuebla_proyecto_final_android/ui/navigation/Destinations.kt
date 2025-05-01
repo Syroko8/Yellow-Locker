@@ -13,4 +13,6 @@ object Destinations {
     const val LANDING_SCREEN = "landing_screen"
     const val JOIN_TEAM = "join_team"
     const val TEAM_WELCOME = "team_welcome"
+    const val TEAM_MEMBERS = "team_members"
+    const val TEAM_MATCHES = "team_matches"
 }

@@ -12,6 +12,7 @@ import androidx.compose.material.icons.filled.Groups
 import androidx.compose.material.icons.filled.House
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Shield
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -23,7 +24,7 @@ import com.example.nicolaspuebla_proyecto_final_android.ui.components.Identifier
 
 object ButtonItemLists {
 
-    val landingScreenButtonList = listOf(
+    private val landingScreenButtonList = listOf(
         FabItemData(
             icon = Icons.Filled.Settings,
             label = R.string.settings,
@@ -41,7 +42,7 @@ object ButtonItemLists {
         )
     )
 
-    val joinTeamScreenButtonList = listOf(
+    private val joinTeamScreenButtonList = listOf(
         FabItemData(
             icon = Icons.AutoMirrored.Filled.ArrowBack,
             label = R.string.return_to_landing,
@@ -49,7 +50,7 @@ object ButtonItemLists {
         )
     )
 
-    val teamWelcomeScreenButtonList = listOf(
+    private val teamWelcomeScreenButtonList = listOf(
         FabItemData(
             icon = Icons.Filled.House,
             label = R.string.return_to_landing,
@@ -77,7 +78,7 @@ object ButtonItemLists {
         )
     )
 
-    val teamWelcomeScreenButtonListCaptain = listOf(
+    private val teamWelcomeScreenButtonListCaptain = listOf(
         FabItemData(
             icon = Icons.Filled.House,
             label = R.string.return_to_landing,
@@ -110,6 +111,62 @@ object ButtonItemLists {
         )
     )
 
+    private val teamMembersScreenButtonList = listOf(
+        FabItemData(
+            icon = Icons.Filled.House,
+            label = R.string.return_to_landing,
+            identifier = Identifier.Return.name
+        ),
+        FabItemData(
+            icon = Icons.Filled.Shield,
+            label = R.string.team_screen,
+            identifier = Identifier.Team.name
+        ),
+        FabItemData(
+            icon = Icons.Filled.EmojiEvents,
+            label = R.string.matches,
+            identifier = Identifier.Matches.name
+        ),
+        FabItemData(
+            icon = Icons.Filled.CalendarMonth,
+            label = R.string.calendar,
+            identifier = Identifier.Calendar.name
+        ),
+        FabItemData(
+            icon = Icons.Filled.Chat,
+            label = R.string.chat,
+            identifier = Identifier.Chat.name
+        )
+    )
+
+    private val teamMatchesScreenButtonList = listOf(
+        FabItemData(
+            icon = Icons.Filled.House,
+            label = R.string.return_to_landing,
+            identifier = Identifier.Return.name
+        ),
+        FabItemData(
+            icon = Icons.Filled.Shield,
+            label = R.string.team_screen,
+            identifier = Identifier.Team.name
+        ),
+        FabItemData(
+            icon = Icons.Filled.List,
+            label = R.string.members,
+            identifier = Identifier.Members.name
+        ),
+        FabItemData(
+            icon = Icons.Filled.CalendarMonth,
+            label = R.string.calendar,
+            identifier = Identifier.Calendar.name
+        ),
+        FabItemData(
+            icon = Icons.Filled.Chat,
+            label = R.string.chat,
+            identifier = Identifier.Chat.name
+        )
+    )
+
     fun getButtonListForView(view: String, rol: TeamRoles): List<FabItemData> {
         when(view){
             Destinations.LANDING_SCREEN -> return landingScreenButtonList
@@ -117,6 +174,8 @@ object ButtonItemLists {
             Destinations.TEAM_WELCOME ->
                 return if(rol == TeamRoles.Captain ) teamWelcomeScreenButtonListCaptain
                 else teamWelcomeScreenButtonList
+            Destinations.TEAM_MEMBERS -> return  teamMembersScreenButtonList
+            Destinations.TEAM_MATCHES -> return teamMatchesScreenButtonList
         }
 
         return emptyList()

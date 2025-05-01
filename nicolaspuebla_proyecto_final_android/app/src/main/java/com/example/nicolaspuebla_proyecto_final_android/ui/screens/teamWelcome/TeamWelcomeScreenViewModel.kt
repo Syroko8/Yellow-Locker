@@ -5,9 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.nicolaspuebla_proyecto_final_android.R
-import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Event
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Match
-import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.MobileUser
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Team
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.TeamRolPK
 import com.example.nicolaspuebla_proyecto_final_android.data.repositories.TeamRepository
@@ -59,6 +57,7 @@ class TeamWelcomeScreenViewModel @Inject constructor(
                 val response = teamRepository.getTeam(id)
                 _team.value = response
                 calculateStatistics()
+                response?.id?.let { SessionManager.setTeamId(it) }
             } catch (e: Error){
                 if(e.message == "401"){
                     _errMessage.value = context.getString(R.string.expired_session)
@@ -78,8 +77,8 @@ class TeamWelcomeScreenViewModel @Inject constructor(
                 if(it is Match){
                     matches.value++
                     when {
-                        (it.ownGoals ?: 0) > (it.oponentGoals ?: 0) -> victories.value++
-                        (it.ownGoals ?: 0) < (it.oponentGoals ?: 0) -> loses.value--
+                        (it.own_goals ?: 0) > (it.oponent_goals ?: 0) -> victories.value++
+                        (it.own_goals ?: 0) < (it.oponent_goals ?: 0) -> loses.value--
                         else -> draws.value++
                     }
                 }

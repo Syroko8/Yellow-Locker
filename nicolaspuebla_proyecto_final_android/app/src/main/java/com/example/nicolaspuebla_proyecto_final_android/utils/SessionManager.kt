@@ -26,4 +26,11 @@ object SessionManager {
     fun setTeamRole(value: TeamRoles) {
         _actualTeamRole.value = value
     }
+
+    private val _actualTeamId = MutableStateFlow<Long?>(null)
+    val actualTeamId: StateFlow<Long?> get() = _actualTeamId
+
+    fun setTeamId(value: Long) {
+        _actualTeamId.value = value
+    }
 }

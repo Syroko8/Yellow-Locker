@@ -53,7 +53,8 @@ enum class Identifier{
     Matches,
     Calendar,
     Chat,
-    Edit
+    Edit,
+    Team
 }
 
 class FabItemData(
@@ -133,11 +134,29 @@ fun FabMenu(
                             Identifier.CreateGroup.name -> {
 
                             }
-                            Identifier.Return.name ->{
+                            Identifier.Return.name -> {
                                 onFloatingStateChange(
                                     FabState.Colapsed
                                 )
                                 onItemClick(Destinations.LANDING_SCREEN)
+                            }
+                            Identifier.Team.name -> {
+                                onFloatingStateChange(
+                                    FabState.Colapsed
+                                )
+                                onItemClick(Destinations.TEAM_WELCOME)
+                            }
+                            Identifier.Members.name -> {
+                                onFloatingStateChange(
+                                    FabState.Colapsed
+                                )
+                                onItemClick(Destinations.TEAM_MEMBERS)
+                            }
+                            Identifier.Matches.name -> {
+                                onFloatingStateChange(
+                                    FabState.Colapsed
+                                )
+                                onItemClick(Destinations.TEAM_MATCHES)
                             }
                         }
                     },

@@ -1,13 +1,17 @@
 package com.example.nicolaspuebla_proyecto_final.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import com.example.nicolaspuebla_proyecto_final.model.apiModels.TeamInfo;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Team;
+import com.example.nicolaspuebla_proyecto_final.model.dataModels.TeamRol;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.TeamRolHolder;
 import com.example.nicolaspuebla_proyecto_final.service.TeamService;
+import com.example.nicolaspuebla_proyecto_final.service.UserService;
+
 import jakarta.persistence.NoResultException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +24,8 @@ import com.example.nicolaspuebla_proyecto_final.model.dataModels.MobileUser;
 import com.example.nicolaspuebla_proyecto_final.service.EventService;
 import com.example.nicolaspuebla_proyecto_final.service.TeamRolService;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Player;
+import com.example.nicolaspuebla_proyecto_final.model.dataModels.Coach;
+import com.example.nicolaspuebla_proyecto_final.model.apiModels.MemberListElement;
 
 @RestController
 @RequestMapping("api/team")
@@ -31,6 +37,8 @@ public class TeamController {
     EventService eventService;
     @Autowired
     TeamRolService teamRolService;
+    @Autowired
+    UserService userService;
 
    @GetMapping("/{id}")
     public ResponseEntity<Team> getTeam(@PathVariable long id) {
@@ -79,4 +87,29 @@ public class TeamController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }    
+
+    @GetMapping("/members/{id}")
+    public ResponseEntity<List<MemberListElement>> getTeamMembersWithRoles(@PathVariable Long id) {
+        try {
+            Team team = teamService.getTeam(id);
+            ArrayList<MemberListElement> members = new ArrayList<>();
+
+            for(TeamRol rol : team.getTeamRoles()){
+                String rolType = "";
+
+                if(rol instanceof Player){
+                    rolType = "Player";
+                } else if(rol instanceof Coach){
+                    rolType = "Coach";
+                } else {
+                    rolType = "Captain";
+                }
+
+                members.add(new MemberListElement(rolType, ( MobileUser)userService.getUser(rol.getId().getUserId())));
+            }
+            return ResponseEntity.ok().body(members);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }     
+    }
 }

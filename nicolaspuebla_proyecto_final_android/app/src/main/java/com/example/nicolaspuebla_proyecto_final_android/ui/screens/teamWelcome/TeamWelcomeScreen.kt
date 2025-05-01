@@ -83,7 +83,7 @@ fun Logo(team: Team?, viewModel: TeamWelcomeScreenViewModel){
     ){
 
         AsyncImage(
-            model = team?.logo,
+            model = R.drawable.team_shield,
             contentDescription = stringResource(R.string.welcome_team_logo),
             modifier = Modifier
                 .size(300.dp),

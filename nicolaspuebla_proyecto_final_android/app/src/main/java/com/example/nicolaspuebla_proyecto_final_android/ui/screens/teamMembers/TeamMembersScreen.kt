@@ -1,15 +1,16 @@
-package com.example.nicolaspuebla_proyecto_final_android.ui.screens.landing
+package com.example.nicolaspuebla_proyecto_final_android.ui.screens.teamMembers
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -24,44 +25,34 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.laboratorio_b.ui.navigation.Destinations
 import com.example.nicolaspuebla_proyecto_final_android.R
 import com.example.nicolaspuebla_proyecto_final_android.ui.components.ErrorDialog
-import com.example.nicolaspuebla_proyecto_final_android.ui.components.TeamCard
+import com.example.nicolaspuebla_proyecto_final_android.ui.components.MemberCard
+import com.example.nicolaspuebla_proyecto_final_android.utils.SessionManager
+import com.example.nicolaspuebla_proyecto_final_android.utils.TeamRoles
 
 @Composable
-fun LandingScreen(onNav: (String, Int?) -> Unit, viewModel: LandingScreenViewModel = hiltViewModel()){
-
-    val loading by viewModel.loading.collectAsState()
-    val errMsg by viewModel.errorMessage.collectAsState()
+fun TeamMembersScreen(viewModel: TeamMembersScreenViewModel = hiltViewModel()){
+    val teamId by SessionManager.actualTeamId.collectAsState()
+    val err by viewModel.errorMessage.collectAsState()
 
     LaunchedEffect(Unit) {
-        viewModel.getUser()
+        teamId?.let { viewModel.getMembers(it) }
     }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background((Color(244,235,235)))
-    ){
+            .padding(top = 20.dp, bottom = 20.dp)
+    ) {
         Title()
-        if(loading){
-           Column(
-               modifier = Modifier
-                   .fillMaxSize(),
-               verticalArrangement = Arrangement.Center,
-               horizontalAlignment = Alignment.CenterHorizontally
-           ) {
-               CircularProgressIndicator()
-           }
-        } else {
-            TeamList(viewModel, onNav = { screen, id -> onNav(screen, id) })
-        }
+        List(viewModel)
 
-        if(errMsg != ""){
+        if(err != ""){
             ErrorDialog(
-                errMsg,
-                onRetry = { viewModel.getUser() },
+                err,
+                onRetry = { teamId?.let { viewModel.getMembers(it) } },
                 onOk = { viewModel.unsetError() }
             )
         }
@@ -70,24 +61,34 @@ fun LandingScreen(onNav: (String, Int?) -> Unit, viewModel: LandingScreenViewMod
 
 @Composable
 fun Title(){
-    Column(
+    Row(
         modifier = Modifier
-            .padding(top = 30.dp, start = 40.dp)
+            .fillMaxWidth()
             .wrapContentHeight()
-            .fillMaxWidth(),
-        horizontalAlignment = Alignment.Start
+            .padding(horizontal = 17.dp),
+        horizontalArrangement = Arrangement.Start
     ) {
-            Text(
-                text = "${stringResource(R.string.landing_title)}:",
-                fontFamily = FontFamily(Font(R.font.jura_bold)),
-                fontSize = 28.sp,
-                color = Color.Black
-            )
+        Text(
+            text = stringResource(R.string.members),
+            fontFamily = FontFamily(Font(R.font.jura_bold)),
+            fontSize = 28.sp,
+            color = Color.Black
+        )
+    }
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 10.dp)
+    ) {
+        HorizontalDivider(color = Color.Black, thickness = 2.dp, modifier = Modifier.padding(start = 15.dp, end = 15.dp))
     }
 }
 
 @Composable
-fun TeamList(viewModel: LandingScreenViewModel, onNav: (String, Int?) -> Unit){
+fun List(viewModel: TeamMembersScreenViewModel){
+
+    val members by viewModel.members.collectAsState()
+
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -95,24 +96,27 @@ fun TeamList(viewModel: LandingScreenViewModel, onNav: (String, Int?) -> Unit){
         verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        if(viewModel.teamList.value.isNotEmpty()){
-            items(viewModel.teamList.value){ team ->
-                TeamCard(
-                    team,
-                    onNav = { screen, id -> onNav(screen, id)},
-                    destination = Destinations.TEAM_WELCOME
+        if(members.isNotEmpty()){
+            items(items = members){
+                MemberCard(
+                    member = it,
+                    onClick = {
+                        if(SessionManager.actualTeamRole.value == TeamRoles.Captain){
+
+                        }
+                    }
                 )
             }
-        } else{
+        } else {
             item {
-                NoTeams()
+                NoMembers()
             }
         }
     }
 }
 
 @Composable
-fun NoTeams(){
+fun NoMembers(){
     Column(
         modifier = Modifier
             .fillMaxSize(),
@@ -120,11 +124,10 @@ fun NoTeams(){
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = stringResource(R.string.no_landing_teams),
+            text = stringResource(R.string.no_members),
             color = Color.Black,
             fontSize = 20.sp,
             fontFamily = FontFamily(Font(R.font.jura_bold))
         )
     }
 }
-

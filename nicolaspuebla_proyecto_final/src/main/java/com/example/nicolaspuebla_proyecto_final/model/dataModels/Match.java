@@ -2,31 +2,38 @@ package com.example.nicolaspuebla_proyecto_final.model.dataModels;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 @DiscriminatorValue(value = "match")
 public class Match extends Event {
 
-    private String oponent;
+    @ManyToOne
+    @JsonIgnoreProperties("matchesAsOponent")
+    @JoinColumn(name = "oponent_team_id")    
+    private Team oponent;
     private int own_goals;
     private int oponent_goals;
 
     public Match(){}
 
-    public Match(Team team_id, String address, int latitude, int longitude, Date date, String oponent, int own_goals, int oponent_goals) {
-        super(team_id, address, latitude, longitude, date);
+    public Match(Team team, String address, int latitude, int longitude, Date date, Team oponent, int own_goals, int oponent_goals) {
+        super(team, address, latitude, longitude, date);
         this.oponent = oponent;
         this.own_goals = own_goals;
         this.oponent_goals = oponent_goals;
     }
 
-    public String getOponent() {
+    public Team getOponent() {
         return oponent;
     }
 
-    public void setOponent(String oponent) {
+    public void setOponent(Team oponent) {
         this.oponent = oponent;
     }
 

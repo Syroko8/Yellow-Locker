@@ -98,7 +98,7 @@ fun JoinTeamScreen(viewModel: JoinTeamScreenViewModel = hiltViewModel()){
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background((Color(244, 235, 235)))
+            .background((Color(244,235,235)))
             .padding(horizontal = 40.dp)
     ) {
         Spacer(Modifier.height(40.dp))
@@ -249,7 +249,7 @@ fun List(viewModel: JoinTeamScreenViewModel) {
     } else {
         LazyColumn(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.Top,
+            verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             contentPadding = PaddingValues(top = 15.dp, bottom = 8.dp)
         ) {

@@ -1,5 +1,6 @@
 package com.example.nicolaspuebla_proyecto_final.model.dataModels;
 
+import java.beans.Transient;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +43,11 @@ public class Team {
     @OneToMany(mappedBy = "team")
     private List<TeamRol> teamRoles = new ArrayList<>();
     @OneToMany(mappedBy = "team")
+    @JsonIgnoreProperties("team")
     private List<Event> eventList = new ArrayList<>();
+    @OneToMany(mappedBy = "oponent")
+    @JsonIgnoreProperties("oponent")
+    private List<Match> matchesAsOponent = new ArrayList<>();
     @ManyToMany(mappedBy = "teamList")
     @JsonIgnoreProperties("teamList")
     private List<MobileUser> members = new ArrayList<>();
@@ -57,6 +62,13 @@ public class Team {
         this.logo = logo;
         this.chatKey = chatKey;
         this.sport = sport;
+    }
+
+    @Transient
+    public List<Event> getAllEvents() {
+        List<Event> allEvents = new ArrayList<>(eventList);
+        allEvents.addAll(matchesAsOponent);
+        return allEvents;
     }
 
     public long getId() {

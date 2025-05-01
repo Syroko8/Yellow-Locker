@@ -58,10 +58,16 @@
     <string name="achieved_join_team">Unión al equipo exitosa</string>
     <string name="already_belong_to_team">Usted ya pertenece a este equipo</string>
     <string name="search_team_empty">No se han encontrado equipos con ese nombre.</string>
-    <string name="return_to_landing">Volver</string>
+    <string name="return_to_landing">Inicio</string>
     <string name="members">Miembros</string>
     <string name="matches">Partidos</string>
     <string name="calendar">Calendario</string>
     <string name="chat">Chat</string>
     <string name="edit">Editar</string>
+    <string name="no_members">No se han encontrado miembros</string>
+    <string name="member_profile_description">Foto de perfil del miembro del equipo.</string>
+    <string name="no_matches">No hay ningún partido registrado.</string>
+    <string name="no_valid_token">El token de autenticación no es válido.</string>
+    <string name="invalid_date">Fecha inválida.</string>
+    <string name="team_screen">Equipo</string>
 </resources>
