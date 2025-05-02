@@ -1,4 +1,4 @@
-package com.example.nicolaspuebla_proyecto_final_android.ui.screens.teamMatches
+package com.example.nicolaspuebla_proyecto_final_android.ui.screens.TeamMatches
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -22,7 +22,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
-import java.time.format.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -36,6 +35,7 @@ import com.example.nicolaspuebla_proyecto_final_android.utils.SessionManager
 import com.example.nicolaspuebla_proyecto_final_android.utils.TeamRoles
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.util.Date
 import java.util.Locale
 
 @Composable
