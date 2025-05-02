@@ -79,4 +79,13 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.7.0")
     // Gson
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.15.2")
+    // Calendar
+    implementation("androidx.activity:activity-compose:1.4.0")
+    implementation("androidx.compose.foundation:foundation:1.1.0-alpha05")
+    implementation("androidx.compose.material:material:1.1.0-alpha05")
+    implementation("androidx.compose.ui:ui:1.1.0-alpha05")
+    implementation("androidx.compose.ui:ui-tooling-preview:1.1.0-alpha05")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07")
+    implementation("androidx.compose.runtime:runtime-livedata:1.1.0-alpha05")
+    implementation("com.google.accompanist:accompanist-pager:0.20.0")
 }

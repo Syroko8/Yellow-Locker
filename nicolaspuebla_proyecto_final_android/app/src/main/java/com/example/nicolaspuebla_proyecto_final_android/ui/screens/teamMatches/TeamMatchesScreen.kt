@@ -1,4 +1,4 @@
-package com.example.nicolaspuebla_proyecto_final_android.ui.screens.TeamMatches
+package com.example.nicolaspuebla_proyecto_final_android.ui.screens.teamMatches
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -34,10 +34,8 @@ import com.example.nicolaspuebla_proyecto_final_android.ui.components.MatchCard
 import com.example.nicolaspuebla_proyecto_final_android.ui.screens.teamMembers.Title
 import com.example.nicolaspuebla_proyecto_final_android.utils.SessionManager
 import com.example.nicolaspuebla_proyecto_final_android.utils.TeamRoles
-import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-import java.util.Date
 import java.util.Locale
 
 @Composable

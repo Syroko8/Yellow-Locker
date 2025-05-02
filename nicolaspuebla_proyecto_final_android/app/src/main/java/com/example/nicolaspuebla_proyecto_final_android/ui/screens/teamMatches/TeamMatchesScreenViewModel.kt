@@ -1,4 +1,4 @@
-package com.example.nicolaspuebla_proyecto_final_android.ui.screens.TeamMatches
+package com.example.nicolaspuebla_proyecto_final_android.ui.screens.teamMatches
 
 import android.content.Context
 import androidx.lifecycle.ViewModel

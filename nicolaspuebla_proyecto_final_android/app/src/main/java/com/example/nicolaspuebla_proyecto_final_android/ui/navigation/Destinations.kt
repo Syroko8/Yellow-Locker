@@ -15,4 +15,5 @@ object Destinations {
     const val TEAM_WELCOME = "team_welcome"
     const val TEAM_MEMBERS = "team_members"
     const val TEAM_MATCHES = "team_matches"
+    const val TEAM_CALENDAR = "team_calendar"
 }

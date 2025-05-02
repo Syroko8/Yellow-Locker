@@ -158,6 +158,12 @@ fun FabMenu(
                                 )
                                 onItemClick(Destinations.TEAM_MATCHES)
                             }
+                            Identifier.Calendar.name -> {
+                                onFloatingStateChange(
+                                    FabState.Colapsed
+                                )
+                                onItemClick(Destinations.TEAM_CALENDAR)
+                            }
                         }
                     },
                     alpha = alpha,
