@@ -82,7 +82,7 @@ fun TeamCalendarScreen(onNav: (String) -> Unit, viewModel: TeamCalendarScreenVie
             events,
             viewModel
         )
-        if(true){
+        if(actualTeamRole != TeamRoles.Player){
             println(">>>>>>>>>>${actualTeamRole}")
             ModifyEvents(onNav = {onNav(Destinations.MODIFY_EVENTS)})
         }
@@ -352,6 +352,6 @@ fun stringToDate(date: String): Date {
 @Preview
 @Composable
 fun TeamCalendarScreenPreview(){
-    TeamCalendarScreen()
+    TeamCalendarScreen(onNav = {})
 }
 
