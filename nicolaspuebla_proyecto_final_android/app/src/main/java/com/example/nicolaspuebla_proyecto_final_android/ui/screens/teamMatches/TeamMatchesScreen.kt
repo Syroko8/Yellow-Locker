@@ -27,13 +27,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.nicolaspuebla_proyecto_final_android.R
+import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Event
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Match
 import com.example.nicolaspuebla_proyecto_final_android.ui.components.ErrorDialog
 import com.example.nicolaspuebla_proyecto_final_android.ui.components.MatchCard
-import com.example.nicolaspuebla_proyecto_final_android.ui.screens.teamMembers.Title
 import com.example.nicolaspuebla_proyecto_final_android.utils.SessionManager
 import com.example.nicolaspuebla_proyecto_final_android.utils.TeamRoles
 import java.time.LocalDate
+import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
 import java.util.Locale
@@ -53,7 +54,7 @@ fun TeamMatchesScreen(viewModel: TeamMatchesScreenViewModel = hiltViewModel()) {
         modifier = Modifier
             .fillMaxWidth()
             .background((Color(244,235,235)))
-            .padding(top = 10.dp )
+            .padding(top = 20.dp )
     ) {
         Title()
         if(loading){
@@ -89,7 +90,7 @@ fun Title(){
         horizontalArrangement = Arrangement.Start
     ) {
         Text(
-            text = stringResource(R.string.members),
+            text = stringResource(R.string.matches),
             fontFamily = FontFamily(Font(R.font.jura_bold)),
             fontSize = 28.sp,
             color = Color.Black
@@ -129,7 +130,7 @@ fun List(viewModel: TeamMatchesScreenViewModel){
                             .padding(start = 10.dp, bottom = 15.dp)
                     ) {
                         Text(
-                            text = getFormattedDate(it.date),
+                            text = getFormatedDate(it.date),
                             fontFamily = FontFamily(Font(R.font.jura_bold)),
                             fontSize = 18.sp,
                             color = Color(61, 147, 247)
@@ -172,13 +173,12 @@ fun NoMatches(){
 }
 
 @Composable
-fun getFormattedDate(dateString: String): String {
+fun getFormatedDate(dateString: String): String {
     return try {
-        val localDate = LocalDate.parse(dateString, DateTimeFormatter.ISO_DATE)
-        val dayOfWeek = localDate.dayOfWeek.getDisplayName(TextStyle.FULL, Locale.ENGLISH)
-        val monthName = localDate.month.getDisplayName(TextStyle.FULL, Locale.ENGLISH)
+        val formatter = DateTimeFormatter.ISO_ZONED_DATE_TIME
+        val dateTime = ZonedDateTime.parse(dateString, formatter)
 
-        "${localDate.dayOfMonth} $monthName - $dayOfWeek"
+        "${dateTime.dayOfMonth} ${dateTime.month} - ${dateTime.dayOfWeek}"
     } catch (e: Exception) {
         stringResource(R.string.invalid_date)
     }

@@ -58,6 +58,7 @@ class TeamWelcomeScreenViewModel @Inject constructor(
                 _team.value = response
                 calculateStatistics()
                 response?.id?.let { SessionManager.setTeamId(it) }
+                getTeamRolLevel()
             } catch (e: Error){
                 if(e.message == "401"){
                     _errMessage.value = context.getString(R.string.expired_session)
@@ -91,7 +92,7 @@ class TeamWelcomeScreenViewModel @Inject constructor(
             _loading.value = true
             _errMessage.value = ""
             try {
-                val response = teamRolRepository.getRolLevel(TeamRolPK(_team.value?.id!!, SessionManager.user?.id!!))
+                val response = teamRolRepository.getRolLevel(TeamRolPK(SessionManager.user?.id!!, _team.value?.id!!))
                 SessionManager.setTeamRole(response)
             } catch (e: Exception){
                 if(e.message == "401"){

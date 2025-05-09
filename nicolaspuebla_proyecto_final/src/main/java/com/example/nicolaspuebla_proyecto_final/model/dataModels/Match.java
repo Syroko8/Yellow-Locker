@@ -1,9 +1,7 @@
 package com.example.nicolaspuebla_proyecto_final.model.dataModels;
 
-import java.sql.Date;
-
+import java.sql.Timestamp;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -22,7 +20,7 @@ public class Match extends Event {
 
     public Match(){}
 
-    public Match(Team team, String address, int latitude, int longitude, Date date, Team oponent, int own_goals, int oponent_goals) {
+    public Match(Team team, String address, Double latitude, Double longitude, Timestamp date, Team oponent, int own_goals, int oponent_goals) {
         super(team, address, latitude, longitude, date);
         this.oponent = oponent;
         this.own_goals = own_goals;

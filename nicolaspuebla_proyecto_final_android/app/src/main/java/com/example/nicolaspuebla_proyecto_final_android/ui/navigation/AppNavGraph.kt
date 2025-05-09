@@ -4,12 +4,17 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.nicolaspuebla_proyecto_final_android.ui.screens.TeamMatches.TeamMatchesScreen
 import com.example.nicolaspuebla_proyecto_final_android.ui.screens.joinTeam.JoinTeamScreen
 import com.example.nicolaspuebla_proyecto_final_android.ui.screens.landing.LandingScreen
+import com.example.nicolaspuebla_proyecto_final_android.ui.screens.mapScreen.MapScreen
+import com.example.nicolaspuebla_proyecto_final_android.ui.screens.modifyEvents.ModifyEventsScreen
+import com.example.nicolaspuebla_proyecto_final_android.ui.screens.teamCalendar.ModifyEvents
 import com.example.nicolaspuebla_proyecto_final_android.ui.screens.teamCalendar.TeamCalendarScreen
 import com.example.nicolaspuebla_proyecto_final_android.ui.screens.teamMembers.TeamMembersScreen
 import com.example.nicolaspuebla_proyecto_final_android.ui.screens.teamWelcome.TeamWelcomeScreen
@@ -18,7 +23,7 @@ import com.example.nicolaspuebla_proyecto_final_android.ui.screens.teamWelcome.T
 fun AppNavGraph(
     navController: NavHostController,
     innerPadding: PaddingValues,
-    onNav: (String) ->Unit
+    onNav: (String) -> Unit
 ){
 
     var value: Int = 0
@@ -58,7 +63,23 @@ fun AppNavGraph(
                 TeamMembersScreen()
             }
 
+            composable (Destinations.TEAM_MATCHES){
+                TeamMatchesScreen()
+            }
 
+            composable (Destinations.TEAM_CALENDAR) {
+                TeamCalendarScreen(
+                    onNav = { onNav(Destinations.MODIFY_EVENTS) }
+                )
+            }
+
+            composable (Destinations.MAP){
+                MapScreen()
+            }
+
+            composable (Destinations.MODIFY_EVENTS){
+                ModifyEventsScreen()
+            }
 
         }
     }

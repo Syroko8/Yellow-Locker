@@ -6,7 +6,7 @@ open class Event(
     open val id: Long,
     open val team: Team,
     open val address: String,
-    open val latitude: Int,
-    open val longitude: Int,
+    open val latitude: Double,
+    open val longitude: Double,
     open val date: String
 )

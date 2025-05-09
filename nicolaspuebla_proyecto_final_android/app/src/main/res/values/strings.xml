@@ -70,4 +70,26 @@
     <string name="no_valid_token">El token de autenticación no es válido.</string>
     <string name="invalid_date">Fecha inválida.</string>
     <string name="team_screen">Equipo</string>
+    <string name="events">Eventos</string>
+    <string name="monday_initials">Mo</string>
+    <string name="tuesday_initials">Tu</string>
+    <string name="wednesday_initials">We</string>
+    <string name="thursday_initials">Th</string>
+    <string name="friday_initials">Fr</string>
+    <string name="saturday_initials">Sa</string>
+    <string name="sunday_initials">Su</string>
+    <string name="previous_month">Mes anterior.</string>
+    <string name="next_month">Siguiente mes.</string>
+    <string name="match">Partido</string>
+    <string name="oponent">Oponente</string>
+    <string name="hour">Hora</string>
+    <string name="status">Estado</string>
+    <string name="expectant">Expectant</string>
+    <string name="finished">Finalizado</string>
+    <string name="location">Dirección</string>
+    <string name="of">de</string>
+    <string name="see_map">Pulse para ver en el mapa.</string>
+    <string name="training">Entranamiento</string>
+    <string name="map_preview_description">Imagen de previsualización de la localización en el mapa.</string>
+    <string name="modify_events">Modificar eventos</string>
 </resources>

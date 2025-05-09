@@ -1,9 +1,7 @@
 package com.example.nicolaspuebla_proyecto_final.model.dataModels;
 
-import java.sql.Date;
-
+import java.sql.Timestamp;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,13 +25,13 @@ public class Event {
     @JoinColumn(name = "team_id")
     private Team team;
     private String address;
-    private int latitude;
-    private int longitude;
-    private Date date;
+    private Double latitude;
+    private Double longitude;
+    private Timestamp date;
 
     public Event(){}
 
-    public Event(Team team, String address, int latitude, int longitude, Date date) {
+    public Event(Team team, String address, Double latitude, Double longitude, Timestamp date) {
         this.team= team;
         this.address = address;
         this.latitude = latitude;
@@ -65,27 +63,27 @@ public class Event {
         this.address = address;
     }
 
-    public int getLatitude() {
+    public Double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(int latitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 
-    public int getLongitude() {
+    public Double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(int longitude) {
+    public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
 
-    public Date getDate() {
+    public Timestamp getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Timestamp date) {
         this.date = date;
     }
 }

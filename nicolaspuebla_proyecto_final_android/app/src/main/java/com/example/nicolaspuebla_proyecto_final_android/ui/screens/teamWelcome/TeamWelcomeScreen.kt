@@ -38,7 +38,6 @@ fun TeamWelcomeScreen(
 
     LaunchedEffect(Unit) {
         viewModel.getTeam(teamId.toLong())
-        viewModel.getTeamRolLevel()
     }
 
     Column(

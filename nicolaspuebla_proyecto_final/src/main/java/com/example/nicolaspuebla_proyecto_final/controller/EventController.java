@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Match;
+import com.example.nicolaspuebla_proyecto_final.model.dataModels.Event;
 import com.example.nicolaspuebla_proyecto_final.service.EventService;
 import com.example.nicolaspuebla_proyecto_final.service.TeamService;
 
@@ -21,7 +22,7 @@ public class EventController {
     @Autowired
     TeamService teamService;
 
-   @GetMapping("/team_matches/{teamId}")
+    @GetMapping("/team_matches/{teamId}")
     public ResponseEntity<List<Match>> getTeamMatches(@PathVariable Long teamId) {
         try {
             List<Match> matches = eventService.getTeamMatches(teamService.getTeam(teamId));
@@ -30,4 +31,15 @@ public class EventController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
+
+    @GetMapping("/team/{teamId}")
+    public ResponseEntity<List<Event>> getTeamEvents(@PathVariable Long teamId) {
+        try {
+            List<Event> events = eventService.getTeamEvents(teamService.getTeam(teamId));
+            return ResponseEntity.ok().body(events);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
 }

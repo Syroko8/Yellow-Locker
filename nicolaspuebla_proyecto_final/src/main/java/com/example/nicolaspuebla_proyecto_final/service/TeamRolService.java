@@ -5,12 +5,10 @@ import org.springframework.stereotype.Service;
 import com.example.nicolaspuebla_proyecto_final.repository.TeamRepository;
 import com.example.nicolaspuebla_proyecto_final.repository.TeamRolRepository;
 import com.example.nicolaspuebla_proyecto_final.repository.UserRepository;
-import jakarta.persistence.NoResultException;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.MobileUser;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Team;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.TeamRol;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.TeamRolPK;
-import com.example.nicolaspuebla_proyecto_final.model.dataModels.Player;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Coach;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Captain;
 
@@ -39,8 +37,13 @@ public class TeamRolService {
 
     public TeamRol getTeamRol(TeamRolPK teamRolPK) throws Exception{
         try{
-            return teamRolRepository.findById(teamRolPK)
-            .orElseThrow(() -> new NoResultException());
+            Team team = teamRepository.findById(teamRolPK.getTeamId())
+            .orElseThrow(() -> new Error());
+
+            MobileUser user = (MobileUser) userRepository.findById(teamRolPK.getUserId())
+            .orElseThrow(() -> new Error());
+
+            return teamRolRepository.findTeamRolByUserAndTeam(user, team);
         } catch(Exception e){
             throw new Exception(e.getMessage());
         }
@@ -57,15 +60,14 @@ public class TeamRolService {
 
     public String getRolLevel(TeamRolPK teamRolPK) throws Exception{
         try {
-            TeamRol teamRol =  teamRolRepository.findById(teamRolPK)
-            .orElseThrow(() -> new NoResultException());
+            TeamRol tr = getTeamRol(teamRolPK);
         
-            if(teamRol instanceof Player){
-                return "Player";
-            } else if(teamRol instanceof Coach){
+            if(tr instanceof Captain){
+                return "Captain";
+            } else if(tr instanceof Coach){
                 return "Coach";
             } else {
-                return "Captain";
+                return "Player";
             }
         } catch (Exception e) {
             throw new Exception(e.getMessage());

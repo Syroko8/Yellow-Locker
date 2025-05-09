@@ -14,9 +14,8 @@ class TeamRolRepository {
             try {
                 val call = RetrofitInstance.yellowLockerTeamRolService.getRolLevel(teamRolPK)
                 val response = call.execute()
-
                 if(response.isSuccessful){
-                    when(response.body()){
+                    when(response.body()?.level){
                         "Player" -> TeamRoles.Player
                         "Coach" -> TeamRoles.Coach
                         else -> TeamRoles.Captain
