@@ -17,12 +17,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.example.nicolaspuebla_proyecto_final.model.apiModels.LoginRequest;
-import com.example.nicolaspuebla_proyecto_final.model.apiModels.LoginResponse;
-import com.example.nicolaspuebla_proyecto_final.model.apiModels.UserSignUp;
+
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.MobileUser;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Token;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.User;
+import com.example.nicolaspuebla_proyecto_final.model.dto.LoginRequest;
+import com.example.nicolaspuebla_proyecto_final.model.dto.LoginResponse;
+import com.example.nicolaspuebla_proyecto_final.model.dto.UserSignUp;
 import com.example.nicolaspuebla_proyecto_final.service.TokenService;
 import com.example.nicolaspuebla_proyecto_final.service.UserService;
 import io.jsonwebtoken.Jwts;

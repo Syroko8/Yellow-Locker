@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.nicolaspuebla_proyecto_final_android.R
-import com.example.nicolaspuebla_proyecto_final_android.data.model.apiClases.MemberListElement
+import com.example.nicolaspuebla_proyecto_final_android.data.model.dto.MemberListElement
 import com.example.nicolaspuebla_proyecto_final_android.data.repositories.TeamRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext

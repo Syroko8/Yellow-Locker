@@ -1,6 +1,5 @@
 package com.example.nicolaspuebla_proyecto_final_android.data.repositories
 
-import com.example.nicolaspuebla_proyecto_final_android.data.model.apiClases.MemberListElement
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.TeamRolPK
 import com.example.nicolaspuebla_proyecto_final_android.data.remote.RetrofitInstance
 import com.example.nicolaspuebla_proyecto_final_android.utils.TeamRoles

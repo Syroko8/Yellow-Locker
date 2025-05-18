@@ -29,7 +29,7 @@ public class MobileUser extends User {
     @JsonIgnoreProperties("members")
     private List<Team> teamList = new ArrayList<>();
     @OneToMany(mappedBy = "user")
-    @JsonManagedReference("user-messajes")
+    @JsonManagedReference("user-messages")
     private List<Message> messages = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<TeamRol> teamRoles = new ArrayList<>();

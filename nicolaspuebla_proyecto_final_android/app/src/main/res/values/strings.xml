@@ -18,7 +18,6 @@
     <string name="repeat_passwd">Repita la contraseña</string>
     <string name="set_passwd">Establezca su contraseña!!</string>
     <string name="return_button_description">Flecha de retorno a la primera página del sign up.</string>
-    <string name="return_to_signup1">Volver</string>
     <string name="landing_title">Tus Equipos</string>
     <string name="team_logo_description">Logo del equipo.</string>
     <string name="no_landing_teams">El usuario no pertenece a ningún equipo.</string>
@@ -81,7 +80,7 @@
     <string name="previous_month">Mes anterior.</string>
     <string name="next_month">Siguiente mes.</string>
     <string name="match">Partido</string>
-    <string name="oponent">Oponente</string>
+    <string name="opponent">Oponente</string>
     <string name="hour">Hora</string>
     <string name="status">Estado</string>
     <string name="expectant">Expectant</string>
@@ -92,4 +91,18 @@
     <string name="training">Entranamiento</string>
     <string name="map_preview_description">Imagen de previsualización de la localización en el mapa.</string>
     <string name="modify_events">Modificar eventos</string>
+    <string name="no_events">No hay eventos asociados.</string>
+    <string name="date">Fecha</string>
+    <string name="change_date">Cambiar fecha</string>
+    <string name="calendar_icon_description">Icono de calendario</string>
+    <string name="schedule_icon_description">Icono de reloj</string>
+    <string name="change_hour">Modificar hora</string>
+    <string name="save_changes">Guardar cambios</string>
+    <string name="change_opponent">Cambiar oponente</string>
+    <string name="invalid_event_type">El tipo de evento no se contempla.</string>
+    <string name="delete_event">Eliminar</string>
+    <string name="change_location">Cambiar</string>
+    <string name="return_str">Volver</string>
+    <string name="sear_icon_description">Icono de busqueda.</string>
+    <string name="search_location">Buscar ubicación</string>
 </resources>

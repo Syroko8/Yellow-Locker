@@ -2,6 +2,9 @@ package com.example.nicolaspuebla_proyecto_final.repository;
 
 import org.springframework.stereotype.Repository;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Team;
+
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -10,4 +13,7 @@ public interface TeamRepository extends JpaRepository<Team, Long> {
 
     @Query("SELECT t FROM Team t LEFT JOIN FETCH t.members WHERE t.id = :teamId")
     Team findTeamWithMembers(Long teamId);
+
+    @Query("SELECT name FROM Team")
+    List<String> getTeamNames();
 }

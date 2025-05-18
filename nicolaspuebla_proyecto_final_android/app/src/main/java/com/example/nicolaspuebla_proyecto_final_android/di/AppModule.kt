@@ -1,6 +1,5 @@
 package com.example.laboratorio_b.di
 
-import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Team
 import com.example.nicolaspuebla_proyecto_final_android.data.repositories.AuthRepository
 import com.example.nicolaspuebla_proyecto_final_android.data.repositories.TeamEventRepository
 import com.example.nicolaspuebla_proyecto_final_android.data.repositories.TeamRepository

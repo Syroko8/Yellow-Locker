@@ -38,10 +38,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.laboratorio_b.ui.navigation.Destinations
 import com.example.nicolaspuebla_proyecto_final_android.R
+import com.example.nicolaspuebla_proyecto_final_android.utils.LocationChoosingInfo
 
 enum class FabState{
     Expanded,
-    Colapsed
+    Collapsed
 }
 
 enum class Identifier{
@@ -54,7 +55,10 @@ enum class Identifier{
     Calendar,
     Chat,
     Edit,
-    Team
+    Team,
+    ModifyReturn,
+    MapCancel,
+    MapConfirm
 }
 
 class FabItemData(
@@ -127,7 +131,7 @@ fun FabMenu(
                             }
                             Identifier.JoinGroup.name -> {
                                 onFloatingStateChange(
-                                    FabState.Colapsed
+                                    FabState.Collapsed
                                 )
                                 onItemClick(Destinations.JOIN_TEAM)
                             }
@@ -136,33 +140,52 @@ fun FabMenu(
                             }
                             Identifier.Return.name -> {
                                 onFloatingStateChange(
-                                    FabState.Colapsed
+                                    FabState.Collapsed
                                 )
                                 onItemClick(Destinations.LANDING_SCREEN)
                             }
                             Identifier.Team.name -> {
                                 onFloatingStateChange(
-                                    FabState.Colapsed
+                                    FabState.Collapsed
                                 )
                                 onItemClick(Destinations.TEAM_WELCOME)
                             }
                             Identifier.Members.name -> {
                                 onFloatingStateChange(
-                                    FabState.Colapsed
+                                    FabState.Collapsed
                                 )
                                 onItemClick(Destinations.TEAM_MEMBERS)
                             }
                             Identifier.Matches.name -> {
                                 onFloatingStateChange(
-                                    FabState.Colapsed
+                                    FabState.Collapsed
                                 )
                                 onItemClick(Destinations.TEAM_MATCHES)
                             }
                             Identifier.Calendar.name -> {
                                 onFloatingStateChange(
-                                    FabState.Colapsed
+                                    FabState.Collapsed
                                 )
                                 onItemClick(Destinations.TEAM_CALENDAR)
+                            }
+                            Identifier.ModifyReturn.name -> {
+                                onFloatingStateChange(
+                                    FabState.Collapsed
+                                )
+                                onItemClick(Destinations.TEAM_CALENDAR)
+                            }
+                            Identifier.MapCancel.name -> {
+                                onFloatingStateChange(
+                                    FabState.Collapsed
+                                )
+                                onItemClick(Destinations.MODIFY_EVENTS)
+                            }
+                            Identifier.MapConfirm.name -> {
+                                onFloatingStateChange(
+                                    FabState.Collapsed
+                                )
+                                LocationChoosingInfo.setChosen(true)
+                                onItemClick(Destinations.MODIFY_EVENTS)
                             }
                         }
                     },
@@ -177,7 +200,7 @@ fun FabMenu(
         FloatingActionButton(
             onClick = {
                 onFloatingStateChange(
-                    if (transition.currentState == FabState.Expanded) FabState.Colapsed else FabState.Expanded
+                    if (transition.currentState == FabState.Expanded) FabState.Collapsed else FabState.Expanded
                 )
             },
             modifier = Modifier

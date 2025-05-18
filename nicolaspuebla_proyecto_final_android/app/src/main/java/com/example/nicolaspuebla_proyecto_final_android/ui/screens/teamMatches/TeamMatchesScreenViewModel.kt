@@ -38,7 +38,6 @@ class TeamMatchesScreenViewModel @Inject constructor(
             try {
                 val response = teamEventRepository.getTeamMatches(teamId)
                 _matches.value = response
-                println(">>>>>>>>>>>>>>>><< ${response}")
             } catch (e:Exception) {
                 if(e.message == "401"){
                     _logout.value = true

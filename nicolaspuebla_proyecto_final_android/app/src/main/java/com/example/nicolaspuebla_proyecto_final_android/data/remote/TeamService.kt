@@ -1,6 +1,7 @@
 package com.example.nicolaspuebla_proyecto_final_android.data.remote
 
-import com.example.nicolaspuebla_proyecto_final_android.data.model.apiClases.MemberListElement
+import com.example.nicolaspuebla_proyecto_final_android.data.model.dto.MemberListElement
+import com.example.nicolaspuebla_proyecto_final_android.data.model.dto.TeamNameListReciever
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.MobileUser
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Team
 import retrofit2.Call
@@ -23,4 +24,7 @@ interface TeamService {
 
     @GET("api/team/members/{id}")
     fun getMembers(@Path("id")id: Long): Call<List<MemberListElement>>
+
+    @GET("/api/team/names")
+    fun getTeamNames(): Call<TeamNameListReciever>
 }

@@ -5,10 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import com.example.nicolaspuebla_proyecto_final.model.apiModels.TeamInfo;
+
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Team;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.TeamRol;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.TeamRolHolder;
+import com.example.nicolaspuebla_proyecto_final.model.dto.MemberListElement;
+import com.example.nicolaspuebla_proyecto_final.model.dto.TeamInfo;
+import com.example.nicolaspuebla_proyecto_final.model.dto.TeamNameListResponse;
 import com.example.nicolaspuebla_proyecto_final.service.TeamService;
 import com.example.nicolaspuebla_proyecto_final.service.UserService;
 
@@ -25,7 +28,6 @@ import com.example.nicolaspuebla_proyecto_final.service.EventService;
 import com.example.nicolaspuebla_proyecto_final.service.TeamRolService;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Player;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Coach;
-import com.example.nicolaspuebla_proyecto_final.model.apiModels.MemberListElement;
 
 @RestController
 @RequestMapping("api/team")
@@ -78,7 +80,7 @@ public class TeamController {
     }
 
     @PostMapping("/join")
-    public ResponseEntity<MobileUser> postMethodName(@RequestParam Long teamId, @RequestParam Long userId) {
+    public ResponseEntity<MobileUser> joinTeam(@RequestParam Long teamId, @RequestParam Long userId) {
         try {
             TeamRolHolder trh = teamService.addUser(teamId, userId);
             teamRolService.createTeamRol(new Player(trh.getUser(), trh.getTeam()));
@@ -112,4 +114,15 @@ public class TeamController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }     
     }
+
+    @GetMapping("/names")
+    public ResponseEntity<TeamNameListResponse> getTeamNames() {
+        try {
+            List<String> names = teamService.getTeamNames(); 
+            return ResponseEntity.ok().body(new TeamNameListResponse(names));  
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);   
+        }
+    }
+    
 }

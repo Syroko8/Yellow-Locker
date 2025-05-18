@@ -28,6 +28,7 @@ import com.example.nicolaspuebla_proyecto_final_android.ui.theme.Nicolaspuebla_p
 import com.example.nicolaspuebla_proyecto_final_android.utils.ButtonItemLists
 import com.example.nicolaspuebla_proyecto_final_android.utils.SessionManager
 import com.example.nicolaspuebla_proyecto_final_android.utils.TeamRoles
+import com.google.android.libraries.places.api.Places
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -36,6 +37,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        Places.initialize(applicationContext, "AIzaSyAyC3hxTl_mDCifxGrWTCT2i8De9U2piC4")
 
         fun logout() {
             SessionManager.setLogOut(false)
@@ -89,7 +91,7 @@ fun App(onLogOutIntent: () ->Unit, viewModel: PreferencesViewModel = hiltViewMod
         floatingActionButton = {
 
             var landingScreenMenuState by remember{
-                mutableStateOf(FabState.Colapsed)
+                mutableStateOf(FabState.Collapsed)
             }
             val rol by SessionManager.actualTeamRole.collectAsState()
             var items = ButtonItemLists.getButtonListForView(currentRoute.value?:"", rol ?: TeamRoles.Player)

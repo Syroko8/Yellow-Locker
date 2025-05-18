@@ -3,9 +3,6 @@ package com.example.nicolaspuebla_proyecto_final.model.dataModels;
 import java.util.List;
 
 import org.springframework.lang.NonNull;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,7 +18,6 @@ public class Locality {
     @NonNull
     private String name;
     @OneToMany(mappedBy = "locality")
-    @JsonBackReference("team-locality")
     private List<Team> teamsOnLocality;
 
     public Locality(){

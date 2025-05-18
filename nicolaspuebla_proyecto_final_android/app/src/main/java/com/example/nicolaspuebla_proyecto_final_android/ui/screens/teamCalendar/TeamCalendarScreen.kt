@@ -7,9 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.layout.wrapContentWidth
@@ -21,6 +19,7 @@ import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.material.icons.filled.ArrowForwardIos
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -28,10 +27,12 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.traceEventEnd
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -46,6 +47,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.laboratorio_b.ui.navigation.Destinations
 import com.example.nicolaspuebla_proyecto_final_android.R
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Event
+import com.example.nicolaspuebla_proyecto_final_android.ui.components.ErrorDialogNoRetry
 import com.example.nicolaspuebla_proyecto_final_android.ui.components.EventSheet
 import com.example.nicolaspuebla_proyecto_final_android.utils.SessionManager
 import com.example.nicolaspuebla_proyecto_final_android.utils.TeamRoles
@@ -58,17 +60,32 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
+import kotlin.math.truncate
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TeamCalendarScreen(onNav: (String) -> Unit, viewModel: TeamCalendarScreenViewModel = hiltViewModel()){
 
+    val teamId by SessionManager.actualTeamId.collectAsState()
     val events by viewModel.events.collectAsState()
     val sheetState = rememberModalBottomSheetState()
     val bottomSheetVisibility by viewModel.sheetVisibility.collectAsState()
     val selectedEvents by viewModel.selectedEvents.collectAsState()
     val scope = rememberCoroutineScope()
     val actualTeamRole by SessionManager.actualTeamRole.collectAsState()
+    val loading by viewModel.isLoading.collectAsState()
+    val err by viewModel.errorMessage.collectAsState()
+    val logout by viewModel.logout.collectAsState()
+
+    LaunchedEffect(Unit) {
+        teamId?.let { viewModel.getEvents(it) }
+    }
+
+    LaunchedEffect(logout) {
+        if(logout){
+            SessionManager.setLogOut(true)
+        }
+    }
 
     Column(
          modifier = Modifier
@@ -82,7 +99,7 @@ fun TeamCalendarScreen(onNav: (String) -> Unit, viewModel: TeamCalendarScreenVie
             events,
             viewModel
         )
-        if(actualTeamRole != TeamRoles.Player){
+        if(actualTeamRole == TeamRoles.Player){
             println(">>>>>>>>>>${actualTeamRole}")
             ModifyEvents(onNav = {onNav(Destinations.MODIFY_EVENTS)})
         }
@@ -98,6 +115,23 @@ fun TeamCalendarScreen(onNav: (String) -> Unit, viewModel: TeamCalendarScreenVie
                 state = sheetState,
                 eventList = selectedEvents
             )
+        }
+        if(err != ""){
+            ErrorDialogNoRetry(
+                onOk = { viewModel.unsetErr() },
+                err = err
+            )
+        }
+        if(loading){
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+                    .padding(top = 40.dp),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                CircularProgressIndicator()
+            }
         }
     }
 }

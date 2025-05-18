@@ -1,6 +1,5 @@
 package com.example.nicolaspuebla_proyecto_final.model.dataModels;
 
-import java.sql.Timestamp;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
@@ -12,42 +11,42 @@ import jakarta.persistence.ManyToOne;
 public class Match extends Event {
 
     @ManyToOne
-    @JsonIgnoreProperties("matchesAsOponent")
-    @JoinColumn(name = "oponent_team_id")    
-    private Team oponent;
-    private int own_goals;
-    private int oponent_goals;
+    @JsonIgnoreProperties("matchesAsOpponent")
+    @JoinColumn(name = "opponent_team_id")    
+    private Team opponent;
+    private Integer own_goals = 0;
+    private Integer opponent_goals = 0;
 
     public Match(){}
 
-    public Match(Team team, String address, Double latitude, Double longitude, Timestamp date, Team oponent, int own_goals, int oponent_goals) {
+    public Match(Team team, String address, Double latitude, Double longitude, String date, Team opponent, int own_goals, int opponent_goals) {
         super(team, address, latitude, longitude, date);
-        this.oponent = oponent;
+        this.opponent = opponent;
         this.own_goals = own_goals;
-        this.oponent_goals = oponent_goals;
+        this.opponent_goals = opponent_goals;
     }
 
-    public Team getOponent() {
-        return oponent;
+    public Team getOpponent() {
+        return opponent;
     }
 
-    public void setOponent(Team oponent) {
-        this.oponent = oponent;
+    public void setOpponent(Team opponent) {
+        this.opponent = opponent;
     }
 
-    public int getOwn_goals() {
+    public int getOwnGoals() {
         return own_goals;
     }
 
-    public void setOwn_goals(int own_goals) {
+    public void setOwnGoals(int own_goals) {
         this.own_goals = own_goals;
     }
 
-    public int getOponent_goals() {
-        return oponent_goals;
+    public int getOpponentGoals() {
+        return opponent_goals;
     }
 
-    public void setOponent_goals(int oponent_goals) {
-        this.oponent_goals = oponent_goals;
+    public void setOpponentGoals(int opponent_goals) {
+        this.opponent_goals = opponent_goals;
     }
 }

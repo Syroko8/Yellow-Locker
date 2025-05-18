@@ -78,8 +78,8 @@ class TeamWelcomeScreenViewModel @Inject constructor(
                 if(it is Match){
                     matches.value++
                     when {
-                        (it.own_goals ?: 0) > (it.oponent_goals ?: 0) -> victories.value++
-                        (it.own_goals ?: 0) < (it.oponent_goals ?: 0) -> loses.value--
+                        (it.own_goals ?: 0) > (it.opponent_goals ?: 0) -> victories.value++
+                        (it.own_goals ?: 0) < (it.opponent_goals ?: 0) -> loses.value--
                         else -> draws.value++
                     }
                 }

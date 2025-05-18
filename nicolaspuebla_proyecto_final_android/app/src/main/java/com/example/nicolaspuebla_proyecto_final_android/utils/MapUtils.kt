@@ -3,7 +3,6 @@ package com.example.nicolaspuebla_proyecto_final_android.utils
 object MapUtils {
 
     fun generateStaticMapUrl(latitude: Double, longitude: Double): String {
-        println(">>>>>>>>>>>>generando imagen del mapa")
     return "https://maps.googleapis.com/maps/api/staticmap?" +
         "center=$latitude,$longitude" +
         "&zoom=15" +

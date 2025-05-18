@@ -60,4 +60,14 @@ public class TeamService {
     public Team getTeamWithMembers(Long teamId) {
         return teamRepository.findTeamWithMembers(teamId);
     }
+
+    public List<String> getTeamNames() throws Exception{
+        try {
+            return teamRepository.getTeamNames();
+        } catch (NoResultException nre) {
+            throw new NoResultException(nre.getMessage());
+        } catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
 }

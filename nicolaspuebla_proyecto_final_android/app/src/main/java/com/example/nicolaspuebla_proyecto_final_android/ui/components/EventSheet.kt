@@ -33,7 +33,8 @@ import com.example.nicolaspuebla_proyecto_final_android.R
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Event
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Match
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Training
-import java.time.ZonedDateTime
+import java.time.OffsetDateTime
+import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -76,7 +77,7 @@ fun EventSheet(
 }
 
 @Composable
-fun EventList(eventList: List<Event>, date: ZonedDateTime){
+fun EventList(eventList: List<Event>, date: OffsetDateTime){
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
@@ -101,7 +102,7 @@ fun EventList(eventList: List<Event>, date: ZonedDateTime){
 }
 
 @Composable
-fun Match(match: Match, date: ZonedDateTime){
+fun Match(match: Match, date: OffsetDateTime){
 
     Column(
         modifier = Modifier
@@ -125,7 +126,7 @@ fun Match(match: Match, date: ZonedDateTime){
                 .padding(16.dp)
         ) {
             Text(
-                text = "${stringResource(R.string.oponent)}: ${match.oponent.name}",
+                text = "${stringResource(R.string.opponent)}: ${match.opponent.name}",
                 color = Color.White,
                 fontFamily = FontFamily(Font(R.font.jura_semi_bold)),
                 fontSize = 18.sp
@@ -152,7 +153,7 @@ fun Match(match: Match, date: ZonedDateTime){
                         .padding(start = 20.dp)
                 ) {
                     Text(
-                        text = "${match.own_goals} - ${match.oponent_goals}",
+                        text = "${match.own_goals} - ${match.opponent_goals}",
                         color = Color.White,
                         fontFamily = FontFamily(Font(R.font.jura_semi_bold)),
                         fontSize = 14.sp
@@ -189,7 +190,7 @@ fun Match(match: Match, date: ZonedDateTime){
 }
 
 @Composable
-fun Training(training: Training, date: ZonedDateTime){
+fun Training(training: Training, date: OffsetDateTime){
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -248,18 +249,17 @@ fun Training(training: Training, date: ZonedDateTime){
     }
 }
 
-fun parseEventDate(event: Event): ZonedDateTime{
-    val formatter = DateTimeFormatter.ISO_ZONED_DATE_TIME
-    val dateTime = ZonedDateTime.parse(event.date, formatter)
-
-    return dateTime
+fun parseEventDate(event: Event): OffsetDateTime{
+    val formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME
+    val dateTime = OffsetDateTime.parse(event.date, formatter)
+    return dateTime.withOffsetSameInstant(ZoneOffset.UTC)
 }
 
 @Composable
 fun getMatchStatus(event: Event): String {
-    val formatter = DateTimeFormatter.ISO_ZONED_DATE_TIME
-    val eventDateTime = ZonedDateTime.parse(event.date, formatter)
-    val actualDateTime = ZonedDateTime.now()
+    val formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME
+    val eventDateTime = OffsetDateTime.parse(event.date, formatter).withOffsetSameInstant(ZoneOffset.UTC)
+    val actualDateTime = OffsetDateTime.now()
 
     if(actualDateTime > eventDateTime){
         return stringResource(R.string.expectant)

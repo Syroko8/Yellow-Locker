@@ -27,17 +27,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.nicolaspuebla_proyecto_final_android.R
-import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Event
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Match
 import com.example.nicolaspuebla_proyecto_final_android.ui.components.ErrorDialog
 import com.example.nicolaspuebla_proyecto_final_android.ui.components.MatchCard
 import com.example.nicolaspuebla_proyecto_final_android.utils.SessionManager
 import com.example.nicolaspuebla_proyecto_final_android.utils.TeamRoles
-import java.time.LocalDate
-import java.time.ZonedDateTime
+import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
-import java.time.format.TextStyle
-import java.util.Locale
 
 @Composable
 fun TeamMatchesScreen(viewModel: TeamMatchesScreenViewModel = hiltViewModel()) {
@@ -175,8 +171,8 @@ fun NoMatches(){
 @Composable
 fun getFormatedDate(dateString: String): String {
     return try {
-        val formatter = DateTimeFormatter.ISO_ZONED_DATE_TIME
-        val dateTime = ZonedDateTime.parse(dateString, formatter)
+        val formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME
+        val dateTime = OffsetDateTime.parse(dateString, formatter)
 
         "${dateTime.dayOfMonth} ${dateTime.month} - ${dateTime.dayOfWeek}"
     } catch (e: Exception) {

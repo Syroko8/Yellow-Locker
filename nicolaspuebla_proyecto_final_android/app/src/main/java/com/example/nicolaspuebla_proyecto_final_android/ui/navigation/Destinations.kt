@@ -18,4 +18,5 @@ object Destinations {
     const val TEAM_CALENDAR = "team_calendar"
     const val MAP = "map"
     const val MODIFY_EVENTS = "modify_events"
+    const val CHOOSE_TEAM = "choose_team"
 }

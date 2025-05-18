@@ -1,4 +1,4 @@
-package com.example.nicolaspuebla_proyecto_final_android.data.model.apiClases
+package com.example.nicolaspuebla_proyecto_final_android.data.model.dto
 
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.MobileUser
 

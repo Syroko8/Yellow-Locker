@@ -1,7 +1,10 @@
 package com.example.nicolaspuebla_proyecto_final_android.data.repositories
 
-import com.example.nicolaspuebla_proyecto_final_android.data.model.apiClases.MatchReciever
+import com.example.nicolaspuebla_proyecto_final_android.data.model.dto.MatchReciever
+import com.example.nicolaspuebla_proyecto_final_android.data.model.dto.TrainingReciever
+import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Event
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Match
+import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Training
 import com.example.nicolaspuebla_proyecto_final_android.data.remote.RetrofitInstance
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -10,15 +13,28 @@ class TeamEventRepository {
 
     fun matchRecieverToMatch(match: MatchReciever): Match{
         return Match(
+            match.event_type,
             match.id,
             match.team,
             match.address,
             match.latitude,
             match.longitude,
             match.date,
-            match.oponent,
+            match.opponent,
             match.own_goals,
             match.own_goals
+        )
+    }
+
+    fun trainingRecieverToTraining(training: TrainingReciever): Training{
+        return Training(
+            training.event_type,
+            training.id,
+            training.team,
+            training.address,
+            training.latitude,
+            training.longitude,
+            training.date,
         )
     }
 
@@ -43,4 +59,62 @@ class TeamEventRepository {
         }
     }
 
+    suspend fun getTeamTrainings(teamId: Long): List<Training>{
+        return withContext((Dispatchers.IO)){
+            try {
+                val call = RetrofitInstance.yellowLockerTeamEventService.getTeamTrainings(teamId)
+                val response = call.execute()
+
+                if(response.isSuccessful){
+                    response.body()?.map {
+                        trainingRecieverToTraining(it)
+                    } ?: emptyList()
+                } else if(response.code() == 401){
+                    throw Exception("401")
+                } else {
+                    throw Exception("Internal server error")
+                }
+            }catch (e: Exception){
+                throw Exception(e.message)
+            }
+        }
+    }
+
+    suspend fun updateEvent(event: Event): Event{
+        return withContext((Dispatchers.IO)){
+            try {
+                println(">>>>>>>>>>>>${event}")
+                val call = if(event is Match) RetrofitInstance.yellowLockerTeamEventService.updateEvent(event, event.opponent.id) else
+                    RetrofitInstance.yellowLockerTeamEventService.updateEvent(event, null)
+                val response = call.execute()
+                if(response.isSuccessful){
+                    response.body()!!
+                } else if(response.code() == 401){
+                    throw Exception("401")
+                } else {
+                    throw Exception("Internal server error")
+                }
+            }catch (e: Exception){
+                throw Exception(e.message)
+            }
+        }
+    }
+
+    suspend fun deleteEvent(event: Event): Event?{
+        return withContext((Dispatchers.IO)){
+            try {
+                val call = RetrofitInstance.yellowLockerTeamEventService.deleteEvent(event)
+                val response = call.execute()
+                if(response.isSuccessful){
+                    response.body()
+                } else if(response.code() == 401){
+                    throw Exception("401")
+                } else {
+                    throw Exception("Internal server error")
+                }
+            }catch (e: Exception){
+                throw Exception(e.message)
+            }
+        }
+    }
 }

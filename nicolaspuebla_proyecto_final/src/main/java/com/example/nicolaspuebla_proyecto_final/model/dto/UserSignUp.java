@@ -1,4 +1,4 @@
-package com.example.nicolaspuebla_proyecto_final.model.apiModels;
+package com.example.nicolaspuebla_proyecto_final.model.dto;
 
 public class UserSignUp {
     private String name;

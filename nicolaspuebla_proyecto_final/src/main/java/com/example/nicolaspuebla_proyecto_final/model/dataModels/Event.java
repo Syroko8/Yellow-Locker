@@ -1,7 +1,11 @@
 package com.example.nicolaspuebla_proyecto_final.model.dataModels;
 
-import java.sql.Timestamp;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,6 +19,11 @@ import jakarta.persistence.ManyToOne;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "event_type")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "event_type")
+@JsonSubTypes({
+    @JsonSubTypes.Type(value = Match.class, name = "match"),
+    @JsonSubTypes.Type(value = Training.class, name = "training")
+})
 public class Event {
 
     @Id
@@ -27,16 +36,16 @@ public class Event {
     private String address;
     private Double latitude;
     private Double longitude;
-    private Timestamp date;
+    private OffsetDateTime date;
 
     public Event(){}
 
-    public Event(Team team, String address, Double latitude, Double longitude, Timestamp date) {
+    public Event(Team team, String address, Double latitude, Double longitude, String date) {
         this.team= team;
         this.address = address;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.date = date;
+        this.date = getOffsetDateTime(date);
     }
 
     public long getId() {
@@ -79,11 +88,17 @@ public class Event {
         this.longitude = longitude;
     }
 
-    public Timestamp getDate() {
+    public OffsetDateTime getDate() {
         return date;
     }
 
-    public void setDate(Timestamp date) {
+    public void setDate(OffsetDateTime date) {
         this.date = date;
+    }
+
+    public OffsetDateTime getOffsetDateTime(String dateTimeStr){
+        DateTimeFormatter formater = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
+        OffsetDateTime dateTime = OffsetDateTime.parse(dateTimeStr, formater);
+        return dateTime.withOffsetSameInstant(ZoneOffset.UTC);
     }
 }

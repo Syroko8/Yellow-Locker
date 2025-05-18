@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Match;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Event;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Team;
+import com.example.nicolaspuebla_proyecto_final.model.dataModels.Training;
 import com.example.nicolaspuebla_proyecto_final.repository.EventRepository;
+
+import jakarta.persistence.NoResultException;
 
 @Service
 public class EventService {
@@ -16,8 +19,13 @@ public class EventService {
     @Autowired
     private EventRepository eventRepository;
 
-    public Event getEventById(Long id){
-        return eventRepository.getReferenceById(id);
+    public Event getEventById(Long id) throws NoResultException, Exception{
+        try {
+            return eventRepository.findById(id)
+            .orElseThrow(() -> new NoResultException());
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
     }
 
     public List<Event> getTeamEvents(Team team) throws Exception{
@@ -45,12 +53,32 @@ public class EventService {
         }
     }
 
+    public List<Training> getTeamTrainings(Team team) throws Exception{
+        try {
+            List<Event> events = eventRepository.findTeamEvents(team);  
+            List<Training> trainings = new ArrayList<>();
+            for(Event event : events){
+                if(event instanceof Training){
+                    trainings.add((Training) event);
+                }
+            }
+            return trainings;   
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            throw new Exception(e.getMessage());
+        }
+    }
+
     public Event createEvent(Event newEvent){
         return eventRepository.save(newEvent);
     }
 
-    public Event updateEvent(Event event){
-        return eventRepository.save(event);
+    public Event updateEvent(Event event) throws Exception{
+        try {
+            return eventRepository.save(event);
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
     }
 
     public void deleteEvent(Long id){

@@ -18,12 +18,12 @@ public class Message {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonBackReference("user-messajes")
+    @JsonBackReference("user-messages")
     private MobileUser user;
 
     @ManyToOne
     @JoinColumn(name = "team_id")
-    @JsonBackReference("team-messajes")
+    @JsonBackReference("team-messages")
     private Team team;
 
     public Message(){}

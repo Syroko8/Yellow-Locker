@@ -27,7 +27,7 @@ public class Team {
     private String name;
     @ManyToOne
     @JoinColumn(name = "locality_id")
-    @JsonManagedReference("team-locality")
+    @JsonIgnoreProperties("teamsOnLocality")
     private Locality locality;
     @NonNull
     private String logo;
@@ -38,16 +38,16 @@ public class Team {
     @OneToMany(mappedBy = "team")
     private List<TeamPosition> positions = new ArrayList<>();
     @OneToMany(mappedBy = "team")
-    @JsonManagedReference("team-messajes")
+    @JsonManagedReference("team-messages")
     private List<Message> messages = new ArrayList<>();
     @OneToMany(mappedBy = "team")
     private List<TeamRol> teamRoles = new ArrayList<>();
     @OneToMany(mappedBy = "team")
-    @JsonIgnoreProperties("team")
+    @JsonIgnoreProperties({"team","opponent"})
     private List<Event> eventList = new ArrayList<>();
-    @OneToMany(mappedBy = "oponent")
-    @JsonIgnoreProperties("oponent")
-    private List<Match> matchesAsOponent = new ArrayList<>();
+    @OneToMany(mappedBy = "opponent")
+    @JsonIgnoreProperties("opponent")
+    private List<Match> matchesAsopponent = new ArrayList<>();
     @ManyToMany(mappedBy = "teamList")
     @JsonIgnoreProperties("teamList")
     private List<MobileUser> members = new ArrayList<>();
@@ -67,7 +67,7 @@ public class Team {
     @Transient
     public List<Event> getAllEvents() {
         List<Event> allEvents = new ArrayList<>(eventList);
-        allEvents.addAll(matchesAsOponent);
+        allEvents.addAll(matchesAsopponent);
         return allEvents;
     }
 

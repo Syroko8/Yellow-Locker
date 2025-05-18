@@ -1,174 +1,28 @@
 package com.example.nicolaspuebla_proyecto_final_android.ui.screens.teamCalendar
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.nicolaspuebla_proyecto_final_android.R
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Event
-import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Locality
-import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Match
-import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Message
-import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.MobileUser
-import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Team
-import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.TeamRol
-import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.TeamRolPK
+import com.example.nicolaspuebla_proyecto_final_android.data.repositories.TeamEventRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class TeamCalendarScreenViewModel @Inject constructor(
-
+    private val teamEventRepository: TeamEventRepository,
+    @ApplicationContext private val context: Context
 ): ViewModel(){
 
     private val _sheetVisibility = MutableStateFlow(false)
     val sheetVisibility: StateFlow<Boolean> get() = _sheetVisibility
 
-    private val _events = MutableStateFlow<List<Event>>(
-
-        listOf(
-            Match(
-                id = 1,
-                team = Team(
-                    id = 1,
-                    name = "Team1",
-                    locality = Locality(1, "dede"),
-                    logo = "logo",
-                    chatKey = "chatkey",
-                    sport = "Football",
-                    positions = emptyList(),
-                    messages = listOf(Message(1)),
-                    teamRoles = emptyList(),
-                    members = emptyList(),
-                    assignedPositions = emptyList()
-                ),
-                address = "adress",
-                latitude = 0.0,
-                longitude = 0.0,
-                date = "2025-04-15T13:00:00.000+00:00",
-                oponent = Team(
-                    id = 2,
-                    name = "Team2",
-                    locality = Locality(1, "dede"),
-                    logo = "logo",
-                    chatKey = "chatkey",
-                    sport = "Volleyball",
-                    positions = emptyList(),
-                    messages = emptyList(),
-                    teamRoles = listOf(TeamRol(TeamRolPK(252, 2))),
-                    members = listOf(
-                        MobileUser(
-                            id = 252,
-                            name = "Nico",
-                            surname = "Puebla ",
-                            email = "nico@gmail.com",
-                            password = "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
-                            disabled = false,
-                            birthDate = "2005-10-28",
-                            age = 19,
-                            messages = emptyList(),
-                            teamRoles = listOf(TeamRol(TeamRolPK(252, 2)))
-                        )
-                    ),
-                    assignedPositions = emptyList()
-                ),
-                own_goals = 0,
-                oponent_goals = 3
-            ), Match(
-                id = 2,
-                team = Team(
-                    id = 1,
-                    name = "Team1",
-                    locality = Locality(1, "dede"),
-                    logo = "logo",
-                    chatKey = "chatkey",
-                    sport = "Football",
-                    positions = emptyList(),
-                    messages = listOf(Message(1)),
-                    teamRoles = emptyList(),
-                    members = emptyList(),
-                    assignedPositions = emptyList()
-                ),
-                address = "adress",
-                latitude = 0.0,
-                longitude = 0.0,
-                date = "2025-04-15T13:00:00.000+00:00",
-                oponent = Team(
-                    id = 2,
-                    name = "Team2",
-                    locality = Locality(1, "dede"),
-                    logo = "logo",
-                    chatKey = "chatkey",
-                    sport = "Volleyball",
-                    positions = emptyList(),
-                    messages = emptyList(),
-                    teamRoles = listOf(TeamRol(TeamRolPK(252, 2))),
-                    members = listOf(
-                        MobileUser(
-                            id = 252,
-                            name = "Nico",
-                            surname = "Puebla ",
-                            email = "nico@gmail.com",
-                            password = "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
-                            disabled = false,
-                            birthDate = "2005-10-28",
-                            age = 19,
-                            messages = emptyList(),
-                            teamRoles = listOf(TeamRol(TeamRolPK(252, 2)))
-                        )
-                    ),
-                    assignedPositions = emptyList()
-                ),
-                own_goals = 0,
-                oponent_goals = 3
-            ),Match(
-                id = 3,
-                team = Team(
-                    id = 1,
-                    name = "Team1",
-                    locality = Locality(1, "dede"),
-                    logo = "logo",
-                    chatKey = "chatkey",
-                    sport = "Football",
-                    positions = emptyList(),
-                    messages = listOf(Message(1)),
-                    teamRoles = emptyList(),
-                    members = emptyList(),
-                    assignedPositions = emptyList()
-                ),
-                address = "adress",
-                latitude = 0.0,
-                longitude = 0.0,
-                date = "2025-04-15T13:00:00.000+00:00",
-                oponent = Team(
-                    id = 2,
-                    name = "Team2",
-                    locality = Locality(1, "dede"),
-                    logo = "logo",
-                    chatKey = "chatkey",
-                    sport = "Volleyball",
-                    positions = emptyList(),
-                    messages = emptyList(),
-                    teamRoles = listOf(TeamRol(TeamRolPK(252, 2))),
-                    members = listOf(
-                        MobileUser(
-                            id = 252,
-                            name = "Nico",
-                            surname = "Puebla ",
-                            email = "nico@gmail.com",
-                            password = "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
-                            disabled = false,
-                            birthDate = "2005-10-28",
-                            age = 19,
-                            messages = emptyList(),
-                            teamRoles = listOf(TeamRol(TeamRolPK(252, 2)))
-                        )
-                    ),
-                    assignedPositions = emptyList()
-                ),
-                own_goals = 0,
-                oponent_goals = 3
-            )
-        )
-    )
+    private val _events = MutableStateFlow<List<Event>>(emptyList())
     val events: StateFlow<List<Event>> get() = _events
 
     private val _selectedEvents = MutableStateFlow<List<Event>>(emptyList())
@@ -193,5 +47,36 @@ class TeamCalendarScreenViewModel @Inject constructor(
 
     fun hideSheet() {
         _sheetVisibility.value = false
+    }
+
+    fun unsetErr() {
+        _errorMessage.value = ""
+    }
+
+    fun getEvents(teamId: Long) {
+        viewModelScope.launch {
+            _isLoading.value = true
+            _errorMessage.value = ""
+            try {
+                val trainings = teamEventRepository.getTeamTrainings(teamId)
+                val matches = teamEventRepository.getTeamMatches(teamId)
+
+                val eventList = _events.value.toMutableList()
+                eventList.addAll(matches)
+                eventList.addAll(trainings)
+                if (_events.value != eventList) {
+                    _events.value = eventList
+                }
+            } catch (e:Exception) {
+                if(e.message == "401"){
+                    _logout.value = true
+                    _errorMessage.value = e.message ?: context.getString(R.string.err_exception)
+                } else {
+                    _errorMessage.value = e.message ?: context.getString(R.string.err_exception)
+                }
+            } finally {
+                _isLoading.value = false
+            }
+        }
     }
 }

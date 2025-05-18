@@ -1,4 +1,4 @@
-package com.example.nicolaspuebla_proyecto_final.model.apiModels;
+package com.example.nicolaspuebla_proyecto_final.model.dto;
 
 import java.util.ArrayList;
 import java.util.List;

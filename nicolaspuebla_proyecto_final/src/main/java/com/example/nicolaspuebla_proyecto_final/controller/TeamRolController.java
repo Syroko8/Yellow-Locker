@@ -5,8 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
-import com.example.nicolaspuebla_proyecto_final.model.apiModels.TeamRolLevelResponse;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.TeamRolPK;
+import com.example.nicolaspuebla_proyecto_final.model.dto.TeamRolLevelResponse;
 import com.example.nicolaspuebla_proyecto_final.service.TeamRolService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

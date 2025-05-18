@@ -51,7 +51,7 @@ fun MatchCard(match: Match, onClick: (Match) -> Unit){
             )
             Goals(match)
             Text(
-                text = match.oponent.name,
+                text = match.opponent.name,
                 fontFamily = FontFamily(Font(R.font.jura_semi_bold)),
                 color = Color.Black,
                 fontSize = 16.sp
@@ -79,7 +79,7 @@ fun Goals(match: Match){
             fontSize = 14.sp
         )
         Text(
-            text = match.oponent_goals.toString(),
+            text = match.opponent_goals.toString(),
             fontFamily = FontFamily(Font(R.font.jura_semi_bold)),
             color = Color(61,147,247),
             fontSize = 14.sp

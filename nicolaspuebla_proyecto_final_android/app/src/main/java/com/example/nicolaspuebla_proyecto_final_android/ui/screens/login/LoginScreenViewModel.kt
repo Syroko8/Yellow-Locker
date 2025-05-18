@@ -5,9 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.nicolaspuebla_proyecto_final_android.R
-import com.example.nicolaspuebla_proyecto_final_android.data.model.apiClases.MobileUserInfo
 import com.example.nicolaspuebla_proyecto_final_android.data.model.auth.LoginRequest
-import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.MobileUser
 import com.example.nicolaspuebla_proyecto_final_android.data.repositories.AuthRepository
 import com.example.nicolaspuebla_proyecto_final_android.utils.Hash
 import com.example.nicolaspuebla_proyecto_final_android.utils.SessionManager

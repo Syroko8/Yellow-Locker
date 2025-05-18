@@ -27,9 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.nicolaspuebla_proyecto_final_android.R
-import com.example.nicolaspuebla_proyecto_final_android.data.model.apiClases.MemberListElement
-import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.MobileUser
-import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Team
+import com.example.nicolaspuebla_proyecto_final_android.data.model.dto.MemberListElement
 
 @Composable
 fun MemberCard(member: MemberListElement, onClick: (MemberListElement) -> Unit){

@@ -197,7 +197,7 @@ fun ReturnButton(onNav: (String) -> Unit){
             Spacer(Modifier.width(10.dp))
 
             Text(
-                text = stringResource(R.string.return_to_signup1),
+                text = stringResource(R.string.return_str),
                 fontFamily = FontFamily(Font(R.font.jura_bold)),
                 fontSize = 18.sp,
                 color = Color.Black
