@@ -36,6 +36,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -50,7 +51,9 @@ import com.example.nicolaspuebla_proyecto_final_android.ui.components.ErrorDialo
 import com.example.nicolaspuebla_proyecto_final_android.ui.components.ModifyEventCard
 import com.example.nicolaspuebla_proyecto_final_android.utils.LocationChoosingInfo
 import com.example.nicolaspuebla_proyecto_final_android.utils.SessionManager
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.selects.whileSelect
 import java.time.Instant
 import java.time.OffsetDateTime
 import java.time.ZoneId
@@ -86,15 +89,16 @@ fun ModifyEventsScreen(onNav: (String) -> Unit, viewModel: ModifyEventsScreenVie
         }
     }
 
-    LaunchedEffect(Unit) {
-        if(locationWasChosen){
-            println(">>>>>>> ${chosenEventForLocationChange}")
-            println(">>>>> ${chosenLocation}")
-            chosenEventForLocationChange?.let {
-                if(chosenLocation != null){
-                    println(">>>>> Calling")
-                    viewModel.setEventLocation(it, chosenLocation!!)
+    LaunchedEffect(locationWasChosen) {
+        if (locationWasChosen) {
+            teamId?.let {
+                val job = viewModel.getEvents(it)
+                job.join()
+
+                if (chosenLocation != null && chosenEventForLocationChange != null) {
+                    viewModel.setEventLocation(chosenEventForLocationChange!!, chosenLocation!!)
                 }
+                LocationChoosingInfo.setChosen(false)
             }
         }
     }
@@ -208,6 +212,7 @@ fun List(viewModel: ModifyEventsScreenViewModel){
 
                 ModifyEventCard(
                     event = it,
+                    viewModel,
                     onShowDatePicker = { event ->
                         viewModel.setChosenEventToEdit(event)
                         viewModel.setDatePickerVisibility(true)
@@ -220,7 +225,7 @@ fun List(viewModel: ModifyEventsScreenViewModel){
                         viewModel.showChangeOpponentSheet()
                         viewModel.setChosenEventToEdit(event)
                     },
-                    onDelete = { event -> viewModel.deleteEvent(event) },
+                    onDelete = { event -> viewModel.deleteEvent(event.id) },
                     onLocationChange = { event ->
                         LocationChoosingInfo.setEvent(event)
                         viewModel.setMapVisibility(true)

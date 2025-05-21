@@ -62,6 +62,7 @@ fun MatchCard(match: Match, onClick: (Match) -> Unit){
 
 @Composable
 fun Goals(match: Match){
+    println(">>>>>>>>>${match}")
     Row(
         modifier = Modifier
             .clip(RoundedCornerShape(25.dp))
@@ -73,13 +74,13 @@ fun Goals(match: Match){
         horizontalArrangement = Arrangement.Center
     ){
         Text(
-            text = "${match.own_goals} -",
+            text = "${match.ownGoals} -",
             fontFamily = FontFamily(Font(R.font.jura_semi_bold)),
             color = Color(61,147,247),
             fontSize = 14.sp
         )
         Text(
-            text = match.opponent_goals.toString(),
+            text = match.opponentGoals.toString(),
             fontFamily = FontFamily(Font(R.font.jura_semi_bold)),
             color = Color(61,147,247),
             fontSize = 14.sp

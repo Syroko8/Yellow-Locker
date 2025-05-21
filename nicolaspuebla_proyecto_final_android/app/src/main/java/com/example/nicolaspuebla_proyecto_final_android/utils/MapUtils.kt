@@ -5,7 +5,7 @@ object MapUtils {
     fun generateStaticMapUrl(latitude: Double, longitude: Double): String {
     return "https://maps.googleapis.com/maps/api/staticmap?" +
         "center=$latitude,$longitude" +
-        "&zoom=15" +
+        "&zoom=13" +
         "&size=400x200" +
         "&markers=color:red%7Clabel:A%7C$latitude,$longitude" +
         "&key=AIzaSyAyC3hxTl_mDCifxGrWTCT2i8De9U2piC4"

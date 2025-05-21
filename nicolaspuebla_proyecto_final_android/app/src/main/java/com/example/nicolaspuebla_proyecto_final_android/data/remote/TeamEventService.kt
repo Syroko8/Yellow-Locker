@@ -20,8 +20,13 @@ interface TeamEventService {
     fun getTeamTrainings(@Path("id")id: Long): Call<List<TrainingReciever>>
 
     @PUT("api/event/update")
-    fun updateEvent(@Body event: Event, @Query(value = "opponentId", encoded = true) opponentId: Long?): Call<Event>
+    fun updateEvent(
+        @Body event: Event,
+        @Query(value = "opponentId") opponentId: Long?,
+        @Query("ownGoals") ownGoals: Int?,
+        @Query("opponentGoals") opponentGoals: Int?
+    ): Call<Event>
 
-    @DELETE("api/event/delete")
-    fun deleteEvent(@Body event: Event): Call<Event>
+    @DELETE("api/event/{id}")
+    fun deleteEvent(@Path("id")eventId: Long): Call<Long>
 }

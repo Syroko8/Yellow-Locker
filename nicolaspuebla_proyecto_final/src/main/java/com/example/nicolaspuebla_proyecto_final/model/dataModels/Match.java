@@ -1,6 +1,8 @@
 package com.example.nicolaspuebla_proyecto_final.model.dataModels;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -14,13 +16,15 @@ public class Match extends Event {
     @JsonIgnoreProperties("matchesAsOpponent")
     @JoinColumn(name = "opponent_team_id")    
     private Team opponent;
+    @Column(name = "own_goals") 
     private Integer own_goals = 0;
+    @Column(name = "opponent_goals")
     private Integer opponent_goals = 0;
 
     public Match(){}
 
-    public Match(Team team, String address, Double latitude, Double longitude, String date, Team opponent, int own_goals, int opponent_goals) {
-        super(team, address, latitude, longitude, date);
+    public Match(Team team, Double latitude, Double longitude, String date, Team opponent, int own_goals, int opponent_goals) {
+        super(team, latitude, longitude, date);
         this.opponent = opponent;
         this.own_goals = own_goals;
         this.opponent_goals = opponent_goals;

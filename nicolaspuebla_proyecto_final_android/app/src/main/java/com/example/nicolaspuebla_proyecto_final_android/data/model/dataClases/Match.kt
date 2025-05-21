@@ -1,5 +1,6 @@
 package com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases
 
+import com.fasterxml.jackson.annotation.JsonProperty
 import java.sql.Date
 
 data class Match(
@@ -11,7 +12,9 @@ data class Match(
     override val longitude: Double,
     override val date: String,
     val opponent: Team,
-    val own_goals: Int,
-    val opponent_goals: Int
+    @JsonProperty("own_goals")
+    val ownGoals: Int,
+    @JsonProperty("opponent_goals")
+    val opponentGoals: Int
 ) : Event(event_type, id, team, address, latitude, longitude, date)
 

@@ -21,8 +21,8 @@ class TeamEventRepository {
             match.longitude,
             match.date,
             match.opponent,
-            match.own_goals,
-            match.own_goals
+            opponentGoals = match.opponentGoals,
+            ownGoals = match.ownGoals
         )
     }
 
@@ -84,8 +84,13 @@ class TeamEventRepository {
         return withContext((Dispatchers.IO)){
             try {
                 println(">>>>>>>>>>>>${event}")
-                val call = if(event is Match) RetrofitInstance.yellowLockerTeamEventService.updateEvent(event, event.opponent.id) else
-                    RetrofitInstance.yellowLockerTeamEventService.updateEvent(event, null)
+                val call = if(event is Match) RetrofitInstance.yellowLockerTeamEventService.updateEvent(
+                    event,
+                    event.opponent.id,
+                    event.ownGoals,
+                    event.opponentGoals
+                ) else
+                    RetrofitInstance.yellowLockerTeamEventService.updateEvent(event, null, null, null)
                 val response = call.execute()
                 if(response.isSuccessful){
                     response.body()!!
@@ -100,10 +105,10 @@ class TeamEventRepository {
         }
     }
 
-    suspend fun deleteEvent(event: Event): Event?{
+    suspend fun deleteEvent(eventId: Long): Long?{
         return withContext((Dispatchers.IO)){
             try {
-                val call = RetrofitInstance.yellowLockerTeamEventService.deleteEvent(event)
+                val call = RetrofitInstance.yellowLockerTeamEventService.deleteEvent(eventId)
                 val response = call.execute()
                 if(response.isSuccessful){
                     response.body()

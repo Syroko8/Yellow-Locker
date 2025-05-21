@@ -33,16 +33,14 @@ public class Event {
     @JsonIgnoreProperties("eventList")
     @JoinColumn(name = "team_id")
     private Team team;
-    private String address;
     private Double latitude;
     private Double longitude;
     private OffsetDateTime date;
 
     public Event(){}
 
-    public Event(Team team, String address, Double latitude, Double longitude, String date) {
+    public Event(Team team, Double latitude, Double longitude, String date) {
         this.team= team;
-        this.address = address;
         this.latitude = latitude;
         this.longitude = longitude;
         this.date = getOffsetDateTime(date);
@@ -62,14 +60,6 @@ public class Event {
 
     public void setTeam(Team team) {
         this.team = team;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public Double getLatitude() {

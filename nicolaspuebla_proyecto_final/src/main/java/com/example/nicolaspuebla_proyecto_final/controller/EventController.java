@@ -61,7 +61,12 @@ public class EventController {
     }
 
     @PutMapping("update")
-    public ResponseEntity<EventResponse> updateEvent(@RequestBody Event event, @RequestParam(required = false) Long opponentId) {
+    public ResponseEntity<EventResponse> updateEvent(
+        @RequestBody Event event, 
+        @RequestParam(required = false) Long opponentId,
+        @RequestParam(required = false) int ownGoals,
+        @RequestParam(required = false) int opponentGoals
+    ) {
         try {
             Event modifiedEvent = eventService.getEventById(event.getId());
             modifiedEvent.setAddress(event.getAddress());
@@ -70,13 +75,12 @@ public class EventController {
             modifiedEvent.setLongitude(event.getLongitude());
 
             if(modifiedEvent instanceof Match){
-                Match match = (Match)event;
                 if(opponentId != null){
                     Team oponent = teamService.getTeam(opponentId);
                     ((Match)modifiedEvent).setOpponent(oponent);
                 }
-                ((Match)modifiedEvent).setOwnGoals(match.getOwnGoals());
-                ((Match)modifiedEvent).setOpponentGoals(match.getOpponentGoals());
+                ((Match)modifiedEvent).setOwnGoals(ownGoals);
+                ((Match)modifiedEvent).setOpponentGoals(opponentGoals);
             }
             eventService.updateEvent(modifiedEvent);
             return ResponseEntity.ok().body(new EventResponse(modifiedEvent));
@@ -85,11 +89,11 @@ public class EventController {
         }
     }
 
-    @DeleteMapping("delete")
-    public ResponseEntity<EventResponse> deleteEvent(@RequestBody Event event){
+    @DeleteMapping("delete/{id}")
+    public ResponseEntity<Long> deleteEvent(@PathVariable Long eventId){
         try {
-            eventService.deleteEvent(event.getId());
-            return ResponseEntity.ok().body(new EventResponse(event));
+            eventService.deleteEvent(eventId);
+            return ResponseEntity.ok().body(eventId);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }

@@ -285,14 +285,15 @@ fun ButtonRow(viewModel: LoginScreenViewModel, onNav: (String) -> Unit){
             ) {
                 Text(
                     text = stringResource(R.string.accountQuestion),
-                    color = Color.Black
+                    color = Color.Black,
+                    modifier = Modifier.padding(start = 20.dp)
                 )
             }
 
             Row(
                 modifier = Modifier
                     .wrapContentWidth()
-                    .padding(start = 40.dp, end = 40.dp)
+                    .padding(start = 20.dp, end = 40.dp)
                     .wrapContentHeight(),
                 horizontalArrangement = Arrangement.Start
             ) {

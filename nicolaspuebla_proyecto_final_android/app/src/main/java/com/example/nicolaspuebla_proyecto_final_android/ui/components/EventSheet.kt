@@ -153,7 +153,7 @@ fun Match(match: Match, date: OffsetDateTime){
                         .padding(start = 20.dp)
                 ) {
                     Text(
-                        text = "${match.own_goals} - ${match.opponent_goals}",
+                        text = "${match.ownGoals} - ${match.opponentGoals}",
                         color = Color.White,
                         fontFamily = FontFamily(Font(R.font.jura_semi_bold)),
                         fontSize = 14.sp
@@ -262,8 +262,8 @@ fun getMatchStatus(event: Event): String {
     val actualDateTime = OffsetDateTime.now()
 
     if(actualDateTime > eventDateTime){
-        return stringResource(R.string.expectant)
-    } else {
         return stringResource(R.string.finished)
+    } else {
+        return stringResource(R.string.expectant)
     }
 }

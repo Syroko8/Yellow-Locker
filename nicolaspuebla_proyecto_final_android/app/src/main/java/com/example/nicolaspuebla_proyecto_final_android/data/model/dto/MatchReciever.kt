@@ -11,6 +11,6 @@ data class MatchReciever (
     val longitude: Double,
     val date: String,
     val opponent: Team,
-    val own_goals: Int,
-    val opponent_goals: Int
+    val opponentGoals: Int,
+    val ownGoals: Int
 )

@@ -5,11 +5,14 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.LocationOn
@@ -20,26 +23,42 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusState
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.nicolaspuebla_proyecto_final_android.R
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Event
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Match
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Training
+import com.example.nicolaspuebla_proyecto_final_android.ui.screens.modifyEvents.ModifyEventsScreenViewModel
+import kotlinx.coroutines.launch
 import java.time.OffsetDateTime
+import java.time.ZoneId
+import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 
 @Composable
 fun ModifyEventCard(
     event: Event,
+    viewModel: ModifyEventsScreenViewModel,
     onShowDatePicker: (Event) -> Unit,
     onShowTimePicker: (Event) -> Unit,
     onChangeOpponent: (Event) -> Unit,
@@ -56,6 +75,7 @@ fun ModifyEventCard(
         if (event is Match) {
             ModifyMatchCard(
                 event,
+                viewModel,
                 showDatePicker = { onShowDatePicker(event) },
                 showTimePicker = { onShowTimePicker(event) },
                 changeOpponent = { onChangeOpponent(event) },
@@ -77,6 +97,7 @@ fun ModifyEventCard(
 @Composable
 fun ModifyMatchCard(
     event: Match,
+    viewModel: ModifyEventsScreenViewModel,
     showDatePicker: () -> Unit,
     showTimePicker: () -> Unit,
     changeOpponent: () -> Unit,
@@ -105,6 +126,7 @@ fun ModifyMatchCard(
             event,
             onLocationChange = { onLocationChange() }
         )
+        ScoreBlock(event, viewModel)
     }
 }
 
@@ -355,9 +377,148 @@ fun LocationBlock(event: Event, onLocationChange: () -> Unit){
     }
 }
 
+@Composable
+fun ScoreBlock(event: Match, viewModel: ModifyEventsScreenViewModel){
+
+    var tempOwnGoals by remember { mutableIntStateOf(event.ownGoals)}
+    var tempOpponentGoals by remember { mutableIntStateOf(event.opponentGoals)}
+    var showSaveButton by remember { mutableStateOf(false) }
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentHeight()
+            .padding(top = 20.dp),
+        horizontalAlignment = Alignment.Start
+    ) {
+        Text(
+            text = "${stringResource(R.string.status)}: ${getMatchStatus(event)}",
+            fontFamily = FontFamily(Font(R.font.jura_semi_bold)),
+            color = Color.Black,
+            fontSize = 16.sp
+        )
+
+        if(getMatchStatus(event) == stringResource(R.string.finished)){
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+                    .padding(top = 20.dp, start = 20.dp),
+                verticalArrangement = Arrangement.Top,
+                horizontalAlignment = Alignment.Start
+            ) {
+                Text(
+                    text = "${stringResource(R.string.score)}:",
+                    fontFamily = FontFamily(Font(R.font.jura_semi_bold)),
+                    color = Color.Black,
+                    fontSize = 16.sp
+                )
+                Spacer(Modifier.height(20.dp))
+                ScoreTextField(
+                    stringResource(R.string.your_team),
+                    tempOwnGoals,
+                    onValueChange = {
+                        tempOwnGoals = it
+                        showSaveButton = setButtonState(event, tempOwnGoals, tempOpponentGoals)
+                    }
+                )
+                ScoreTextField(
+                    stringResource(R.string.opponent),
+                    tempOpponentGoals,
+                    onValueChange = {
+                        tempOpponentGoals = it
+                        showSaveButton = setButtonState(event, tempOwnGoals, tempOpponentGoals)
+                    }
+                )
+                if(showSaveButton) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .wrapContentHeight()
+                            .padding(top = 20.dp),
+                        horizontalArrangement = Arrangement.Center
+                    ){
+                        Button(
+                            onClick = {
+                                viewModel.setNewScore(event, tempOwnGoals, tempOpponentGoals)
+                            },
+                            colors = ButtonDefaults.buttonColors(
+                                contentColor = Color.Black,
+                                containerColor = Color(220, 219, 219, 255)
+                            ),
+                            modifier = Modifier
+                                .padding(start = 20.dp)
+                                .wrapContentSize(),
+                            shape = RoundedCornerShape(10.dp)
+                        ){
+                            Text(
+                                text = stringResource(R.string.save_scores),
+                                fontFamily = FontFamily(Font(R.font.jura_semi_bold)),
+                                color = Color.Black,
+                                fontSize = 16.sp
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun ScoreTextField(text: String, value: Int, onValueChange: (Int) -> Unit){
+    var color by remember {
+        mutableStateOf(false)
+    }
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentHeight(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Text(
+            text = "${text}:",
+            fontFamily = FontFamily(Font(R.font.jura_semi_bold)),
+            color = Color.Black,
+            fontSize = 16.sp
+        )
+        TextField(
+            value = value.toString(),
+            onValueChange = {
+                try{
+                    val newScore = it.toInt()
+                    onValueChange(newScore)
+                    color = false
+                } catch (e: Exception){
+                    color = true
+                }
+            },
+            colors = TextFieldDefaults.colors(
+                unfocusedTextColor = Color.Black,
+                focusedTextColor = Color.Black,
+                focusedContainerColor = if(!color) Color(220, 219, 219, 255)
+                    else Color(238, 124, 124, 255),
+                unfocusedContainerColor = if(!color) Color(220, 219, 219, 255)
+                else Color(238, 124, 124, 255)
+            ),
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Number
+            ),
+            singleLine = true,
+            modifier = Modifier.width(100.dp)
+        )
+    }
+}
+
 fun getEventDate(event: Event): OffsetDateTime{
     val formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME
-    val dateTime = OffsetDateTime.parse(event.date, formatter)
+    val dateTime = OffsetDateTime.parse(event.date, formatter).withOffsetSameInstant(ZoneOffset.UTC)
 
     return dateTime
+}
+
+fun setButtonState(event: Match, tempOwnGoals: Int, teamOpponentGoals: Int): Boolean{
+    return if(event.ownGoals != tempOwnGoals || event.opponentGoals != teamOpponentGoals) true else false
 }

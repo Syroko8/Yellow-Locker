@@ -1,7 +1,6 @@
 package com.example.nicolaspuebla_proyecto_final_android.ui.screens.modifyEvents
 
 import android.content.Context
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,7 +11,6 @@ import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Te
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Training
 import com.example.nicolaspuebla_proyecto_final_android.data.repositories.TeamEventRepository
 import com.example.nicolaspuebla_proyecto_final_android.data.repositories.TeamRepository
-import com.example.nicolaspuebla_proyecto_final_android.utils.LocationChoosingInfo
 import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -121,9 +119,6 @@ class ModifyEventsScreenViewModel @Inject constructor(
     fun setEventLocation(event: Event, newLocation: LatLng) {
         val list = _events.value.toMutableList()
         val index = list.indexOfFirst { it.id == event.id }
-        println(">>>>>>>>>>>>>>>>>>>>>>${event.id}")
-        println(">>>>>>>>>>>>>>>>${index}")
-        println(list)
         if (index != -1) {
             val modified = when (event) {
                 is Match -> event.copy(latitude = newLocation.latitude, longitude = newLocation.longitude)
@@ -131,13 +126,22 @@ class ModifyEventsScreenViewModel @Inject constructor(
                 else -> return
             }
             list[index] = modified
-            println(">>>>>>><<<<< guardando")
             saveModified(modified, list)
         }
     }
 
-    fun getEvents(teamId: Long) {
-        viewModelScope.launch {
+    fun setNewScore(event: Match, newOwnGoals: Int, newOpponentGoals: Int) {
+        val modified = event.copy(ownGoals = newOwnGoals, opponentGoals = newOpponentGoals)
+        val list = _events.value.toMutableList()
+        val index = list.indexOfFirst { it.id == event.id }
+        if(index != -1){
+            list[index] = modified
+            saveModified(modified, list)
+        }
+    }
+
+    fun getEvents(teamId: Long): Job {
+        return viewModelScope.launch {
             _isLoading.value = true
             _errorMessage.value = ""
             try {
@@ -182,10 +186,8 @@ class ModifyEventsScreenViewModel @Inject constructor(
         viewModelScope.launch {
             _isLoading.value = true
             _errorMessage.value = ""
-            println(">>>>>>>>>>><saving")
             try {
                 val response = teamEventRepository.updateEvent(event)
-                println(">>>>>>>>>>><<<actualizando lista")
                 _events.value = list
             } catch (e: Exception){
                 if(e.message == "401"){
@@ -215,14 +217,14 @@ class ModifyEventsScreenViewModel @Inject constructor(
         }
     }
 
-    fun deleteEvent(event: Event) {
+    fun deleteEvent(eventId: Long) {
         viewModelScope.launch {
             _isLoading.value = true
             _errorMessage.value = ""
             try {
-                val response = teamEventRepository.deleteEvent(event)
+                val response = teamEventRepository.deleteEvent(eventId)
                 val list = _events.value.toMutableList()
-                list.removeAt(list.indexOf(event))
+                list.removeAt(list.indexOfFirst { it.id == eventId })
                 _events.value = list
             } catch (e:Exception){
                 if(e.message == "401"){

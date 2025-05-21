@@ -9,7 +9,7 @@ public class Training extends Event {
 
     public Training(){}
 
-    public Training(Team team_id, String address, Double latitude, Double longitude, String date) {
-        super(team_id, address, latitude, longitude, date);
+    public Training(Team team_id, Double latitude, Double longitude, String date) {
+        super(team_id, latitude, longitude, date);
     }
 }

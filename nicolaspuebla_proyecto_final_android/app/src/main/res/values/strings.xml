@@ -105,4 +105,7 @@
     <string name="return_str">Volver</string>
     <string name="sear_icon_description">Icono de busqueda.</string>
     <string name="search_location">Buscar ubicación</string>
+    <string name="your_team">Tu equipo</string>
+    <string name="score">Puntuación</string>
+    <string name="save_scores">Guardar puntuación</string>
 </resources>
