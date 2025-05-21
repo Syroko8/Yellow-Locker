@@ -69,7 +69,6 @@ public class EventController {
     ) {
         try {
             Event modifiedEvent = eventService.getEventById(event.getId());
-            modifiedEvent.setAddress(event.getAddress());
             modifiedEvent.setDate(event.getDate());
             modifiedEvent.setLatitude(event.getLatitude());
             modifiedEvent.setLongitude(event.getLongitude());
@@ -89,7 +88,7 @@ public class EventController {
         }
     }
 
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("delete/{eventId}")
     public ResponseEntity<Long> deleteEvent(@PathVariable Long eventId){
         try {
             eventService.deleteEvent(eventId);

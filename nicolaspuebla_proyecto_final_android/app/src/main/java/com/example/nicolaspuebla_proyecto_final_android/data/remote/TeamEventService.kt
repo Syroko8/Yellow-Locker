@@ -27,6 +27,6 @@ interface TeamEventService {
         @Query("opponentGoals") opponentGoals: Int?
     ): Call<Event>
 
-    @DELETE("api/event/{id}")
+    @DELETE("api/event/delete/{id}")
     fun deleteEvent(@Path("id")eventId: Long): Call<Long>
 }

@@ -6,7 +6,6 @@ data class TrainingReciever (
     val event_type: String,
     val id: Long,
     val team: Team,
-    val address: String,
     val latitude: Double,
     val longitude: Double,
     val date: String,
