@@ -142,7 +142,7 @@ fun ModifyTrainingCard(
         Modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .padding(vertical = 10.dp),
+            .padding(vertical = 10.dp, horizontal = 20.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.Start
     ) {

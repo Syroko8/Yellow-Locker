@@ -1,5 +1,6 @@
 package com.example.nicolaspuebla_proyecto_final_android.ui.components
 
+import android.content.Context
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.animateFloatAsState
@@ -39,6 +40,8 @@ import androidx.compose.ui.unit.sp
 import com.example.laboratorio_b.ui.navigation.Destinations
 import com.example.nicolaspuebla_proyecto_final_android.R
 import com.example.nicolaspuebla_proyecto_final_android.utils.LocationChoosingInfo
+import com.example.nicolaspuebla_proyecto_final_android.utils.MapAction
+import dagger.hilt.android.qualifiers.ApplicationContext
 
 enum class FabState{
     Expanded,
@@ -58,7 +61,9 @@ enum class Identifier{
     Team,
     ModifyReturn,
     MapCancel,
-    MapConfirm
+    MapConfirm,
+    CreateEvent,
+    CreateEventReturn
 }
 
 class FabItemData(
@@ -178,13 +183,33 @@ fun FabMenu(
                                 onFloatingStateChange(
                                     FabState.Collapsed
                                 )
-                                onItemClick(Destinations.MODIFY_EVENTS)
+                                when(LocationChoosingInfo.action.value){
+                                    MapAction.ChangeOpponent -> onItemClick(Destinations.MODIFY_EVENTS)
+                                    MapAction.ChooseOpponent -> onItemClick(Destinations.CREATE_EVENT)
+                                    else -> throw Exception("Map action unmanaged")
+                                }
                             }
                             Identifier.MapConfirm.name -> {
                                 onFloatingStateChange(
                                     FabState.Collapsed
                                 )
                                 LocationChoosingInfo.setChosen(true)
+                                when(LocationChoosingInfo.action.value){
+                                    MapAction.ChangeOpponent -> onItemClick(Destinations.MODIFY_EVENTS)
+                                    MapAction.ChooseOpponent -> onItemClick(Destinations.CREATE_EVENT)
+                                    else -> throw Exception("Map action unmanaged")
+                                }
+                            }
+                            Identifier.CreateEvent.name -> {
+                                onFloatingStateChange(
+                                    FabState.Collapsed
+                                )
+                                onItemClick(Destinations.CREATE_EVENT)
+                            }
+                            Identifier.CreateEventReturn.name -> {
+                                onFloatingStateChange(
+                                    FabState.Collapsed
+                                )
                                 onItemClick(Destinations.MODIFY_EVENTS)
                             }
                         }

@@ -50,6 +50,7 @@ import com.example.nicolaspuebla_proyecto_final_android.ui.components.ChangeOppo
 import com.example.nicolaspuebla_proyecto_final_android.ui.components.ErrorDialog
 import com.example.nicolaspuebla_proyecto_final_android.ui.components.ModifyEventCard
 import com.example.nicolaspuebla_proyecto_final_android.utils.LocationChoosingInfo
+import com.example.nicolaspuebla_proyecto_final_android.utils.MapAction
 import com.example.nicolaspuebla_proyecto_final_android.utils.SessionManager
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -85,6 +86,7 @@ fun ModifyEventsScreen(onNav: (String) -> Unit, viewModel: ModifyEventsScreenVie
 
     LaunchedEffect(mapVisibility) {
         if(mapVisibility){
+            LocationChoosingInfo.action.value = MapAction.ChangeOpponent
             onNav(Destinations.MAP)
         }
     }
@@ -358,7 +360,10 @@ fun getChosenDate(event: Event, state: DatePickerState): OffsetDateTime{
         ZoneId.of("UTC")
     )
     val olfDate = parseEventDate(event.date)
-    return OffsetDateTime.of(newDate.year, newDate.monthValue, newDate.dayOfMonth, olfDate.hour, olfDate.minute, 0, 0, ZoneOffset.UTC)
+    return newDate
+        .withHour(olfDate.hour)
+        .withMinute(olfDate.minute)
+        .withSecond(0)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -366,5 +371,8 @@ fun getNewDate(chosenEvent: Event, timePickerState: TimePickerState): OffsetDate
     val oldDateStr = chosenEvent.date
     val formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME
     val oldDate = OffsetDateTime.parse(oldDateStr, formatter).withOffsetSameInstant(ZoneOffset.UTC)
-    return OffsetDateTime.of(oldDate.year, oldDate.monthValue, oldDate.dayOfMonth, timePickerState.hour, timePickerState.minute, 0, 0, ZoneOffset.UTC)
+    return oldDate
+        .withHour(timePickerState.hour)
+        .withMinute(timePickerState.minute)
+        .withSecond(0)
 }

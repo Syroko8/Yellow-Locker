@@ -9,6 +9,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.nicolaspuebla_proyecto_final_android.ui.screens.TeamMatches.TeamMatchesScreen
+import com.example.nicolaspuebla_proyecto_final_android.ui.screens.createEvent.CreateEventScreen
 import com.example.nicolaspuebla_proyecto_final_android.ui.screens.mapScreen.MapScreen
 import com.example.nicolaspuebla_proyecto_final_android.ui.screens.joinTeam.JoinTeamScreen
 import com.example.nicolaspuebla_proyecto_final_android.ui.screens.landing.LandingScreen
@@ -72,9 +73,7 @@ fun AppNavGraph(
             }
 
             composable (Destinations.MAP){
-                MapScreen(
-                    onNav = { onNav(it) }
-                )
+                MapScreen()
             }
 
             composable (Destinations.MODIFY_EVENTS){
@@ -83,6 +82,11 @@ fun AppNavGraph(
                 )
             }
 
+            composable (Destinations.CREATE_EVENT){
+                CreateEventScreen(
+                    onNav = { onNav(it) }
+                )
+            }
         }
     }
 }

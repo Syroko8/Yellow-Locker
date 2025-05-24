@@ -1,17 +1,20 @@
 package com.example.nicolaspuebla_proyecto_final_android.data.repositories
 
-import com.example.nicolaspuebla_proyecto_final_android.data.model.dto.MatchReciever
-import com.example.nicolaspuebla_proyecto_final_android.data.model.dto.TrainingReciever
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Event
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Match
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Training
+import com.example.nicolaspuebla_proyecto_final_android.data.model.dto.EventCreation
+import com.example.nicolaspuebla_proyecto_final_android.data.model.dto.MatchCreation
+import com.example.nicolaspuebla_proyecto_final_android.data.model.dto.MatchReceiver
+import com.example.nicolaspuebla_proyecto_final_android.data.model.dto.TrainingCreation
+import com.example.nicolaspuebla_proyecto_final_android.data.model.dto.TrainingReceiver
 import com.example.nicolaspuebla_proyecto_final_android.data.remote.RetrofitInstance
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class TeamEventRepository {
 
-    fun matchRecieverToMatch(match: MatchReciever): Match{
+    fun matchRecieverToMatch(match: MatchReceiver): Match{
         return Match(
             match.event_type,
             match.id,
@@ -25,7 +28,7 @@ class TeamEventRepository {
         )
     }
 
-    fun trainingRecieverToTraining(training: TrainingReciever): Training{
+    fun trainingRecieverToTraining(training: TrainingReceiver): Training{
         return Training(
             training.event_type,
             training.id,
@@ -107,6 +110,25 @@ class TeamEventRepository {
         return withContext((Dispatchers.IO)){
             try {
                 val call = RetrofitInstance.yellowLockerTeamEventService.deleteEvent(eventId)
+                val response = call.execute()
+                if(response.isSuccessful){
+                    response.body()
+                } else if(response.code() == 401){
+                    throw Exception("401")
+                } else {
+                    throw Exception("Internal server error")
+                }
+            }catch (e: Exception){
+                throw Exception(e.message)
+            }
+        }
+    }
+
+    suspend fun createEvent(newEvent: EventCreation): Event? {
+        return withContext((Dispatchers.IO)){
+            try {
+                val call = if(newEvent is MatchCreation) RetrofitInstance.yellowLockerTeamEventService.createEvent(newEvent, newEvent.opponent.id)
+                else RetrofitInstance.yellowLockerTeamEventService.createEvent(newEvent, null)
                 val response = call.execute()
                 if(response.isSuccessful){
                     response.body()

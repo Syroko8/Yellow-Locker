@@ -13,13 +13,16 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Match;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Team;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Training;
+import com.example.nicolaspuebla_proyecto_final.model.dto.EventCreation;
 import com.example.nicolaspuebla_proyecto_final.model.dto.EventResponse;
+import com.example.nicolaspuebla_proyecto_final.model.dto.MatchCreation;
+import com.example.nicolaspuebla_proyecto_final.model.dto.TrainingCreation;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Event;
 import com.example.nicolaspuebla_proyecto_final.service.EventService;
 import com.example.nicolaspuebla_proyecto_final.service.TeamService;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
+import org.springframework.web.bind.annotation.PostMapping;
 
 @RestController
 @RequestMapping("/api/event")
@@ -95,6 +98,45 @@ public class EventController {
             return ResponseEntity.ok().body(eventId);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+    @PostMapping("create")
+    public ResponseEntity<EventResponse> createEvent(@RequestBody EventCreation newEvent, 
+        @RequestParam(required = false) Long opponentId) {
+        try {
+            Event event = parseCreationToEvent(newEvent, opponentId);
+            eventService.createEvent(event);
+            return ResponseEntity.ok().body(new EventResponse(event));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+    
+    public Event parseCreationToEvent(EventCreation eventCreationObject, Long opponentId){
+
+        Team team = teamService.getTeam(eventCreationObject.getTeamId());
+
+        if(eventCreationObject instanceof MatchCreation){
+            MatchCreation matchCreation = (MatchCreation) eventCreationObject;
+            Team opponent = teamService.getTeam(opponentId);
+            return new Match(
+                team, 
+                matchCreation.getLatitude(), 
+                matchCreation.getLongitude(), 
+                matchCreation.getDate(), 
+                opponent,
+                matchCreation.getOwnGoals(),
+                matchCreation.getOpponentGoals()
+            );
+        } else {
+            TrainingCreation trainingCreation = (TrainingCreation) eventCreationObject;
+            return new Training(
+                team,
+                trainingCreation.getLatitude(),
+                trainingCreation.getLongitude(),
+                trainingCreation.getDate()
+            );
         }
     }
 }

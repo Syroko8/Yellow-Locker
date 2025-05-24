@@ -2,7 +2,7 @@ package com.example.nicolaspuebla_proyecto_final;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
- /*
+/* 
 import org.springframework.context.annotation.Bean;
 import java.sql.Date;
 import org.springframework.boot.CommandLineRunner;
@@ -24,7 +24,7 @@ public class NicolaspueblaProyectoFinalApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(NicolaspueblaProyectoFinalApplication.class, args);	
 	}
- /*
+ /* 
  	@Bean
     public CommandLineRunner init(TeamService ts, UserService rs, LocalityService ls, MessageService messageService, EventService eventService) {
         return args -> {
@@ -32,9 +32,9 @@ public class NicolaspueblaProyectoFinalApplication {
             MobileUser mobileUser = new MobileUser("Fernando", "Martinez", "deda", "d607c8855011631e3b002283685084375b179069fded6c16ed4e0c49a59a808d", false, Date.valueOf("2000-05-07"));
             Team team = new Team("Team1", locality, "logo", "chatkey", "Football");
             Team team2 = new Team("Team2", locality, "logo", "chatkey", "Volleyball");
-            Event match1 = new Match(team, "adress", 0.0, 0.0,  "2025-04-15T10:15:00", team2, 0, 3);
-            Event match2 = new Match(team, "adress", 0.0, 0.0, "2025-04-15T10:15:00", team2, 2, 1);
-            Event match3 = new Match(team, "adress", 0.0, 0.0, "2025-04-15T10:15:00", team2, 2, 2);
+            Event match1 = new Match(team, 0.0, 0.0,  "2025-04-15T10:15:00+00:00", team2, 0, 3);
+            Event match2 = new Match(team, 0.0, 0.0, "2025-04-15T10:15:00+00:00", team2, 2, 1);
+            Event match3 = new Match(team, 0.0, 0.0, "2025-04-15T10:15:00+00:00", team2, 2, 2);
             Message message = new Message(mobileUser, team);
 			ls.createLocality(locality);
             rs.createUser(mobileUser);

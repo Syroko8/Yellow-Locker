@@ -2,6 +2,7 @@ package com.example.nicolaspuebla_proyecto_final_android.utils
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.Chat
@@ -14,10 +15,6 @@ import androidx.compose.material.icons.filled.House
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Shield
-import androidx.compose.material3.Icon
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import com.example.laboratorio_b.ui.navigation.Destinations
 import com.example.nicolaspuebla_proyecto_final_android.R
 import com.example.nicolaspuebla_proyecto_final_android.ui.components.FabItemData
@@ -201,6 +198,11 @@ object ButtonItemLists {
             icon = Icons.Filled.ArrowBack,
             label = R.string.return_str,
             identifier = Identifier.ModifyReturn.name
+        ),
+        FabItemData(
+            icon = Icons.Filled.Add,
+            label = R.string.create_event,
+            identifier = Identifier.CreateEvent.name
         )
     )
 
@@ -217,6 +219,14 @@ object ButtonItemLists {
         ),
     )
 
+    private val createEventButtonList = listOf(
+        FabItemData(
+            icon = Icons.Filled.ArrowBack,
+            label = R.string.return_str,
+            identifier = Identifier.CreateEventReturn.name
+        )
+    )
+
 
     fun getButtonListForView(view: String, rol: TeamRoles): List<FabItemData> {
         when(view){
@@ -230,6 +240,7 @@ object ButtonItemLists {
             Destinations.TEAM_CALENDAR -> return teamCalendarButtonList
             Destinations.MODIFY_EVENTS -> return teamEventModifyButtonList
             Destinations.MAP -> return mapButtonList
+            Destinations.CREATE_EVENT -> return createEventButtonList
         }
 
         return emptyList()

@@ -228,7 +228,6 @@ fun CalendarControls(pagerState: PagerState) {
     ) {
         IconButton(onClick = {
             scope.launch {
-                // Retrocede 1 mes
                 pagerState.animateScrollToPage(pagerState.currentPage - 1)
             }
         }) {
@@ -263,7 +262,7 @@ fun CalendarGrid(
     val daysInMonth = currentMonth.getActualMaximum(Calendar.DAY_OF_MONTH)
     val firstDayOfMonth = currentMonth.clone() as Calendar
     firstDayOfMonth.set(Calendar.DAY_OF_MONTH, 1)
-    val startingDayOfWeek = firstDayOfMonth.get(Calendar.DAY_OF_WEEK) - 1 // Adjusting for zero-based indexing
+    val startingDayOfWeek = (firstDayOfMonth.get(Calendar.DAY_OF_WEEK) + 5) % 7
     val days = (1..daysInMonth).toList()
     val paddingDaysBefore = List(startingDayOfWeek) { -1 }
     val paddingDaysAfter = List((7 - (startingDayOfWeek + daysInMonth) % 7) % 7) { -1 }

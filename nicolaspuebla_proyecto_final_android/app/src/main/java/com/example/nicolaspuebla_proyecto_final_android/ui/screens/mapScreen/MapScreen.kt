@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.nicolaspuebla_proyecto_final_android.R
 import com.example.nicolaspuebla_proyecto_final_android.utils.LocationChoosingInfo
+import com.example.nicolaspuebla_proyecto_final_android.utils.MapAction
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
@@ -41,12 +42,28 @@ import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
 
 @Composable
-fun MapScreen(onNav: (String) -> Unit, viewModel: MapScreenViewModel = hiltViewModel()) {
+fun MapScreen(viewModel: MapScreenViewModel = hiltViewModel()) {
     val selectedMapPosition by LocationChoosingInfo.selectedMapPosition.collectAsState()
     val event by LocationChoosingInfo.event.collectAsState()
+    val eventCreationLocation = LocationChoosingInfo.eventCreationInfo.value?.location
 
     val cameraPositionState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(LatLng(event?.latitude!!, event?.longitude!!), 12f)
+        position = CameraPosition.fromLatLngZoom(
+            if(LocationChoosingInfo.action.value == MapAction.ChangeOpponent)
+                LatLng(event?.latitude ?:40.41649453615158, event?.longitude ?: -3.7015116455504833) else
+                if(eventCreationLocation != null) LatLng(eventCreationLocation.latitude, eventCreationLocation.longitude) else
+                    LatLng(40.41649453615158, -3.7015116455504833)
+            , 12f
+        )
+    }
+
+    LaunchedEffect(Unit) {
+        LocationChoosingInfo.setSelectedMapPosition(
+            if(LocationChoosingInfo.action.value == MapAction.ChangeOpponent)
+            LatLng(event?.latitude ?:40.41649453615158, event?.longitude ?: -3.7015116455504833) else
+            if(eventCreationLocation != null) LatLng(eventCreationLocation.latitude, eventCreationLocation.longitude) else
+                LatLng(40.41649453615158, -3.7015116455504833)
+        )
     }
 
     LaunchedEffect(selectedMapPosition) {
@@ -77,7 +94,10 @@ fun MapScreen(onNav: (String) -> Unit, viewModel: MapScreenViewModel = hiltViewM
         ) {
             Marker(
                 state = MarkerState(
-                    position = selectedMapPosition ?: LatLng(event?.latitude!!, event?.longitude!!)
+                    position = selectedMapPosition ?: if(LocationChoosingInfo.action.value == MapAction.ChangeOpponent)
+                        LatLng(event?.latitude ?:40.41649453615158, event?.longitude ?: -3.7015116455504833) else
+                        if(eventCreationLocation != null) LatLng(eventCreationLocation.latitude, eventCreationLocation.longitude) else
+                            LatLng(40.41649453615158, -3.7015116455504833)
                 )
             )
         }
@@ -110,7 +130,6 @@ private fun SearchBar(viewModel: MapScreenViewModel) {
 
 @Composable
 private fun SuggestionsList(viewModel: MapScreenViewModel) {
-    val location by LocationChoosingInfo.selectedMapPosition.collectAsState()
 
     if (viewModel.showSuggestions) {
         LazyColumn(

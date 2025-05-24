@@ -156,7 +156,7 @@ fun Match(match: Match, date: OffsetDateTime){
                         text = "${match.ownGoals} - ${match.opponentGoals}",
                         color = Color.White,
                         fontFamily = FontFamily(Font(R.font.jura_semi_bold)),
-                        fontSize = 14.sp
+                        fontSize = 16.sp
                     )
                 }
             }
@@ -202,6 +202,7 @@ fun Training(training: Training, date: OffsetDateTime){
             fontFamily = FontFamily(Font(R.font.jura_semi_bold)),
             fontSize = 24.sp,
             modifier = Modifier.padding(start = 25.dp)
+
         )
         Spacer(Modifier.height(10.dp))
         Column(

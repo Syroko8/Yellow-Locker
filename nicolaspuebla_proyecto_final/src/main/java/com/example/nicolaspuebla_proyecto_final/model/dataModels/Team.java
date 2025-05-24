@@ -47,7 +47,7 @@ public class Team {
     private List<Event> eventList = new ArrayList<>();
     @OneToMany(mappedBy = "opponent")
     @JsonIgnoreProperties("opponent")
-    private List<Match> matchesAsopponent = new ArrayList<>();
+    private List<Match> matchesAsOpponent = new ArrayList<>();
     @ManyToMany(mappedBy = "teamList")
     @JsonIgnoreProperties("teamList")
     private List<MobileUser> members = new ArrayList<>();
@@ -67,7 +67,7 @@ public class Team {
     @Transient
     public List<Event> getAllEvents() {
         List<Event> allEvents = new ArrayList<>(eventList);
-        allEvents.addAll(matchesAsopponent);
+        allEvents.addAll(matchesAsOpponent);
         return allEvents;
     }
 

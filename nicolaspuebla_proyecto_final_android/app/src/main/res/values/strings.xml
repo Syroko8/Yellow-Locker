@@ -108,4 +108,10 @@
     <string name="your_team">Tu equipo</string>
     <string name="score">Puntuación</string>
     <string name="save_scores">Guardar puntuación</string>
+    <string name="new_event">Nuevo Evento</string>
+    <string name="select">Seleccione</string>
+    <string name="set_date">Por establecer</string>
+    <string name="set_time">Por establecer</string>
+    <string name="create_event">Crear evento</string>
+    <string name="create">Crear</string>
 </resources>
