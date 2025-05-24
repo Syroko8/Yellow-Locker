@@ -100,7 +100,6 @@ fun TeamCalendarScreen(onNav: (String) -> Unit, viewModel: TeamCalendarScreenVie
             viewModel
         )
         if(actualTeamRole == TeamRoles.Player){
-            println(">>>>>>>>>>${actualTeamRole}")
             ModifyEvents(onNav = {onNav(Destinations.MODIFY_EVENTS)})
         }
         if(bottomSheetVisibility){

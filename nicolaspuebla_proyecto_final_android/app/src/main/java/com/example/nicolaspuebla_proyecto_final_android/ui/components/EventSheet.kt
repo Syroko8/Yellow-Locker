@@ -134,7 +134,7 @@ fun Match(match: Match, date: OffsetDateTime){
             Text(
                 text = "${stringResource(R.string.hour)}: " +
                         "${date.hour} : " +
-                        if(date.minute == 0) "00" else "0",
+                        if(date.minute == 0) "00" else date.minute,
                 color = Color.White,
                 fontFamily = FontFamily(Font(R.font.jura_semi_bold)),
                 fontSize = 18.sp
