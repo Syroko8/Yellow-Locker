@@ -114,4 +114,5 @@
     <string name="set_time">Por establecer</string>
     <string name="create_event">Crear evento</string>
     <string name="create">Crear</string>
+    <string name="must_valid_email">Debe usar un correo válido.</string>
 </resources>

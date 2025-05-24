@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -29,7 +30,6 @@ import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Te
 
 @Composable
 fun TeamWelcomeScreen(
-    onNav: (String, Int?) -> Unit,
     teamId: Int,
     viewModel: TeamWelcomeScreenViewModel = hiltViewModel()
 ){
@@ -75,17 +75,15 @@ fun Title(team: Team?, viewModel: TeamWelcomeScreenViewModel){
 fun Logo(team: Team?, viewModel: TeamWelcomeScreenViewModel){
     Row(
         modifier = Modifier
-            .padding(top = 80.dp)
+            .padding(vertical = 40.dp)
             .fillMaxWidth()
-            .wrapContentHeight(),
+            .height(250.dp),
         horizontalArrangement = Arrangement.Center
     ){
 
         AsyncImage(
             model = R.drawable.team_shield,
             contentDescription = stringResource(R.string.welcome_team_logo),
-            modifier = Modifier
-                .size(300.dp),
             contentScale = ContentScale.Fit
         )
     }

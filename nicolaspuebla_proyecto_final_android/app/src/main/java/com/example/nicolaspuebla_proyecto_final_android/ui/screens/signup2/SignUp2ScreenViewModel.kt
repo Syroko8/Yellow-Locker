@@ -1,5 +1,6 @@
 package com.example.nicolaspuebla_proyecto_final_android.ui.screens.signup2
 
+import android.util.Patterns
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,6 +14,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
+import java.util.regex.Pattern
 import javax.inject.Inject
 
 @HiltViewModel
@@ -49,6 +51,10 @@ class SignUp2ScreenViewModel @Inject constructor(
     var passwdVisibility = mutableStateOf<Boolean>(false)
     var passwdVisibility2 = mutableStateOf<Boolean>(false)
 
+    fun setErr(err: String){
+        _errorMessage.value = err
+    }
+
     fun signUp(){
         viewModelScope.launch {
             _isLoading.value = true
@@ -72,7 +78,7 @@ class SignUp2ScreenViewModel @Inject constructor(
         }
     }
 
-    fun buildUser(): UserSignUp{
+    private fun buildUser(): UserSignUp{
         return UserSignUp(
             name = signUpData.nameTextFieldVal.value,
             surname = signUpData.surnameTextFieldVal.value,
@@ -84,5 +90,11 @@ class SignUp2ScreenViewModel @Inject constructor(
 
     fun filledFields(): Boolean {
         return signUpData.filledFields()
+    }
+
+    fun validateEmail(): Boolean{
+        val email = signUpData.mailTextFieldVal.value
+        val customEmailRegex: Pattern =  Pattern.compile("^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")
+        return customEmailRegex.matcher(email).matches()
     }
 }

@@ -52,10 +52,7 @@ fun AppNavGraph(
             }
 
             composable (Destinations.TEAM_WELCOME){
-                TeamWelcomeScreen(
-                    onNav = { nextScreen:String, value: Int? -> processNavigation(nextScreen, value) },
-                    teamId = value
-                )
+                TeamWelcomeScreen(teamId = value)
             }
 
             composable (Destinations.TEAM_MEMBERS){

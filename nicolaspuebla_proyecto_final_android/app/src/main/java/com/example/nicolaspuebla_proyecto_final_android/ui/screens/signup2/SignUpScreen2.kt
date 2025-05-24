@@ -348,6 +348,8 @@ fun SignUpButton(viewModel: SignUp2ScreenViewModel){
     val passwd by viewModel.getPasswd().collectAsState()
     val passwdCheck by viewModel.getPasswdCheck().collectAsState()
     val signed by viewModel.signed.collectAsState()
+    val mustFillMsg = stringResource(R.string.must_fill)
+    val mustValidEmailMsg = stringResource(R.string.must_valid_email)
 
     Row(
         modifier = Modifier
@@ -370,7 +372,15 @@ fun SignUpButton(viewModel: SignUp2ScreenViewModel){
                     .clip(RoundedCornerShape(20.dp)),
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Black, contentColor = Color.White),
                 onClick = {
-                    if(viewModel.filledFields() && (passwd == passwdCheck)) viewModel.signUp()
+                    if(viewModel.filledFields() && (passwd == passwdCheck)){
+                        if(viewModel.validateEmail()){
+                            viewModel.signUp()
+                        } else {
+                            viewModel.setErr(mustValidEmailMsg)
+                        }
+                    } else {
+                        viewModel.setErr(mustFillMsg)
+                    }
                 }
             ) {
                 Text(
