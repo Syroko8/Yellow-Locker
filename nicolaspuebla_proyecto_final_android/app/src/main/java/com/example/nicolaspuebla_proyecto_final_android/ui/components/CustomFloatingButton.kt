@@ -41,6 +41,7 @@ import com.example.laboratorio_b.ui.navigation.Destinations
 import com.example.nicolaspuebla_proyecto_final_android.R
 import com.example.nicolaspuebla_proyecto_final_android.utils.LocationChoosingInfo
 import com.example.nicolaspuebla_proyecto_final_android.utils.MapAction
+import com.example.nicolaspuebla_proyecto_final_android.utils.SessionManager
 import dagger.hilt.android.qualifiers.ApplicationContext
 
 enum class FabState{
@@ -52,6 +53,7 @@ enum class Identifier{
     Settings,
     JoinGroup,
     CreateGroup,
+    Logout,
     Return,
     Members,
     Matches,
@@ -142,6 +144,12 @@ fun FabMenu(
                             }
                             Identifier.CreateGroup.name -> {
 
+                            }
+                            Identifier.Logout.name -> {
+                                onFloatingStateChange(
+                                    FabState.Collapsed
+                                )
+                                SessionManager.setLogOut(true)
                             }
                             Identifier.Return.name -> {
                                 onFloatingStateChange(

@@ -17,7 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.example.laboratorio_b.ui.navigation.InitialAppNavGraph
 import com.example.nicolaspuebla_proyecto_final_android.ui.theme.Nicolaspuebla_proyecto_final_androidTheme
-import com.example.nicolaspuebla_proyecto_final_android.utils.SessionManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -57,12 +56,6 @@ fun App(advance: () -> Unit){
     LaunchedEffect(navController) {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             currentRoute.value = destination.route
-        }
-    }
-
-    LaunchedEffect(SessionManager.logged) {
-        if(SessionManager.logged){
-            advance()
         }
     }
 

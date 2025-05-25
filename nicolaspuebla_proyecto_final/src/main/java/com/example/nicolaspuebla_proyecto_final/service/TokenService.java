@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Token;
 import com.example.nicolaspuebla_proyecto_final.repository.TokenRepository;
 
+import jakarta.persistence.NoResultException;
+
 @Service
 public class TokenService {
 
@@ -33,13 +35,13 @@ public class TokenService {
         }
     }
 
-    public Token getTokenByToken(String token){
+    public Token getTokenByToken(String token) throws Exception{
         try {
             Token foundToken = tokenRepository.getTokenByToken(token);
             return foundToken;
         } catch (Exception e) {
             System.err.println(e.getMessage());
-            return null;
+            throw new Exception(e.getMessage());
         }
     }
 

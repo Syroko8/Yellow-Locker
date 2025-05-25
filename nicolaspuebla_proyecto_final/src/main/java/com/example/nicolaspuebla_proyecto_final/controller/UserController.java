@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.MobileUser;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Token;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.User;
@@ -152,16 +151,6 @@ public class UserController {
         } catch (Exception e) {
             e.printStackTrace();
             throw new Exception(e.getMessage());
-        }
-    }
-
-    @PostMapping("/logout")
-    public ResponseEntity<String> logout(@RequestBody Long tokenId) {
-        try {
-            tokenService.deleteToken(tokenId);    
-            return ResponseEntity.ok().body(null);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 

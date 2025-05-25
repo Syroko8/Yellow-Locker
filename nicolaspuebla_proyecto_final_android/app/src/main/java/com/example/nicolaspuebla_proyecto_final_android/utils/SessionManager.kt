@@ -6,8 +6,6 @@ import kotlinx.coroutines.flow.StateFlow
 
 object SessionManager {
 
-    val logged: Boolean = false
-
     var user: MobileUser? = null
 
     var bearerToken:String? = null

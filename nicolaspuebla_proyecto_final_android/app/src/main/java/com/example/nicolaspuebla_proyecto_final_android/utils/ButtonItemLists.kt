@@ -2,6 +2,9 @@ package com.example.nicolaspuebla_proyecto_final_android.utils
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.Chat
+import androidx.compose.material.icons.automirrored.filled.List
+import androidx.compose.material.icons.automirrored.filled.Logout
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.CalendarMonth
@@ -13,6 +16,7 @@ import androidx.compose.material.icons.filled.GroupAdd
 import androidx.compose.material.icons.filled.Groups
 import androidx.compose.material.icons.filled.House
 import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.filled.Logout
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Shield
 import com.example.laboratorio_b.ui.navigation.Destinations
@@ -24,11 +28,6 @@ object ButtonItemLists {
 
     private val landingScreenButtonList = listOf(
         FabItemData(
-            icon = Icons.Filled.Settings,
-            label = R.string.settings,
-            identifier = Identifier.Settings.name
-        ),
-        FabItemData(
             icon = Icons.Filled.GroupAdd,
             label = R.string.create_team,
             identifier = Identifier.CreateGroup.name
@@ -37,6 +36,16 @@ object ButtonItemLists {
             icon = Icons.Filled.Groups,
             label = R.string.join_group,
             identifier = Identifier.JoinGroup.name
+        ),
+        FabItemData(
+            icon = Icons.Filled.Settings,
+            label = R.string.settings,
+            identifier = Identifier.Settings.name
+        ),
+        FabItemData(
+            icon = Icons.AutoMirrored.Filled.Logout,
+            label = R.string.logout,
+            identifier = Identifier.Logout.name
         )
     )
 
@@ -55,7 +64,7 @@ object ButtonItemLists {
             identifier = Identifier.Return.name
         ),
         FabItemData(
-            icon = Icons.Filled.List,
+            icon = Icons.AutoMirrored.Filled.List,
             label = R.string.members,
             identifier = Identifier.Members.name
         ),
@@ -70,7 +79,7 @@ object ButtonItemLists {
             identifier = Identifier.Calendar.name
         ),
         FabItemData(
-            icon = Icons.Filled.Chat,
+            icon = Icons.AutoMirrored.Filled.Chat,
             label = R.string.chat,
             identifier = Identifier.Chat.name
         )
@@ -98,7 +107,7 @@ object ButtonItemLists {
             identifier = Identifier.Calendar.name
         ),
         FabItemData(
-            icon = Icons.Filled.Chat,
+            icon = Icons.AutoMirrored.Filled.Chat,
             label = R.string.chat,
             identifier = Identifier.Chat.name
         ),
@@ -131,7 +140,7 @@ object ButtonItemLists {
             identifier = Identifier.Calendar.name
         ),
         FabItemData(
-            icon = Icons.Filled.Chat,
+            icon = Icons.AutoMirrored.Filled.Chat,
             label = R.string.chat,
             identifier = Identifier.Chat.name
         )
@@ -149,7 +158,7 @@ object ButtonItemLists {
             identifier = Identifier.Team.name
         ),
         FabItemData(
-            icon = Icons.Filled.List,
+            icon = Icons.AutoMirrored.Filled.List,
             label = R.string.members,
             identifier = Identifier.Members.name
         ),
@@ -159,7 +168,7 @@ object ButtonItemLists {
             identifier = Identifier.Calendar.name
         ),
         FabItemData(
-            icon = Icons.Filled.Chat,
+            icon = Icons.AutoMirrored.Filled.Chat,
             label = R.string.chat,
             identifier = Identifier.Chat.name
         )
@@ -177,7 +186,7 @@ object ButtonItemLists {
             identifier = Identifier.Team.name
         ),
         FabItemData(
-            icon = Icons.Filled.List,
+            icon = Icons.AutoMirrored.Filled.List,
             label = R.string.members,
             identifier = Identifier.Members.name
         ),
@@ -187,7 +196,7 @@ object ButtonItemLists {
             identifier = Identifier.Matches.name
         ),
         FabItemData(
-            icon = Icons.Filled.Chat,
+            icon = Icons.AutoMirrored.Filled.Chat,
             label = R.string.chat,
             identifier = Identifier.Chat.name
         )
@@ -195,7 +204,7 @@ object ButtonItemLists {
 
     private val teamEventModifyButtonList = listOf(
         FabItemData(
-            icon = Icons.Filled.ArrowBack,
+            icon = Icons.AutoMirrored.Filled.ArrowBack,
             label = R.string.return_str,
             identifier = Identifier.ModifyReturn.name
         ),
@@ -208,7 +217,7 @@ object ButtonItemLists {
 
     private val mapButtonList = listOf(
         FabItemData(
-            icon = Icons.Filled.ArrowBack,
+            icon = Icons.AutoMirrored.Filled.ArrowBack,
             label = R.string.cancel,
             identifier = Identifier.MapCancel.name
         ),
@@ -221,7 +230,7 @@ object ButtonItemLists {
 
     private val createEventButtonList = listOf(
         FabItemData(
-            icon = Icons.Filled.ArrowBack,
+            icon = Icons.AutoMirrored.Filled.ArrowBack,
             label = R.string.return_str,
             identifier = Identifier.CreateEventReturn.name
         )

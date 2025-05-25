@@ -115,4 +115,5 @@
     <string name="create_event">Crear evento</string>
     <string name="create">Crear</string>
     <string name="must_valid_email">Debe usar un correo válido.</string>
+    <string name="logout">Cerrar sesión</string>
 </resources>

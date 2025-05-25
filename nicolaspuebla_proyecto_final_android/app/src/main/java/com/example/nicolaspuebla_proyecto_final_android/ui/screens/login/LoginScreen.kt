@@ -51,6 +51,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.laboratorio_b.ui.navigation.Destinations
 import com.example.nicolaspuebla_proyecto_final_android.R
+import com.example.nicolaspuebla_proyecto_final_android.data.preferences.PreferencesViewModel
 import com.example.nicolaspuebla_proyecto_final_android.ui.components.ErrorDialog
 import com.example.nicolaspuebla_proyecto_final_android.ui.components.MustFillDialog
 
@@ -59,12 +60,14 @@ import com.example.nicolaspuebla_proyecto_final_android.ui.components.MustFillDi
 fun LoginScreen(
     onNav: (String) -> Unit,
     viewModel: LoginScreenViewModel = hiltViewModel(),
-    onLogin: () -> Unit
+    onLogin: () -> Unit,
+    preferencesViewModel: PreferencesViewModel = hiltViewModel()
 ){
-
     val logged by viewModel.logged.collectAsState()
     val err by viewModel.errorMessage.collectAsState()
     val mustFill by viewModel.mustFill.collectAsState()
+    val token by preferencesViewModel.token.collectAsState()
+    val userId by preferencesViewModel.userId.collectAsState()
 
     LaunchedEffect(logged) {
         if(logged){
@@ -72,10 +75,15 @@ fun LoginScreen(
         }
     }
 
+    LaunchedEffect(token, userId) {
+        println(">>>>>>>>>>Revisando token")
+        viewModel.checkToken(userId, token)
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background((Color(244,235,235))),
+            .background((Color(244, 235, 235))),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

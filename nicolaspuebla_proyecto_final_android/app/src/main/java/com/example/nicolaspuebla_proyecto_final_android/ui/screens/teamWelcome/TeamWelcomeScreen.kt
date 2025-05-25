@@ -55,7 +55,7 @@ fun TeamWelcomeScreen(
 fun Title(team: Team?, viewModel: TeamWelcomeScreenViewModel){
     Row(
         modifier = Modifier
-            .padding(top = 80.dp)
+            .padding(top = 40.dp)
             .fillMaxWidth()
             .wrapContentHeight(),
         horizontalArrangement = Arrangement.Center
@@ -77,13 +77,13 @@ fun Logo(team: Team?, viewModel: TeamWelcomeScreenViewModel){
         modifier = Modifier
             .padding(vertical = 40.dp)
             .fillMaxWidth()
-            .height(250.dp),
+            .height(320.dp),
         horizontalArrangement = Arrangement.Center
     ){
-
         AsyncImage(
             model = R.drawable.team_shield,
             contentDescription = stringResource(R.string.welcome_team_logo),
+            modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Fit
         )
     }
