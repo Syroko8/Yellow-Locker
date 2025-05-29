@@ -42,7 +42,7 @@ fun LandingScreen(onNav: (String, Int?) -> Unit, viewModel: LandingScreenViewMod
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background((Color(244,235,235)))
+            .background((Color(244, 235, 235)))
     ){
         Title()
         if(loading){

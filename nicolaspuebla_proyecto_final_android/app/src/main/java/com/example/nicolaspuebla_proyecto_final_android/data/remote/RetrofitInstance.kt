@@ -67,4 +67,13 @@ object RetrofitInstance {
             .build()
             .create(TeamEventService::class.java)
     }
+
+    val yellowLockerLocalityService: LocalityService by lazy {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+            .create(LocalityService::class.java)
+    }
 }

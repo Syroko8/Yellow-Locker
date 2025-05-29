@@ -7,6 +7,7 @@ import androidx.datastore.preferences.preferencesDataStore
 import com.example.nicolaspuebla_proyecto_final_android.data.preferences.DataStoreProvider
 import com.example.nicolaspuebla_proyecto_final_android.data.preferences.PreferencesRepository
 import com.example.nicolaspuebla_proyecto_final_android.data.repositories.AuthRepository
+import com.example.nicolaspuebla_proyecto_final_android.data.repositories.LocalityRepository
 import com.example.nicolaspuebla_proyecto_final_android.data.repositories.TeamEventRepository
 import com.example.nicolaspuebla_proyecto_final_android.data.repositories.TeamRepository
 import com.example.nicolaspuebla_proyecto_final_android.data.repositories.TeamRolRepository
@@ -71,5 +72,11 @@ object AppModule {
     @Singleton
     fun providePreferencesRepository(dataStoreProvider: DataStoreProvider): PreferencesRepository {
         return PreferencesRepository(dataStoreProvider.dataStore)
+    }
+
+    @Provides
+    @Singleton
+    fun provideLocalityRepository(): LocalityRepository{
+        return LocalityRepository()
     }
 }

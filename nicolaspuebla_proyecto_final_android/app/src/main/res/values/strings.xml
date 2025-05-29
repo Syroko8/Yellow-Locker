@@ -83,7 +83,7 @@
     <string name="opponent">Oponente</string>
     <string name="hour">Hora</string>
     <string name="status">Estado</string>
-    <string name="expectant">Expectant</string>
+    <string name="expectant">Expectante</string>
     <string name="finished">Finalizado</string>
     <string name="location">Dirección</string>
     <string name="of">de</string>
@@ -116,4 +116,13 @@
     <string name="create">Crear</string>
     <string name="must_valid_email">Debe usar un correo válido.</string>
     <string name="logout">Cerrar sesión</string>
+    <string name="new_team">Nuevo equipo</string>
+    <string name="locality">Localidad</string>
+    <string name="sport">Deporte</string>
+    <string name="logo">Logo</string>
+    <string name="optional">Opcional</string>
+    <string name="change">Cambiar</string>
+    <string name="locality_name">Nombre de la localidad</string>
+    <string name="search_locality_demand">Busque la localidad por su nombre.</string>
+    <string name="search_locality_empty">No se han encontrado localidades con ese nombre.</string>
 </resources>

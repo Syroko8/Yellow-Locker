@@ -98,7 +98,7 @@ fun JoinTeamScreen(viewModel: JoinTeamScreenViewModel = hiltViewModel()){
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background((Color(244,235,235)))
+            .background((Color(244, 235, 235)))
             .padding(horizontal = 40.dp)
     ) {
         Spacer(Modifier.height(40.dp))

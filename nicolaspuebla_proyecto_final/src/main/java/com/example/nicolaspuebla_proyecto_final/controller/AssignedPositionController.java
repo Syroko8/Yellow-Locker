@@ -14,7 +14,6 @@ import com.example.nicolaspuebla_proyecto_final.model.dataModels.AssignedPositio
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.AssignedPositionPK;
 import com.example.nicolaspuebla_proyecto_final.service.AssignedPositionService;
 
-
 @RestController
 @RequestMapping("/api/asigned_position")
 public class AssignedPositionController {

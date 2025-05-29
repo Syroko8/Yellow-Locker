@@ -29,7 +29,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
@@ -272,7 +271,6 @@ fun MailTextField(viewModel: SignUpScreenViewModel){
     }
 }
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun BirthDateTextField(viewModel: SignUpScreenViewModel){
 

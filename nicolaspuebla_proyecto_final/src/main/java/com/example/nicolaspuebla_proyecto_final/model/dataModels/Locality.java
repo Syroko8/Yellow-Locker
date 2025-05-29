@@ -3,6 +3,9 @@ package com.example.nicolaspuebla_proyecto_final.model.dataModels;
 import java.util.List;
 
 import org.springframework.lang.NonNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,6 +20,7 @@ public class Locality {
     private long id;    
     @NonNull
     private String name;
+    @JsonIgnore
     @OneToMany(mappedBy = "locality")
     private List<Team> teamsOnLocality;
 

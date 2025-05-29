@@ -123,9 +123,6 @@ class CreateEventScreenViewModel @Inject constructor(
                 it.name.contains(searchBarQuery.value, ignoreCase = true)
             }
             filteredTeamList.value = newFilteredList
-            if (filteredTeamList.value != newFilteredList) {
-                filteredTeamList.value = newFilteredList
-            }
         }
     }
 

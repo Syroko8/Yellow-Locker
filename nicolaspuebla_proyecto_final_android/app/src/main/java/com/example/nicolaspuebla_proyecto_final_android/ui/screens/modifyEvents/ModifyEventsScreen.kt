@@ -163,7 +163,7 @@ fun Title(){
         horizontalArrangement = Arrangement.Start
     ) {
         Text(
-            text = stringResource(R.string.events),
+            text = stringResource(R.string.modify_events),
             fontFamily = FontFamily(Font(R.font.jura_bold)),
             fontSize = 28.sp,
             color = Color.Black

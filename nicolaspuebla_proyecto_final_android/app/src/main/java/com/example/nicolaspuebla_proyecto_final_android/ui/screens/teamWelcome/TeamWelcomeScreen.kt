@@ -43,7 +43,7 @@ fun TeamWelcomeScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background((Color(244,235,235)))
+            .background((Color(244, 235, 235)))
     ) {
         Title(team, viewModel)
         Logo(team, viewModel)

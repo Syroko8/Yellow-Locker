@@ -97,7 +97,7 @@ fun CreateEventScreen(onNav: (String) -> Unit, viewModel: CreateEventScreenViewM
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background((Color(244, 235, 235)))
             .padding(top = 20.dp, start = 20.dp, end = 20.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally

@@ -12,6 +12,7 @@ object Destinations {
     const val SIGN_UP_2 = "sign_in_2"
     const val LANDING_SCREEN = "landing_screen"
     const val JOIN_TEAM = "join_team"
+    const val CREATE_TEAM = "create_team"
     const val TEAM_WELCOME = "team_welcome"
     const val TEAM_MEMBERS = "team_members"
     const val TEAM_MATCHES = "team_matches"

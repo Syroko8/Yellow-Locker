@@ -33,4 +33,12 @@ public class LocalityService {
     public void deleteLocality(Long id){
         localityRepository.deleteById(id);
     }
+
+    public List<Locality> findAll() throws Exception {
+        try {
+            return localityRepository.findAll();
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
 }

@@ -32,7 +32,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.traceEventEnd
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -60,7 +59,6 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
-import kotlin.math.truncate
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -90,7 +88,7 @@ fun TeamCalendarScreen(onNav: (String) -> Unit, viewModel: TeamCalendarScreenVie
     Column(
          modifier = Modifier
              .fillMaxSize()
-             .background(Color.White),
+             .background((Color(244, 235, 235))),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

@@ -143,7 +143,10 @@ fun FabMenu(
                                 onItemClick(Destinations.JOIN_TEAM)
                             }
                             Identifier.CreateGroup.name -> {
-
+                                onFloatingStateChange(
+                                    FabState.Collapsed
+                                )
+                                onItemClick(Destinations.CREATE_TEAM)
                             }
                             Identifier.Logout.name -> {
                                 onFloatingStateChange(

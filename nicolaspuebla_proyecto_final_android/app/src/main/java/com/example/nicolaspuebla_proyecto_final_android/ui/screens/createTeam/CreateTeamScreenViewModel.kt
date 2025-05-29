@@ -1,0 +1,96 @@
+package com.example.nicolaspuebla_proyecto_final_android.ui.screens.createTeam
+
+import android.content.Context
+import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.nicolaspuebla_proyecto_final_android.R
+import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Locality
+import com.example.nicolaspuebla_proyecto_final_android.data.repositories.LocalityRepository
+import com.example.nicolaspuebla_proyecto_final_android.data.repositories.TeamRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
+import javax.inject.Inject
+
+@HiltViewModel
+class CreateTeamScreenViewModel @Inject constructor(
+    private val teamRepository: TeamRepository,
+    @ApplicationContext private val context: Context,
+    private val localityRepository: LocalityRepository
+): ViewModel() {
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading: StateFlow<Boolean> get() = _isLoading
+
+    private val _localityList = MutableStateFlow<List<Locality>>(emptyList())
+    val localityList: StateFlow<List<Locality>> get() = _localityList
+
+    private val _errorMessage = MutableStateFlow<String>("")
+    val errorMessage: StateFlow<String> get() = _errorMessage
+
+    private val _logout = MutableStateFlow(false)
+    val logout: StateFlow<Boolean> get() = _logout
+
+    var nameTextFieldValue = mutableStateOf("")
+
+    var selectedLocality = mutableStateOf<Locality?>(null)
+
+    var sportTextFieldValue = mutableStateOf("")
+
+    var localitySheetVisibility = mutableStateOf(false)
+
+    var logoSelected = mutableStateOf(false)
+
+    var searchBarQuery = mutableStateOf("")
+
+    var filteredLocalityList = mutableStateOf<List<Locality>>(emptyList())
+
+    fun setErrMsg(msg: String){
+        _errorMessage.value = msg
+    }
+
+    private var filterJob: Job? = null
+
+    fun filterLocalities() {
+        println(">>>>>>>>>>>>>>>>><<${_localityList.value}")
+        filterJob?.cancel()
+        filterJob = viewModelScope.launch {
+            delay(300)
+            val newFilteredList = _localityList.value.filter {
+                it.name.contains(searchBarQuery.value, ignoreCase = true)
+            }
+            filteredLocalityList.value = newFilteredList
+            println(filteredLocalityList)
+        }
+    }
+
+    fun createTeam(userId: Long){
+
+    }
+
+    fun getLocalities(){
+        viewModelScope.launch {
+            _errorMessage.value = ""
+            _isLoading.value = true
+
+            try {
+                println(">>>>>>>>><<requesting")
+                val result = localityRepository.getTeamMatches()
+                result?.let { _localityList.value = it.localities }
+                println(">>>>>>>>>>>>>${result}")
+            } catch (e: Exception){
+                if(e.message == "401"){
+                    _logout.value = true
+                } else {
+                    _errorMessage.value =  e.message ?: context.getString(R.string.err_exception)
+                }
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+}
