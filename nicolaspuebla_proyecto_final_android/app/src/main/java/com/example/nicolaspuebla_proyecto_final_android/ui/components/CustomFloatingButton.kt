@@ -1,6 +1,5 @@
 package com.example.nicolaspuebla_proyecto_final_android.ui.components
 
-import android.content.Context
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.animateFloatAsState
@@ -42,7 +41,6 @@ import com.example.nicolaspuebla_proyecto_final_android.R
 import com.example.nicolaspuebla_proyecto_final_android.utils.LocationChoosingInfo
 import com.example.nicolaspuebla_proyecto_final_android.utils.MapAction
 import com.example.nicolaspuebla_proyecto_final_android.utils.SessionManager
-import dagger.hilt.android.qualifiers.ApplicationContext
 
 enum class FabState{
     Expanded,
