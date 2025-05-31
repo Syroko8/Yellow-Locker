@@ -4,7 +4,9 @@ import com.example.nicolaspuebla_proyecto_final_android.data.model.dto.MemberLis
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dto.TeamNameListReciever
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.MobileUser
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Team
+import com.example.nicolaspuebla_proyecto_final_android.data.model.dto.TeamCreation
 import retrofit2.Call
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -27,4 +29,7 @@ interface TeamService {
 
     @GET("/api/team/names")
     fun getTeamNames(): Call<TeamNameListReciever>
+
+    @POST("api/team/create")
+    fun createTeam(@Body teamCreation: TeamCreation): Call<Team>
 }

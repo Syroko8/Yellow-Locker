@@ -87,7 +87,7 @@ fun AppNavGraph(
             }
 
             composable (Destinations.CREATE_TEAM){
-                CreateTeamScreen()
+                CreateTeamScreen(onNav = { onNav(it) })
             }
         }
     }

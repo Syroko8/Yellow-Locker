@@ -10,6 +10,7 @@ import com.example.nicolaspuebla_proyecto_final.model.dataModels.Team;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.TeamRol;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.TeamRolHolder;
 import com.example.nicolaspuebla_proyecto_final.model.dto.MemberListElement;
+import com.example.nicolaspuebla_proyecto_final.model.dto.TeamCreation;
 import com.example.nicolaspuebla_proyecto_final.model.dto.TeamInfo;
 import com.example.nicolaspuebla_proyecto_final.model.dto.TeamNameListResponse;
 import com.example.nicolaspuebla_proyecto_final.service.TeamService;
@@ -27,7 +28,10 @@ import com.example.nicolaspuebla_proyecto_final.model.dataModels.MobileUser;
 import com.example.nicolaspuebla_proyecto_final.service.EventService;
 import com.example.nicolaspuebla_proyecto_final.service.TeamRolService;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Player;
+import com.example.nicolaspuebla_proyecto_final.model.dataModels.Captain;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Coach;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @RestController
 @RequestMapping("api/team")
@@ -124,5 +128,28 @@ public class TeamController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);   
         }
     }
-    
+
+    @PostMapping("/create")
+    public ResponseEntity<Team> createTeam(@RequestBody TeamCreation teamCreation) {
+        try {
+            MobileUser creator = (MobileUser) userService.getUser(teamCreation.getUserId());
+
+            Team newTeam = new Team(
+                teamCreation.getTeamName(), 
+                teamCreation.getTeamLocality(), 
+                "logo", 
+                "chatKey", 
+                teamCreation.getTeamSport()
+            ); 
+            
+            Team savedTeam = teamService.createTeam(newTeam);
+            savedTeam.addMember(creator);
+            Captain newCreatorRol = new Captain(creator, savedTeam); 
+            teamRolService.createTeamRol(newCreatorRol);
+
+            return ResponseEntity.ok().body(savedTeam);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);   
+        }    
+    }
 }

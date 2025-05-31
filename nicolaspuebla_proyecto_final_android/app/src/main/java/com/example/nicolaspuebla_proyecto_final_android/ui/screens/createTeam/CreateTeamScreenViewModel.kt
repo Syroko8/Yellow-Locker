@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.nicolaspuebla_proyecto_final_android.R
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Locality
+import com.example.nicolaspuebla_proyecto_final_android.data.model.dto.TeamCreation
 import com.example.nicolaspuebla_proyecto_final_android.data.repositories.LocalityRepository
 import com.example.nicolaspuebla_proyecto_final_android.data.repositories.TeamRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -49,6 +50,8 @@ class CreateTeamScreenViewModel @Inject constructor(
 
     var filteredLocalityList = mutableStateOf<List<Locality>>(emptyList())
 
+    var creationResult = mutableStateOf(false)
+
     fun setErrMsg(msg: String){
         _errorMessage.value = msg
     }
@@ -69,7 +72,38 @@ class CreateTeamScreenViewModel @Inject constructor(
     }
 
     fun createTeam(userId: Long){
+        viewModelScope.launch {
+            _errorMessage.value = ""
+            _isLoading.value = true
 
+            try {
+                if(
+                    nameTextFieldValue.value != "" &&
+                    selectedLocality.value != null &&
+                    sportTextFieldValue.value != ""
+                ){
+                    val response = teamRepository.createTeam(
+                        TeamCreation(userId, nameTextFieldValue.value, selectedLocality.value!!, sportTextFieldValue.value)
+                    )
+                } else {
+                    throw  Exception(context.getString(R.string.must_fill))
+                }
+
+                nameTextFieldValue.value = ""
+                selectedLocality.value = null
+                sportTextFieldValue.value = ""
+                logoSelected.value = false
+                creationResult.value = true
+            } catch (e:Exception) {
+                if (e.message == "401") {
+                    _logout.value = true
+                } else {
+                    _errorMessage.value = e.message ?: context.getString(R.string.internal_server_err)
+                }
+            } finally {
+                _isLoading.value = false
+            }
+        }
     }
 
     fun getLocalities(){

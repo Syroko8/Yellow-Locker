@@ -34,14 +34,16 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.laboratorio_b.ui.navigation.Destinations
 import com.example.nicolaspuebla_proyecto_final_android.R
 import com.example.nicolaspuebla_proyecto_final_android.ui.components.ErrorDialog
+import com.example.nicolaspuebla_proyecto_final_android.ui.components.ErrorDialogNoRetry
 import com.example.nicolaspuebla_proyecto_final_android.ui.components.LocalitySheet
 import com.example.nicolaspuebla_proyecto_final_android.utils.SessionManager
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CreateTeamScreen(viewModel: CreateTeamScreenViewModel = hiltViewModel()){
+fun CreateTeamScreen(onNav:(String) -> Unit, viewModel: CreateTeamScreenViewModel = hiltViewModel()){
 
     val errorMsg by viewModel.errorMessage.collectAsState()
     val userId = SessionManager.user?.id
@@ -50,6 +52,10 @@ fun CreateTeamScreen(viewModel: CreateTeamScreenViewModel = hiltViewModel()){
     LaunchedEffect(Unit) {
         println(">>>>>>>>>>>>>getting")
         viewModel.getLocalities()
+    }
+
+    if(viewModel.creationResult.value){
+        onNav(Destinations.LANDING_SCREEN)
     }
 
     Column(
@@ -66,18 +72,25 @@ fun CreateTeamScreen(viewModel: CreateTeamScreenViewModel = hiltViewModel()){
 
         if(viewModel.localitySheetVisibility.value){
             LocalitySheet(
-                onDismiss = {},
+                onDismiss = { viewModel.localitySheetVisibility.value = false},
                 state = sheetState,
                 viewModel
             )
         }
 
         if(errorMsg != ""){
-            ErrorDialog(
-                err = errorMsg,
-                onOk = { viewModel.setErrMsg("") },
-                onRetry = { userId?.let { viewModel.createTeam(userId) } }
-            )
+            if(errorMsg == stringResource(R.string.must_fill)){
+                ErrorDialogNoRetry(
+                    onOk = { viewModel.setErrMsg("") },
+                    err = errorMsg
+                )
+            } else {
+                ErrorDialog(
+                    err = errorMsg,
+                    onOk = { viewModel.setErrMsg("") },
+                    onRetry = { userId?.let { viewModel.createTeam(userId) } }
+                )
+            }
         }
     }
 }
@@ -279,7 +292,7 @@ fun LogoButton(viewModel: CreateTeamScreenViewModel){
 @Composable
 fun SaveButton(viewModel: CreateTeamScreenViewModel){
     val loading by viewModel.isLoading.collectAsState()
-
+    val userId = SessionManager.user?.id
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -292,7 +305,7 @@ fun SaveButton(viewModel: CreateTeamScreenViewModel){
         } else {
             Button(
                 onClick = {
-
+                    userId?.let { viewModel.createTeam(userId = it) }
                 },
                 colors = ButtonDefaults.buttonColors(
                     contentColor = Color.Black,
