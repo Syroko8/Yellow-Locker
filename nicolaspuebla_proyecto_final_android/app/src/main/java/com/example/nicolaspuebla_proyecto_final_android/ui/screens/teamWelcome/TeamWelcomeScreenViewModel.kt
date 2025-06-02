@@ -57,8 +57,10 @@ class TeamWelcomeScreenViewModel @Inject constructor(
             _errMessage.value = ""
             try {
                 val response = teamRepository.getTeam(id)
+                val teamListResponse = eventRepository.getTeamMatches(id)
                 _team.value = response
-                calculateStatistics()
+                println("<>>>>>>>>>>>Calculando estadíasticas")
+                calculateStatistics(teamListResponse)
                 response?.id?.let { SessionManager.setTeamId(it) }
                 getTeamRolLevel()
             } catch (e: Exception){
@@ -69,21 +71,6 @@ class TeamWelcomeScreenViewModel @Inject constructor(
                 }
             } finally {
                 _loading.value = false
-            }
-        }
-    }
-
-    fun getMatches(id: Long){
-        viewModelScope.launch {
-            _errMessage.value = ""
-            _loading.value = true
-
-            try {
-                val response = eventRepository.getTeamMatches(id)
-
-
-            } catch (e:Exception){
-
             }
         }
     }
@@ -110,33 +97,32 @@ class TeamWelcomeScreenViewModel @Inject constructor(
         }
     }
 
-    private fun calculateStatistics(){
+    private fun calculateStatistics(list: List<Match>){
         matches.value = 0
         victories.value = 0
         loses.value = 0
         draws.value = 0
 
-        if(_team.value?.eventList?.isNotEmpty() == true){
-            _team.value?.eventList?.forEach {
-                if(it is Match){
-                    println("Match: ownGoals=${it.ownGoals}, opponentGoals=${it.opponentGoals}")
+        if(list.isNotEmpty()){
+            list.forEach {
+                println("Match: ownGoals=${it.ownGoals}, opponentGoals=${it.opponentGoals}")
 
-                    matches.value++
-                    when {
-                        (it.ownGoals ?: 0) > (it.opponentGoals ?: 0) -> victories.value++
-                        (it.ownGoals ?: 0) < (it.opponentGoals ?: 0) -> loses.value++
-                        else -> draws.value++
-                    }
+                matches.value++
+                when {
+                    (it.ownGoals ?: 0) > (it.opponentGoals ?: 0) -> victories.value++
+                    (it.ownGoals ?: 0) < (it.opponentGoals ?: 0) -> loses.value++
+                    else -> draws.value++
                 }
             }
         }
     }
 
-    fun getTeamRolLevel(){
+    private fun getTeamRolLevel(){
         viewModelScope.launch {
             _loading.value = true
             _errMessage.value = ""
             try {
+                println(">>>>>>>>>>>>>> getting role ${SessionManager.user?.id!!}:${ _team.value?.id!!}")
                 val response = teamRolRepository.getRolLevel(TeamRolPK(SessionManager.user?.id!!, _team.value?.id!!))
                 SessionManager.setTeamRole(response)
             } catch (e: Exception){

@@ -4,10 +4,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -40,6 +42,7 @@ fun TeamWelcomeScreen(
     val userId = SessionManager.user?.id
 
     LaunchedEffect(Unit) {
+        println(">>>>>>>>Obteniendo equipo")
         viewModel.getTeam(teamId.toLong())
     }
 
@@ -162,7 +165,7 @@ fun InfoText(label: String, value: String){
             fontFamily = FontFamily(Font(R.font.jura_semi_bold)),
             fontSize = 18.sp
         )
-
+        Spacer(Modifier.width(10.dp))
         Text(
             text = value,
             color = Color.Black,

@@ -19,9 +19,6 @@ interface TeamService {
     @GET("/api/team/{id}")
     fun getTeam(@Path("id")id:Long): Call<Team>
 
-    @GET("/api/team/ex/{id}")
-    fun getTeamExtended(@Path("id")id:Long): Call<TeamExtended>
-
     @GET("api/team")
     fun getAllTeams(): Call<List<Team>>
 

@@ -1,7 +1,6 @@
 package com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import java.sql.Date
 
 data class Match(
     override val event_type: String,

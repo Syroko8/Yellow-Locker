@@ -47,10 +47,11 @@ public class TeamController {
     UserService userService;
 
    @GetMapping("/{id}")
-    public ResponseEntity<TeamInfo> getTeam(@PathVariable long id) {
+    public ResponseEntity<Team> getTeam(@PathVariable long id) {
         try {
             Team team = teamService.getTeam(id);
-            return ResponseEntity.ok().body(new TeamInfo(team, null));
+             team.setEventList(eventService.getTeamEvents(team));
+            return ResponseEntity.ok().body(team);
         } catch (NoResultException e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         } catch (Exception e) {

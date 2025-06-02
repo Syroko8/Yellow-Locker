@@ -5,6 +5,9 @@ import org.springframework.stereotype.Service;
 import com.example.nicolaspuebla_proyecto_final.repository.TeamRepository;
 import com.example.nicolaspuebla_proyecto_final.repository.TeamRolRepository;
 import com.example.nicolaspuebla_proyecto_final.repository.UserRepository;
+
+import jakarta.persistence.NoResultException;
+
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.MobileUser;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Team;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.TeamRol;
@@ -38,10 +41,10 @@ public class TeamRolService {
     public TeamRol getTeamRol(TeamRolPK teamRolPK) throws Exception{
         try{
             Team team = teamRepository.findById(teamRolPK.getTeamId())
-            .orElseThrow(() -> new Error());
+            .orElseThrow(() -> new NoResultException());
 
             MobileUser user = (MobileUser) userRepository.findById(teamRolPK.getUserId())
-            .orElseThrow(() -> new Error());
+            .orElseThrow(() -> new NoResultException());
 
             return teamRolRepository.findTeamRolByUserAndTeam(user, team);
         } catch(Exception e){
