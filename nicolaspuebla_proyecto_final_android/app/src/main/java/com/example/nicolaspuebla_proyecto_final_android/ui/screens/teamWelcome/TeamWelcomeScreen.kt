@@ -8,12 +8,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -23,21 +23,40 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
+import com.example.laboratorio_b.ui.navigation.Destinations
 import com.example.nicolaspuebla_proyecto_final_android.R
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Team
+import com.example.nicolaspuebla_proyecto_final_android.utils.SessionManager
 
 @Composable
 fun TeamWelcomeScreen(
+    onNav: (String) -> Unit,
     teamId: Int,
     viewModel: TeamWelcomeScreenViewModel = hiltViewModel()
 ){
-
     val team = viewModel.team.collectAsState().value
+    val actualTeamId by SessionManager.actualTeamId.collectAsState()
+    val userId = SessionManager.user?.id
 
     LaunchedEffect(Unit) {
         viewModel.getTeam(teamId.toLong())
+    }
+
+    LaunchedEffect(SessionManager.leaveActualTeam.value) {
+        if(SessionManager.leaveActualTeam.value){
+            actualTeamId?.let {
+                if (userId != null) {
+                    viewModel.leaveTeam(userId, it)
+                }
+            }
+        }
+    }
+
+    LaunchedEffect(viewModel.leftTeam.value) {
+        if(viewModel.leftTeam.value){
+            onNav(Destinations.LANDING_SCREEN)
+        }
     }
 
     Column(
@@ -45,14 +64,14 @@ fun TeamWelcomeScreen(
             .fillMaxSize()
             .background((Color(244, 235, 235)))
     ) {
-        Title(team, viewModel)
-        Logo(team, viewModel)
+        Title(team)
+        Logo(team)
         TeamInfo(team, viewModel)
     }
 }
 
 @Composable
-fun Title(team: Team?, viewModel: TeamWelcomeScreenViewModel){
+fun Title(team: Team?){
     Row(
         modifier = Modifier
             .padding(top = 40.dp)
@@ -61,7 +80,7 @@ fun Title(team: Team?, viewModel: TeamWelcomeScreenViewModel){
         horizontalArrangement = Arrangement.Center
     ){
         Text(
-            text = team?.name ?: "",
+            text = team?.name ?: stringResource(R.string.team_name),
             fontSize = 35.sp,
             fontFamily = FontFamily(Font(R.font.jura_bold)),
             color = Color.Black,
@@ -72,7 +91,7 @@ fun Title(team: Team?, viewModel: TeamWelcomeScreenViewModel){
 }
 
 @Composable
-fun Logo(team: Team?, viewModel: TeamWelcomeScreenViewModel){
+fun Logo(team: Team?){
     Row(
         modifier = Modifier
             .padding(vertical = 40.dp)

@@ -28,6 +28,7 @@ import com.example.laboratorio_b.ui.navigation.Destinations
 import com.example.nicolaspuebla_proyecto_final_android.R
 import com.example.nicolaspuebla_proyecto_final_android.ui.components.ErrorDialog
 import com.example.nicolaspuebla_proyecto_final_android.ui.components.TeamCard
+import com.example.nicolaspuebla_proyecto_final_android.utils.SessionManager
 
 @Composable
 fun LandingScreen(onNav: (String, Int?) -> Unit, viewModel: LandingScreenViewModel = hiltViewModel()){

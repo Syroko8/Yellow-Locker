@@ -19,6 +19,7 @@ import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Logout
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Shield
+import androidx.compose.material.icons.rounded.DoorFront
 import com.example.laboratorio_b.ui.navigation.Destinations
 import com.example.nicolaspuebla_proyecto_final_android.R
 import com.example.nicolaspuebla_proyecto_final_android.ui.components.FabItemData
@@ -82,40 +83,12 @@ object ButtonItemLists {
             icon = Icons.AutoMirrored.Filled.Chat,
             label = R.string.chat,
             identifier = Identifier.Chat.name
-        )
-    )
-
-    private val teamWelcomeScreenButtonListCaptain = listOf(
-        FabItemData(
-            icon = Icons.Filled.House,
-            label = R.string.return_to_landing,
-            identifier = Identifier.Return.name
         ),
         FabItemData(
-            icon = Icons.Filled.List,
-            label = R.string.members,
-            identifier = Identifier.Members.name
+            icon = Icons.Rounded.DoorFront,
+            label = R.string.leave_team,
+            identifier = Identifier.LeaveTeam.name
         ),
-        FabItemData(
-            icon = Icons.Filled.EmojiEvents,
-            label = R.string.matches,
-            identifier = Identifier.Matches.name
-        ),
-        FabItemData(
-            icon = Icons.Filled.CalendarMonth,
-            label = R.string.calendar,
-            identifier = Identifier.Calendar.name
-        ),
-        FabItemData(
-            icon = Icons.AutoMirrored.Filled.Chat,
-            label = R.string.chat,
-            identifier = Identifier.Chat.name
-        ),
-        FabItemData(
-            icon = Icons.Filled.Edit,
-            label = R.string.edit,
-            identifier = Identifier.Edit.name
-        )
     )
 
     private val teamMembersScreenButtonList = listOf(
@@ -237,13 +210,11 @@ object ButtonItemLists {
     )
 
 
-    fun getButtonListForView(view: String, rol: TeamRoles): List<FabItemData> {
+    fun getButtonListForView(view: String): List<FabItemData> {
         when(view){
             Destinations.LANDING_SCREEN -> return landingScreenButtonList
             Destinations.JOIN_TEAM -> return joinTeamScreenButtonList
-            Destinations.TEAM_WELCOME ->
-                return if(rol == TeamRoles.Captain ) teamWelcomeScreenButtonListCaptain
-                else teamWelcomeScreenButtonList
+            Destinations.TEAM_WELCOME -> return teamWelcomeScreenButtonList
             Destinations.TEAM_MEMBERS -> return  teamMembersScreenButtonList
             Destinations.TEAM_MATCHES -> return teamMatchesScreenButtonList
             Destinations.TEAM_CALENDAR -> return teamCalendarButtonList

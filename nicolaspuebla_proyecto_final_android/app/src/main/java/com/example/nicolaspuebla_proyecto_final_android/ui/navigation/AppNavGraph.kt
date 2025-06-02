@@ -53,7 +53,9 @@ fun AppNavGraph(
             }
 
             composable (Destinations.TEAM_WELCOME){
-                TeamWelcomeScreen(teamId = value)
+                TeamWelcomeScreen(
+                    onNav = { onNav(it) },
+                    teamId = value)
             }
 
             composable (Destinations.TEAM_MEMBERS){

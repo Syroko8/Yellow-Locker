@@ -73,4 +73,12 @@ public class TeamRolService {
             throw new Exception(e.getMessage());
         }
     }
+
+    public void removeRol(TeamRol role) throws Exception {
+        try {
+            teamRolRepository.delete(role);
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
 }

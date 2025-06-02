@@ -5,6 +5,8 @@ import com.example.nicolaspuebla_proyecto_final_android.data.model.dto.TeamNameL
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.MobileUser
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Team
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dto.TeamCreation
+import com.example.nicolaspuebla_proyecto_final_android.data.model.dto.TeamExtended
+import com.example.nicolaspuebla_proyecto_final_android.data.model.dto.TeamLeaveRequest
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -16,6 +18,9 @@ interface TeamService {
 
     @GET("/api/team/{id}")
     fun getTeam(@Path("id")id:Long): Call<Team>
+
+    @GET("/api/team/ex/{id}")
+    fun getTeamExtended(@Path("id")id:Long): Call<TeamExtended>
 
     @GET("api/team")
     fun getAllTeams(): Call<List<Team>>
@@ -32,4 +37,7 @@ interface TeamService {
 
     @POST("api/team/create")
     fun createTeam(@Body teamCreation: TeamCreation): Call<Team>
+
+    @POST("api/team/leave")
+    fun leaveTeam(@Body request: TeamLeaveRequest): Call<Team>
 }

@@ -57,6 +57,16 @@ public class TeamService {
         }
     }
 
+    public void removeUser(Team team, MobileUser user)  throws Exception{
+        try {
+            team.removeMember(user);
+            teamRepository.save(team);
+            userRepository.save(user);
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+
     public Team getTeamWithMembers(Long teamId) {
         return teamRepository.findTeamWithMembers(teamId);
     }

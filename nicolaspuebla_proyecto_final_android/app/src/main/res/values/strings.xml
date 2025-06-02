@@ -125,4 +125,5 @@
     <string name="locality_name">Nombre de la localidad</string>
     <string name="search_locality_demand">Busque la localidad por su nombre.</string>
     <string name="search_locality_empty">No se han encontrado localidades con ese nombre.</string>
+    <string name="leave_team">Abandonar equipo</string>
 </resources>

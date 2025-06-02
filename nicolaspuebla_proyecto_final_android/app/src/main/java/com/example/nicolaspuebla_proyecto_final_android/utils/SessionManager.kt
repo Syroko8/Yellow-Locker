@@ -1,5 +1,6 @@
 package com.example.nicolaspuebla_proyecto_final_android.utils
 
+import androidx.compose.runtime.mutableStateOf
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.MobileUser
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -9,6 +10,8 @@ object SessionManager {
     var user: MobileUser? = null
 
     var bearerToken:String? = null
+
+    var leaveActualTeam = mutableStateOf(false)
 
     private val _logOut = MutableStateFlow(false)
     val logOut: StateFlow<Boolean> get() = _logOut

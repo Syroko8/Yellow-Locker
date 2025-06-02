@@ -14,7 +14,8 @@ public class UserService {
     private UserRepository userRepository;
 
     public User getUser(Long id) throws NoResultException, NoSuchElementException{
-        return userRepository.findById(id).get();
+        return userRepository.findById(id)
+        .orElseThrow(() -> new NoResultException());
     }
 
     public User getUserByEmail(String email) throws NoResultException{

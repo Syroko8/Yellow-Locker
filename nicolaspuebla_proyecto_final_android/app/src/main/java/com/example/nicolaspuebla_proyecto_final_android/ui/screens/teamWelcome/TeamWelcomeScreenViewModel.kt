@@ -8,6 +8,8 @@ import com.example.nicolaspuebla_proyecto_final_android.R
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Match
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Team
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.TeamRolPK
+import com.example.nicolaspuebla_proyecto_final_android.data.model.dto.TeamLeaveRequest
+import com.example.nicolaspuebla_proyecto_final_android.data.repositories.TeamEventRepository
 import com.example.nicolaspuebla_proyecto_final_android.data.repositories.TeamRepository
 import com.example.nicolaspuebla_proyecto_final_android.data.repositories.TeamRolRepository
 import com.example.nicolaspuebla_proyecto_final_android.utils.SessionManager
@@ -22,6 +24,7 @@ import javax.inject.Inject
 @HiltViewModel
 class TeamWelcomeScreenViewModel @Inject constructor(
     private val teamRepository: TeamRepository,
+    private val eventRepository: TeamEventRepository,
     private val teamRolRepository: TeamRolRepository,
     @ApplicationContext private val context: Context
 ): ViewModel() {
@@ -37,6 +40,8 @@ class TeamWelcomeScreenViewModel @Inject constructor(
 
     val draws = mutableStateOf<Int>(0)
 
+    var leftTeam = mutableStateOf(false)
+
     private val _logout = MutableStateFlow<Boolean>(false)
     val logout: StateFlow<Boolean> get() = _logout
 
@@ -45,9 +50,6 @@ class TeamWelcomeScreenViewModel @Inject constructor(
 
     private val _loading = MutableStateFlow<Boolean>(false)
     val loading: StateFlow<Boolean> get() = _loading
-
-    private val _showDialog = MutableStateFlow<Boolean>(false)
-    val showDialog: StateFlow<Boolean> get() = _showDialog
 
     fun getTeam(id:Long){
         viewModelScope.launch {
@@ -59,12 +61,48 @@ class TeamWelcomeScreenViewModel @Inject constructor(
                 calculateStatistics()
                 response?.id?.let { SessionManager.setTeamId(it) }
                 getTeamRolLevel()
-            } catch (e: Error){
+            } catch (e: Exception){
                 if(e.message == "401"){
                     _errMessage.value = context.getString(R.string.expired_session)
-                    _showDialog.value = true
-                } else if(e.message == "500") {
-                    _errMessage.value = context.getString(R.string.failed_fetch)
+                } else {
+                    _errMessage.value = context.getString(R.string.internal_server_err)
+                }
+            } finally {
+                _loading.value = false
+            }
+        }
+    }
+
+    fun getMatches(id: Long){
+        viewModelScope.launch {
+            _errMessage.value = ""
+            _loading.value = true
+
+            try {
+                val response = eventRepository.getTeamMatches(id)
+
+
+            } catch (e:Exception){
+
+            }
+        }
+    }
+
+    fun leaveTeam(userId: Long, actualTeamId: Long) {
+        viewModelScope.launch {
+            _errMessage.value = ""
+            _loading.value = true
+
+            try {
+                val response = teamRepository.leaveTeam(TeamLeaveRequest(userId, actualTeamId))
+
+                SessionManager.leaveActualTeam.value = false
+                leftTeam.value = true
+            } catch (e: Exception){
+                if(e.message == "401"){
+                    _errMessage.value = context.getString(R.string.expired_session)
+                } else {
+                    _errMessage.value = context.getString(R.string.internal_server_err)
                 }
             } finally {
                 _loading.value = false
@@ -73,13 +111,20 @@ class TeamWelcomeScreenViewModel @Inject constructor(
     }
 
     private fun calculateStatistics(){
+        matches.value = 0
+        victories.value = 0
+        loses.value = 0
+        draws.value = 0
+
         if(_team.value?.eventList?.isNotEmpty() == true){
             _team.value?.eventList?.forEach {
                 if(it is Match){
+                    println("Match: ownGoals=${it.ownGoals}, opponentGoals=${it.opponentGoals}")
+
                     matches.value++
                     when {
                         (it.ownGoals ?: 0) > (it.opponentGoals ?: 0) -> victories.value++
-                        (it.ownGoals ?: 0) < (it.opponentGoals ?: 0) -> loses.value--
+                        (it.ownGoals ?: 0) < (it.opponentGoals ?: 0) -> loses.value++
                         else -> draws.value++
                     }
                 }

@@ -16,7 +16,7 @@ import javax.inject.Inject
 class LandingScreenViewModel @Inject constructor(
     private val userRepository: UserRepository
 ): ViewModel() {
-    val teamList = mutableStateOf<List<Team>>(SessionManager.user?.teamList ?: emptyList())
+    val teamList = mutableStateOf<List<Team>>(emptyList())
 
     private val _loading = MutableStateFlow<Boolean>(false)
     val loading: StateFlow<Boolean> get() = _loading
@@ -35,6 +35,7 @@ class LandingScreenViewModel @Inject constructor(
             try {
                 val response = userRepository.getUser(SessionManager.user?.id!!)
                 SessionManager.user = response
+                teamList.value = response?.teamList ?: emptyList()
             } catch (e: Exception){
                 if(e.message == "401"){
                     _logout.value = true

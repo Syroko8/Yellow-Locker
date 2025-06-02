@@ -124,6 +124,11 @@ public class Team {
         user.getTeamList().add(this);
     }
 
+    public void removeMember(MobileUser user){
+        this.members.remove(user);
+        user.getTeamList().remove(this);
+    }
+
     public List<TeamPosition> getPositions() {
         return positions;
     }
@@ -176,6 +181,6 @@ public class Team {
         this.teamRoles.add(newRol);
         return this;
     }
-
+    
 
 }

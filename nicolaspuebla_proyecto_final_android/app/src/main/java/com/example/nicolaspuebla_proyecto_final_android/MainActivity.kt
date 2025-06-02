@@ -92,8 +92,7 @@ fun App(onLogOutIntent: () ->Unit, viewModel: PreferencesViewModel = hiltViewMod
             var landingScreenMenuState by remember{
                 mutableStateOf(FabState.Collapsed)
             }
-            val rol by SessionManager.actualTeamRole.collectAsState()
-            var items = ButtonItemLists.getButtonListForView(currentRoute.value?:"", rol ?: TeamRoles.Player)
+            var items = ButtonItemLists.getButtonListForView(currentRoute.value?:"")
 
             FabMenu(
                 state = landingScreenMenuState,
