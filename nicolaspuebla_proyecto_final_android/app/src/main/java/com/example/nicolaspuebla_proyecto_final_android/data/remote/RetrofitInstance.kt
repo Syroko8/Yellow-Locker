@@ -9,7 +9,6 @@ import java.util.concurrent.TimeUnit
 object RetrofitInstance {
     private const val BASE_URL = "http://192.168.0.11:8080"
 
-    // Crear un cliente HTTP con el Interceptor para el token
     private val client = OkHttpClient.Builder()
         .connectTimeout(10, TimeUnit.SECONDS) // Tiempo de conexión
         .readTimeout(30, TimeUnit.SECONDS) // Tiempo de lectura

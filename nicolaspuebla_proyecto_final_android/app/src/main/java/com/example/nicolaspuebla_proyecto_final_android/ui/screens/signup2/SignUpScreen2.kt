@@ -233,7 +233,11 @@ fun PasswdTextField(viewModel: SignUp2ScreenViewModel){
                 unfocusedContainerColor = Color.Transparent,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
-                disabledIndicatorColor = Color.Transparent
+                disabledIndicatorColor = Color.Transparent,
+                focusedTextColor = Color.Gray,
+                unfocusedTextColor = Color.Gray,
+                focusedPlaceholderColor = Color.Gray,
+                unfocusedPlaceholderColor = Color.Gray
             ),
             value = passwd,
             onValueChange = { viewModel.updatePasswd(it) },
@@ -286,7 +290,11 @@ fun PasswdTextField2(viewModel: SignUp2ScreenViewModel){
                 unfocusedContainerColor = Color.Transparent,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
-                disabledIndicatorColor = Color.Transparent
+                disabledIndicatorColor = Color.Transparent,
+                focusedTextColor = Color.Gray,
+                unfocusedTextColor = Color.Gray,
+                focusedPlaceholderColor = Color.Gray,
+                unfocusedPlaceholderColor = Color.Gray
             ),
             value = checkPasswd,
             onValueChange = { viewModel.updatePasswdCheck(it) },

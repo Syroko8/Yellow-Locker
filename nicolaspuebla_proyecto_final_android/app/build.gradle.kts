@@ -47,7 +47,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -102,4 +101,6 @@ dependencies {
     implementation("androidx.datastore:datastore-core:1.0.0")
     // ZXing
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")
+    // LightSpark
+    implementation ("com.lightspark:compose-qr-code:1.0.1")
 }

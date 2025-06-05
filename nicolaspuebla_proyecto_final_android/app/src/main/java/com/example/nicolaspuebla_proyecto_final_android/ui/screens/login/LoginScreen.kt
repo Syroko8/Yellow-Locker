@@ -201,6 +201,10 @@ fun MailTextField(viewModel: LoginScreenViewModel){
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
                 disabledIndicatorColor = Color.Transparent,
+                focusedTextColor = Color.Gray,
+                unfocusedTextColor = Color.Gray,
+                focusedPlaceholderColor = Color.Gray,
+                unfocusedPlaceholderColor = Color.Gray
             ),
             placeholder = {
                 Text(
@@ -239,7 +243,11 @@ fun PasswdTextField(viewModel: LoginScreenViewModel){
                 unfocusedContainerColor = Color.Transparent,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
-                disabledIndicatorColor = Color.Transparent
+                disabledIndicatorColor = Color.Transparent,
+                focusedTextColor = Color.Gray,
+                unfocusedTextColor = Color.Gray,
+                focusedPlaceholderColor = Color.Gray,
+                unfocusedPlaceholderColor = Color.Gray
             ),
             value = viewModel.passwdTextFieldVal.value,
             onValueChange = { viewModel.passwdTextFieldVal.value = it },

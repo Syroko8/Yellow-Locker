@@ -173,7 +173,11 @@ fun NameTextField(viewModel: SignUpScreenViewModel){
                 unfocusedContainerColor = Color.Transparent,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
-                disabledIndicatorColor = Color.Transparent
+                disabledIndicatorColor = Color.Transparent,
+                focusedTextColor = Color.Gray,
+                unfocusedTextColor = Color.Gray,
+                focusedPlaceholderColor = Color.Gray,
+                unfocusedPlaceholderColor = Color.Gray
             ),
             placeholder = {
                 Text(
@@ -214,7 +218,11 @@ fun SurnameTextField(viewModel: SignUpScreenViewModel){
                 unfocusedContainerColor = Color.Transparent,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
-                disabledIndicatorColor = Color.Transparent
+                disabledIndicatorColor = Color.Transparent,
+                focusedTextColor = Color.Gray,
+                unfocusedTextColor = Color.Gray,
+                focusedPlaceholderColor = Color.Gray,
+                unfocusedPlaceholderColor = Color.Gray
             ),
             placeholder = {
                 Text(
@@ -255,12 +263,14 @@ fun MailTextField(viewModel: SignUpScreenViewModel){
                 unfocusedContainerColor = Color.Transparent,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
-                disabledIndicatorColor = Color.Transparent
+                disabledIndicatorColor = Color.Transparent,
+                focusedTextColor = Color.Gray,
+                unfocusedTextColor = Color.Gray,
+                focusedPlaceholderColor = Color.Gray,
+                unfocusedPlaceholderColor = Color.Gray
             ),
             placeholder = {
-                Text(
-                    text = "adress@gmail.com"
-                )
+                Text(text = "adress@gmail.com")
             },
             onValueChange = { viewModel.updateMail(it) },
             value = mail,

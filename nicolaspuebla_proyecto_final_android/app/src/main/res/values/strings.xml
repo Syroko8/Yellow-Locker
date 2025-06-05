@@ -137,4 +137,8 @@
     <string name="expel_member">Expulsar</string>
     <string name="constraint_err">Hay miembros vinculados a esa posición, no puede ser eliminada.</string>
     <string name="constraint_err_code">409</string>
+    <string name="team_qr">QR del equipo</string>
+    <string name="close">Cerrar</string>
+    <string name="app_logo">Logo de la aplicación.</string>
+    <string name="qr_generation_icon">Icono para generar el QR del equipo.</string>
 </resources>

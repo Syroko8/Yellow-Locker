@@ -41,6 +41,8 @@ class TeamWelcomeScreenViewModel @Inject constructor(
 
     var leftTeam = mutableStateOf(false)
 
+    var showQRCode = mutableStateOf(false)
+
     private val _logout = MutableStateFlow<Boolean>(false)
     val logout: StateFlow<Boolean> get() = _logout
 

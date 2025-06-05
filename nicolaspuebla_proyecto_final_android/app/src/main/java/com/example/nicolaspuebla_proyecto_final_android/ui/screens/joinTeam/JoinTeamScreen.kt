@@ -3,6 +3,7 @@ package com.example.nicolaspuebla_proyecto_final_android.ui.screens.joinTeam
 import android.content.Context
 import android.view.LayoutInflater
 import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -60,6 +61,8 @@ import com.example.nicolaspuebla_proyecto_final_android.R
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Team
 import com.example.nicolaspuebla_proyecto_final_android.ui.components.ErrorDialog
 import com.example.nicolaspuebla_proyecto_final_android.utils.SessionManager
+import com.journeyapps.barcodescanner.ScanContract
+import com.journeyapps.barcodescanner.ScanOptions
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -136,6 +139,14 @@ fun JoinTeamScreen(viewModel: JoinTeamScreenViewModel = hiltViewModel()){
 @Composable
 fun SearchBar(viewModel: JoinTeamScreenViewModel){
 
+    val scanLauncher = rememberLauncherForActivityResult(
+        contract = ScanContract(),
+        onResult = {
+            viewModel.teamName.value = it.contents ?: ""
+            viewModel.filterTeams()
+        }
+    )
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -188,7 +199,11 @@ fun SearchBar(viewModel: JoinTeamScreenViewModel){
                 .background(Color(89, 159, 229))
         ) {
             Button(
-                onClick = {  },
+                onClick = {
+                    scanLauncher.launch(ScanOptions().apply {
+                        setOrientationLocked(true)
+                    })
+                },
                 modifier = Modifier.fillMaxSize(),
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                 shape = RoundedCornerShape(10),
@@ -368,7 +383,7 @@ fun ChoiceDialog(
                     horizontalArrangement = Arrangement.Center,
                     ) {
                     Image(
-                        painter = painterResource(id = R.drawable.ic_launcher_background),
+                        painter = painterResource(id = R.drawable.join_background),
                         contentDescription = "Exit app",
                         modifier = Modifier.fillMaxSize(),
                         contentScale = ContentScale.FillWidth
@@ -376,7 +391,8 @@ fun ChoiceDialog(
                 }
                 Text(
                     text = "${stringResource(R.string.join_group_choice_question)} ${chosenTeam?.name}?",
-                    modifier = Modifier.padding(8.dp)
+                    modifier = Modifier.padding(8.dp),
+                    color = Color.Black
                 )
 
                 Row(Modifier.padding(top = 10.dp)) {

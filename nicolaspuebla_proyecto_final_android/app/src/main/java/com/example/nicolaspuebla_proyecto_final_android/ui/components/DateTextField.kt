@@ -4,6 +4,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.TextFieldColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -96,7 +97,7 @@ class DateFormatVisualTransformation(
                 for (word in text) {
                     withStyle(
                         textStyle.copy(
-                            color = if (word.isDigit() || word == '-') textStyle.color
+                            color = if (word.isDigit() || word == '-') Color.Gray
                             else Color.Gray
                         ).toSpanStyle()
                     ) {
@@ -256,7 +257,6 @@ object TextFieldDateFormatter {
  * ex:
  * val s = "123a456b"
  * s.takeDigitString() => "123456"
- * @author kafri8889
  */
 fun String.takeDigitString(): String {
     var builder = ""
@@ -268,7 +268,6 @@ fun String.takeDigitString(): String {
 
 /**
  * add a new string before the given index
- * @author kafri8889
  */
 fun String.addStringBefore(s: String, index: Int): String {
     val result = StringBuilder()
@@ -284,7 +283,6 @@ fun String.addStringBefore(s: String, index: Int): String {
 
 /**
  * Returns a new string with all occurrences of oldValue replaced with newValue.
- * @author kafri8889
  */
 fun String.replace(
     oldValue: List<String>,

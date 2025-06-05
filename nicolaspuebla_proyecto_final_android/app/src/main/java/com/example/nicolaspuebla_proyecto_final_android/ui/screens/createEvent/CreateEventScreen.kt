@@ -17,6 +17,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Schedule
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.AlertDialogDefaults
 import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -28,6 +30,7 @@ import androidx.compose.material3.DisplayMode
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TimePicker
@@ -517,32 +520,30 @@ fun CreationTimePicker(viewModel: CreateEventScreenViewModel) {
         initialMinute = calendar.get(Calendar.MINUTE),
         is24Hour = true,
     )
-    BasicAlertDialog(
-        onDismissRequest = { viewModel.showDatePicker.value = false }
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(Color.White)
-                .padding(30.dp)
-                .clip(RoundedCornerShape(20.dp))
-        ) {
-            TimePicker(
-                state = timePickerState,
-            )
-            Button(onClick = {
+    AlertDialog(
+        onDismissRequest = { viewModel.showTimePicker.value = false },
+        confirmButton = {
+            TextButton(onClick = {
                 viewModel.date.value = getDateWithNewTime(timePickerState, viewModel)
                 viewModel.showTimePicker.value = false
             }) {
                 Text(stringResource(R.string.confirm))
             }
-            Button(onClick = {
+        },
+        dismissButton = {
+            TextButton(onClick = {
                 viewModel.showTimePicker.value = false
             }) {
                 Text(stringResource(R.string.cancel))
             }
-        }
-    }
+        },
+        text = {
+            TimePicker(state = timePickerState)
+        },
+        shape = MaterialTheme.shapes.extraLarge,
+        containerColor = MaterialTheme.colorScheme.surface,
+        tonalElevation = AlertDialogDefaults.TonalElevation
+    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
