@@ -1,5 +1,6 @@
 package com.example.nicolaspuebla_proyecto_final.model.dataModels;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -15,11 +16,13 @@ public class AssignedPosition {
     @ManyToOne
     @MapsId("user_id")
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private MobileUser user;
     
     @ManyToOne
     @MapsId("team_id")   
     @JoinColumn(name = "team_id")
+    @JsonIgnore
     private Team team;
 
     @ManyToOne

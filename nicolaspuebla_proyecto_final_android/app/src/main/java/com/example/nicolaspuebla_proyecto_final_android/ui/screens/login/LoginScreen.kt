@@ -1,6 +1,5 @@
 package com.example.nicolaspuebla_proyecto_final_android.ui.screens.login
 
-import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -39,7 +38,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
@@ -76,7 +74,6 @@ fun LoginScreen(
     }
 
     LaunchedEffect(token, userId) {
-        println(">>>>>>>>>>Revisando token")
         viewModel.checkToken(userId, token)
     }
 
@@ -97,7 +94,10 @@ fun LoginScreen(
     if(err != ""){
         ErrorDialog(
             err,
-            onRetry = { viewModel.login() },
+            onRetry = {
+                viewModel.checkToken(userId, token)
+                viewModel.login()
+            },
             onOk = { viewModel.unsetError() }
         )
     }
@@ -265,7 +265,6 @@ fun PasswdTextField(viewModel: LoginScreenViewModel){
 fun ButtonRow(viewModel: LoginScreenViewModel, onNav: (String) -> Unit){
 
     val loading by viewModel.loading.collectAsState()
-    val context: Context = LocalContext.current
 
     if(loading){
         Column(

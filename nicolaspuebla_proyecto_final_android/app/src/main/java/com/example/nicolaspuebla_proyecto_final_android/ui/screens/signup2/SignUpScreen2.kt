@@ -113,7 +113,7 @@ fun Lower2(viewModel: SignUp2ScreenViewModel, onNav: (String) -> Unit){
         modifier = Modifier
             .fillMaxSize()
             .clip(shape = RoundedCornerShape(topStart = 50.dp))
-            .background(Color(255, 244, 235))
+            .background(Color(244, 235, 235))
             .padding(bottom = 20.dp),
         verticalArrangement = Arrangement.Top
     ) {
@@ -402,6 +402,6 @@ suspend fun showToast(context: Context, onNav: (String) -> Unit) {
 }
 
 suspend fun returnToLoging(onNav: (String) -> Unit){
-    delay(1)
+    delay(300)
     onNav(Destinations.LOGIN)
 }

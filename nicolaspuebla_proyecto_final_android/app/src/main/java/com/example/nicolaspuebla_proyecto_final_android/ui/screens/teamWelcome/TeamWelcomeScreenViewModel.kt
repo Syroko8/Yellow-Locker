@@ -8,7 +8,6 @@ import com.example.nicolaspuebla_proyecto_final_android.R
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Match
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Team
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.TeamRolPK
-import com.example.nicolaspuebla_proyecto_final_android.data.model.dto.TeamLeaveRequest
 import com.example.nicolaspuebla_proyecto_final_android.data.repositories.TeamEventRepository
 import com.example.nicolaspuebla_proyecto_final_android.data.repositories.TeamRepository
 import com.example.nicolaspuebla_proyecto_final_android.data.repositories.TeamRolRepository
@@ -59,7 +58,6 @@ class TeamWelcomeScreenViewModel @Inject constructor(
                 val response = teamRepository.getTeam(id)
                 val teamListResponse = eventRepository.getTeamMatches(id)
                 _team.value = response
-                println("<>>>>>>>>>>>Calculando estadíasticas")
                 calculateStatistics(teamListResponse)
                 response?.id?.let { SessionManager.setTeamId(it) }
                 getTeamRolLevel()
@@ -81,8 +79,7 @@ class TeamWelcomeScreenViewModel @Inject constructor(
             _loading.value = true
 
             try {
-                val response = teamRepository.leaveTeam(TeamLeaveRequest(userId, actualTeamId))
-
+                teamRepository.leaveTeam(userId, actualTeamId)
                 SessionManager.leaveActualTeam.value = false
                 leftTeam.value = true
             } catch (e: Exception){
@@ -105,8 +102,6 @@ class TeamWelcomeScreenViewModel @Inject constructor(
 
         if(list.isNotEmpty()){
             list.forEach {
-                println("Match: ownGoals=${it.ownGoals}, opponentGoals=${it.opponentGoals}")
-
                 matches.value++
                 when {
                     (it.ownGoals ?: 0) > (it.opponentGoals ?: 0) -> victories.value++
@@ -122,7 +117,6 @@ class TeamWelcomeScreenViewModel @Inject constructor(
             _loading.value = true
             _errMessage.value = ""
             try {
-                println(">>>>>>>>>>>>>> getting role ${SessionManager.user?.id!!}:${ _team.value?.id!!}")
                 val response = teamRolRepository.getRolLevel(TeamRolPK(SessionManager.user?.id!!, _team.value?.id!!))
                 SessionManager.setTeamRole(response)
             } catch (e: Exception){

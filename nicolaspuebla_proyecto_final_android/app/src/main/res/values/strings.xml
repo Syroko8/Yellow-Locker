@@ -126,4 +126,15 @@
     <string name="search_locality_demand">Busque la localidad por su nombre.</string>
     <string name="search_locality_empty">No se han encontrado localidades con ese nombre.</string>
     <string name="leave_team">Abandonar equipo</string>
+    <string name="rol">Rol</string>
+    <string name="no_position">Sin Asignar</string>
+    <string name="position">Posición</string>
+    <string name="dropdown_new_position_description">Icono de la opción de crear nueva posición.</string>
+    <string name="create_position">Crear posición</string>
+    <string name="new_position">Nueva posición</string>
+    <string name="new_position_name_petition">Introduzca el nombre de la nueva posición.</string>
+    <string name="delete_position_icon">Icono del botón para eliminar posiciones.</string>
+    <string name="expel_member">Expulsar</string>
+    <string name="constraint_err">Hay miembros vinculados a esa posición, no puede ser eliminada.</string>
+    <string name="constraint_err_code">409</string>
 </resources>

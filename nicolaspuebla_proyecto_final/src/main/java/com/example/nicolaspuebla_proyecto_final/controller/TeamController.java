@@ -2,7 +2,6 @@ package com.example.nicolaspuebla_proyecto_final.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +9,6 @@ import com.example.nicolaspuebla_proyecto_final.model.dataModels.Team;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.TeamRol;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.TeamRolHolder;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.TeamRolPK;
-import com.example.nicolaspuebla_proyecto_final.model.dto.LeaveTeamRequest;
 import com.example.nicolaspuebla_proyecto_final.model.dto.MemberListElement;
 import com.example.nicolaspuebla_proyecto_final.model.dto.TeamCreation;
 import com.example.nicolaspuebla_proyecto_final.model.dto.TeamInfo;
@@ -26,9 +24,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Event;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.MobileUser;
+import com.example.nicolaspuebla_proyecto_final.service.AssignedPositionService;
 import com.example.nicolaspuebla_proyecto_final.service.EventService;
 import com.example.nicolaspuebla_proyecto_final.service.TeamRolService;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Player;
+import com.example.nicolaspuebla_proyecto_final.model.dataModels.AssignedPosition;
+import com.example.nicolaspuebla_proyecto_final.model.dataModels.AssignedPositionPK;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Captain;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Coach;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,6 +46,8 @@ public class TeamController {
     TeamRolService teamRolService;
     @Autowired
     UserService userService;
+    @Autowired
+    AssignedPositionService assignedPositionService;
 
    @GetMapping("/{id}")
     public ResponseEntity<Team> getTeam(@PathVariable long id) {
@@ -154,14 +157,22 @@ public class TeamController {
     }
 
     @PostMapping("/leave")
-    public ResponseEntity<Team> leaveTeam(@RequestBody LeaveTeamRequest request) {
+    public ResponseEntity<Team> leaveTeam(@RequestParam Long userId, @RequestParam Long teamId) {
         try {
-            MobileUser user = (MobileUser) userService.getUser(request.getUserId());
-            Team team = teamService.getTeam(request.getTeamId());
+            MobileUser user = (MobileUser) userService.getUser(userId);
+            Team team = teamService.getTeam(teamId);
 
             teamService.removeUser(team, user);
             TeamRol role = teamRolService.getTeamRol(new TeamRolPK(user.getId(), team.getId()));
             teamRolService.removeRol(role);
+
+            AssignedPosition assignedPosition = assignedPositionService.getAssignedPosition(new AssignedPositionPK(
+                userId,
+                teamId
+            ));
+            if(assignedPosition != null){
+                assignedPositionService.deleteAssignedPosition(assignedPosition);
+            }
         
             return ResponseEntity.ok().body(team);
         } catch (Exception e) {

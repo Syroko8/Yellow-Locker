@@ -4,7 +4,6 @@ import com.example.nicolaspuebla_proyecto_final_android.data.model.dto.MemberLis
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.MobileUser
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Team
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dto.TeamCreation
-import com.example.nicolaspuebla_proyecto_final_android.data.model.dto.TeamLeaveRequest
 import com.example.nicolaspuebla_proyecto_final_android.data.remote.RetrofitInstance
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -114,10 +113,10 @@ class TeamRepository {
         }
     }
 
-    suspend fun leaveTeam(request: TeamLeaveRequest): Team? {
+    suspend fun leaveTeam(userId: Long, teamId: Long): Team? {
         return withContext(Dispatchers.IO) {
             try {
-                val call = RetrofitInstance.yellowLockerTeamService.leaveTeam(request)
+                val call = RetrofitInstance.yellowLockerTeamService.leaveTeam(userId, teamId)
                 val response = call.execute()
 
                 if (response.isSuccessful) {

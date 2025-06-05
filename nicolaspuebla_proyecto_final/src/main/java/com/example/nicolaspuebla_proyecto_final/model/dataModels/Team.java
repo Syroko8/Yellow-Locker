@@ -181,6 +181,10 @@ public class Team {
         this.teamRoles.add(newRol);
         return this;
     }
+
+    public void removeRol(TeamRol oldRol){
+        
+    }
     
 
 }

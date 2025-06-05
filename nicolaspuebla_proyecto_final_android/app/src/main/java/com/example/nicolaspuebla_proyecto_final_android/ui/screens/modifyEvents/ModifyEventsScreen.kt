@@ -108,7 +108,7 @@ fun ModifyEventsScreen(onNav: (String) -> Unit, viewModel: ModifyEventsScreenVie
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background((Color(244, 235, 235)))
+            .background(Color(244, 235, 235))
             .padding(top = 20.dp)
     ) {
         Title()

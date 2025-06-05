@@ -98,7 +98,7 @@ fun Lower(viewModel: SignUpScreenViewModel, onNav: (String) -> Unit){
         modifier = Modifier
             .fillMaxSize()
             .clip(shape = RoundedCornerShape(topStart = 50.dp))
-            .background(Color.White)
+            .background(Color(244, 235, 235))
             .padding(bottom = 20.dp)
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.Top

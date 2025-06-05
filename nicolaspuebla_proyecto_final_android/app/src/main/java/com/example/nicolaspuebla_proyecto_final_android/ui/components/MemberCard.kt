@@ -28,9 +28,10 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.nicolaspuebla_proyecto_final_android.R
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dto.MemberListElement
+import com.example.nicolaspuebla_proyecto_final_android.utils.TeamRoles
 
 @Composable
-fun MemberCard(member: MemberListElement, onClick: (MemberListElement) -> Unit){
+fun MemberCard(member: MemberListElement, teamId: Long, onClick: (MemberListElement) -> Unit){
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -77,12 +78,29 @@ fun MemberCard(member: MemberListElement, onClick: (MemberListElement) -> Unit){
                 )
                 Spacer(Modifier.height(10.dp))
                 Text(
-                    text = member.rolType,
+                    text = "${stringResource(R.string.rol)}: ${member.rolType}",
                     fontFamily = FontFamily(Font(R.font.jura_semi_bold)),
                     color = Color.Black,
                     fontSize = 16.sp
                 )
+                if(member.rolType == TeamRoles.Player.name){
+                    Text(
+                        text = "${stringResource(R.string.position)}: ${getPosition(member, teamId)?: stringResource(R.string.no_position)}",
+                        fontFamily = FontFamily(Font(R.font.jura_semi_bold)),
+                        color = Color.Black,
+                        fontSize = 16.sp
+                    )
+                }
             }
         }
+    }
+}
+
+fun getPosition(member: MemberListElement, teamId: Long): String?{
+    val positionStr = member.user.assignedPositions.filter{it.id.team_id == teamId}
+     return if(positionStr.isNotEmpty()){
+        positionStr[0].position.name
+    } else {
+        null
     }
 }

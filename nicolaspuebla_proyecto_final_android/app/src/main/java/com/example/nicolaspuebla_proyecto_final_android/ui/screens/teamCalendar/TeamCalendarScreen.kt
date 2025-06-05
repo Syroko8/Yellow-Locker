@@ -97,7 +97,7 @@ fun TeamCalendarScreen(onNav: (String) -> Unit, viewModel: TeamCalendarScreenVie
             events,
             viewModel
         )
-        if(actualTeamRole == TeamRoles.Player){
+        if(actualTeamRole == TeamRoles.Captain || actualTeamRole == TeamRoles.Coach){
             ModifyEvents(onNav = {onNav(Destinations.MODIFY_EVENTS)})
         }
         if(bottomSheetVisibility){

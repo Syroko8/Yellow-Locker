@@ -69,4 +69,16 @@ class SignUpData {
             return true
         }
     }
+
+    fun deleteData(){
+        _nameTextFieldVal.value = ""
+        _surnameTextFieldVal.value = ""
+        _mailTextFieldVal.value = ""
+        _dateTextFieldVal.value = TextFieldValue(
+            text = TextFieldDateFormatter.format(TextFieldValue("")),
+            selection = TextRange(0)
+        )
+        _passwdTextFieldVal.value = ""
+        _passwdTextField2Val.value = ""
+    }
 }

@@ -64,6 +64,7 @@ class SignUp2ScreenViewModel @Inject constructor(
                 val response = userRepository.signUp(buildUser())
 
                 if (response != null){
+                    signUpData.deleteData()
                     _signed.value = true
                 }
             } catch (e: HttpException){

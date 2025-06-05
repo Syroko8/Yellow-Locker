@@ -1,9 +1,8 @@
 package com.example.nicolaspuebla_proyecto_final.model.dataModels;
 
-
 import java.util.ArrayList;
 import java.util.List;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,10 +20,12 @@ public class TeamPosition {
     private long id;
     @ManyToOne
     @JoinColumn(name = "team_id")
+    @JsonIgnore
     private Team team;
     @Column(nullable = false)
     private String name;
     @OneToMany(mappedBy = "position")
+    @JsonIgnore
     private List<AssignedPosition> assignedpositions = new ArrayList<>();
 
     public TeamPosition(){}

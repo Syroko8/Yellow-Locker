@@ -92,6 +92,10 @@ public class MobileUser extends User {
         this.teamRoles = teamRoles;
     }
 
+    public void removeRol(TeamRol oldRol){
+        this.teamRoles.remove(oldRol);
+    }
+
     private int calcularEdad(Date fechaNacimiento) {
         LocalDate nacimiento = fechaNacimiento.toLocalDate();
         LocalDate ahora = LocalDate.now();

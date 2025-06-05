@@ -42,7 +42,6 @@ fun TeamWelcomeScreen(
     val userId = SessionManager.user?.id
 
     LaunchedEffect(Unit) {
-        println(">>>>>>>>Obteniendo equipo")
         viewModel.getTeam(teamId.toLong())
     }
 

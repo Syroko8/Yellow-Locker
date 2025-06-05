@@ -14,7 +14,8 @@ public class AssignedPositionService {
     private AssignedPositionRepository asignedPositionRepository;
 
     public AssignedPosition getAssignedPosition(AssignedPositionPK id){
-        return asignedPositionRepository.getReferenceById(id);
+        return asignedPositionRepository.findById(id)
+        .orElse(null);
     }
 
     public AssignedPosition createAssignedPosition(AssignedPosition newAsignedPosition){
@@ -25,7 +26,17 @@ public class AssignedPositionService {
         return asignedPositionRepository.save(newAsignedPosition);
     }
 
-    public void deleteAssignedPosition(AssignedPosition asignedPosition){
-        asignedPositionRepository.delete(asignedPosition);
+    public void deleteAssignedPosition(AssignedPosition asignedPosition) throws Exception {
+        try {
+            asignedPositionRepository.delete(asignedPosition);
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
     }
+
+    public void deleteAssignedPosition(Long userId, Long teamId) {
+        AssignedPositionPK id = new AssignedPositionPK(userId, teamId);
+        asignedPositionRepository.deleteById(id);
+    }
+
 }

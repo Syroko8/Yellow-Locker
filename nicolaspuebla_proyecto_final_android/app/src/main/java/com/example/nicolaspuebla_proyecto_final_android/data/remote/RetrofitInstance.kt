@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object RetrofitInstance {
-    private const val BASE_URL = "http://192.168.0.27:8080"
+    private const val BASE_URL = "http://192.168.0.11:8080"
 
     // Crear un cliente HTTP con el Interceptor para el token
     private val client = OkHttpClient.Builder()
@@ -75,5 +75,23 @@ object RetrofitInstance {
             .client(client)
             .build()
             .create(LocalityService::class.java)
+    }
+
+    val yellowLockerTeamPositionService: TeamPositionService by lazy {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+            .create(TeamPositionService::class.java)
+    }
+
+    val yellowLockerAssignedPositionService: AssignedPositionService by lazy {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+            .create(AssignedPositionService::class.java)
     }
 }

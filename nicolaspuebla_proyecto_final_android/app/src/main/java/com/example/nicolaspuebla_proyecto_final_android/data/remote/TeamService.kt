@@ -6,7 +6,6 @@ import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Mo
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Team
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dto.TeamCreation
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dto.TeamExtended
-import com.example.nicolaspuebla_proyecto_final_android.data.model.dto.TeamLeaveRequest
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -36,5 +35,8 @@ interface TeamService {
     fun createTeam(@Body teamCreation: TeamCreation): Call<Team>
 
     @POST("api/team/leave")
-    fun leaveTeam(@Body request: TeamLeaveRequest): Call<Team>
+    fun leaveTeam(
+        @Query("userId") userId: Long,
+        @Query("teamId") teamId: Long
+    ): Call<Team>
 }
