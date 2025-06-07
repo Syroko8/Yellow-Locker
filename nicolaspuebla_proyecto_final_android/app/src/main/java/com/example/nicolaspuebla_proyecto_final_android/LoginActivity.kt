@@ -20,6 +20,11 @@ import com.example.nicolaspuebla_proyecto_final_android.ui.theme.Nicolaspuebla_p
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+/**
+ * @author Nicolás Puebla Martín
+ *
+ * Actividad inicial de la aplicación, dende se gestionan los login y registros de usuario.
+ */
 @AndroidEntryPoint
 class LoginActivity : ComponentActivity() {
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -35,6 +40,9 @@ class LoginActivity : ComponentActivity() {
         }
     }
 
+    /**
+     * Función que navega a la actividad principal de la aplicación.
+     */
     fun continueToLanding(){
         val intent = Intent(this, MainActivity::class.java)
         this.startActivity(intent)
@@ -51,7 +59,7 @@ fun App(advance: () -> Unit){
     val currentRoute = remember { mutableStateOf<String?>(null) }
 
     /**
-     * Efecto para actualizar la ruta actual siempre que cambie el destino de navegación.
+     * LaunchedEffect para actualizar la ruta actual siempre que cambie el destino de navegación.
      */
     LaunchedEffect(navController) {
         navController.addOnDestinationChangedListener { _, destination, _ ->

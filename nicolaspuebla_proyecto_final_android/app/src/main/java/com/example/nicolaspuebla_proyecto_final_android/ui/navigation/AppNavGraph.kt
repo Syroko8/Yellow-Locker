@@ -19,6 +19,13 @@ import com.example.nicolaspuebla_proyecto_final_android.ui.screens.teamCalendar.
 import com.example.nicolaspuebla_proyecto_final_android.ui.screens.teamMembers.TeamMembersScreen
 import com.example.nicolaspuebla_proyecto_final_android.ui.screens.teamWelcome.TeamWelcomeScreen
 
+/**
+ * Gráfico de navegación principal de la aplicación, manejando las transiciones de pantalla.
+ *
+ * @param navController La instancia de NavHostController para la navegación.
+ * @param innerPadding Espacio que se aplica alrededor del área de contenido.
+ * @param onNav Callback invocado para navegar a una ruta específica.
+ */
 @Composable
 fun AppNavGraph(
     navController: NavHostController,

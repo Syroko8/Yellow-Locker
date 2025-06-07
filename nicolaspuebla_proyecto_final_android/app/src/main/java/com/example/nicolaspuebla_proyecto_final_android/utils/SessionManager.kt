@@ -5,6 +5,9 @@ import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Mo
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
+/**
+ * Objeto en el que se almacena información sobre la actividad del usuario en la aplicación.
+ */
 object SessionManager {
 
     var user: MobileUser? = null

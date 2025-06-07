@@ -22,8 +22,10 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
-private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "user_preferences")
-
+/**
+ * Objeto que almacena las funciones con las que Hilt injectará los repositorios empleados en los view models para relizar
+ * peticiones al microservicio.
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {

@@ -9,14 +9,33 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
 
+/**
+ * Interfaz que se intercambia información con el microservicio relacionada con la autenticación de usuario.
+ */
 interface ApiAuthService {
 
+    /**
+     * Función que realiza una petición de login.
+     *
+     * @param request Objeto que contiene la información necesaria para el login.
+     */
     @POST("api/user/login")
     fun login(@Body request: LoginRequest): Call<LoginResponse>
 
+    /**
+     * Función que realiza una petición de logout.
+     *
+     * @param request Token del usuario que se dará de baja.
+     */
     @POST("api/user/logout")
     fun logout(@Body request: String): Call<String>
 
+    /**
+     * Función que realiza una petición de comprobación de validad de un token.
+     *
+     * @param userId Identificador del usuario al que pertenece el token.
+     * @param token Token a comprobar.
+     */
     @GET("api/token/token_check")
     fun tokenCheck(
         @Query("userId") userId: Long,

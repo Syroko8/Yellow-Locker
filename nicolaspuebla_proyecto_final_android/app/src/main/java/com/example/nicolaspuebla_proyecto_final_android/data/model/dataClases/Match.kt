@@ -2,6 +2,9 @@ package com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases
 
 import com.fasterxml.jackson.annotation.JsonProperty
 
+/**
+ * Clase que almacena la información de un partido y hereda de Event.
+ */
 data class Match(
     override val event_type: String,
     override val id: Long,

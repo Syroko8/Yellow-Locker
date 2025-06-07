@@ -2,6 +2,9 @@ package com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
+/**
+ * Clase que almacena la información de un usuario.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class MobileUser (
     val id: Long,

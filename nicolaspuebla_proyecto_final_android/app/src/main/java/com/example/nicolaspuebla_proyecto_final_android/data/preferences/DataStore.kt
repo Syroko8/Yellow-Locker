@@ -7,6 +7,9 @@ import androidx.datastore.preferences.preferencesDataStore
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "user_preferences")
 
+/**
+ * Clase que facilita el acceso al almacenamiento local.
+ */
 class DataStoreProvider(private val context: Context) {
     val dataStore: DataStore<Preferences> get() = context.dataStore
 }

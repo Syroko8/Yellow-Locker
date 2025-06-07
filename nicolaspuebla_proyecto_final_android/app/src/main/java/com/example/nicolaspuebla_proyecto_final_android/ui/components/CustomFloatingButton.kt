@@ -64,7 +64,8 @@ enum class Identifier{
     MapConfirm,
     CreateEvent,
     CreateEventReturn,
-    LeaveTeam
+    LeaveTeam,
+    CreateTeamReturn
 }
 
 class FabItemData(
@@ -146,6 +147,12 @@ fun FabMenu(
                                     FabState.Collapsed
                                 )
                                 onItemClick(Destinations.CREATE_TEAM)
+                            }
+                            Identifier.CreateTeamReturn.name -> {
+                                onFloatingStateChange(
+                                    FabState.Collapsed
+                                )
+                                onItemClick(Destinations.LANDING_SCREEN)
                             }
                             Identifier.Logout.name -> {
                                 onFloatingStateChange(

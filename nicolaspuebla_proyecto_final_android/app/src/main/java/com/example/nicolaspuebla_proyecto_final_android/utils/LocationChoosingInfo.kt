@@ -12,6 +12,9 @@ enum class MapAction(){
     ChooseOpponent
 }
 
+/**
+ * Objeto empleado para almacenar información al usar MapScreen necesaria para otras vistas.
+ */
 object LocationChoosingInfo {
 
     private val _event = MutableStateFlow<Event?>(null)

@@ -25,6 +25,9 @@ import com.example.nicolaspuebla_proyecto_final_android.R
 import com.example.nicolaspuebla_proyecto_final_android.ui.components.FabItemData
 import com.example.nicolaspuebla_proyecto_final_android.ui.components.Identifier
 
+/**
+ * Objeto que contiene todas las listas de los componentes del menú de navegación para cada pantalla.
+ */
 object ButtonItemLists {
 
     private val landingScreenButtonList = listOf(
@@ -209,7 +212,19 @@ object ButtonItemLists {
         )
     )
 
+    private  val createTeamButtonList = listOf(
+        FabItemData(
+            icon = Icons.AutoMirrored.Filled.ArrowBack,
+            label = R.string.return_str,
+            identifier = Identifier.CreateTeamReturn.name
+        )
+    )
 
+    /**
+     * Función que devuelve la lista de navegación para cada pantalla.
+     *
+     * @param view La vista de la que se necesita saber la lista de navegación.
+     */
     fun getButtonListForView(view: String): List<FabItemData> {
         when(view){
             Destinations.LANDING_SCREEN -> return landingScreenButtonList
@@ -221,8 +236,8 @@ object ButtonItemLists {
             Destinations.MODIFY_EVENTS -> return teamEventModifyButtonList
             Destinations.MAP -> return mapButtonList
             Destinations.CREATE_EVENT -> return createEventButtonList
+            Destinations.CREATE_TEAM -> return createTeamButtonList
+            else -> return emptyList()
         }
-
-        return emptyList()
     }
 }

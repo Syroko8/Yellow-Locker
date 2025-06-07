@@ -2,6 +2,9 @@ package com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases
 
 import com.google.gson.annotations.SerializedName
 
+/**
+ * Clase que almacena la información de un equipo.
+ */
 data class Team (
     val id: Long,
     val name: String,

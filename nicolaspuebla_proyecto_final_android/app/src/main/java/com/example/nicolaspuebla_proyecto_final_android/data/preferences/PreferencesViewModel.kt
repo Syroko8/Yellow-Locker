@@ -9,6 +9,9 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * Clase que permite que expone los métodos de PreferencesRepository a las pantallas de la aplicación.
+ */
 @HiltViewModel
 class PreferencesViewModel @Inject constructor(
     private val preferencesRepository: PreferencesRepository

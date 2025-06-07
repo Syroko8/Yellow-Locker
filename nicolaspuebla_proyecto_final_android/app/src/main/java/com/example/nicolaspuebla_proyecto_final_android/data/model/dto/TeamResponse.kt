@@ -6,6 +6,9 @@ import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Te
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.TeamRol
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.User
 
+/**
+ * Clase que recibe cierta información de un equipo del microservicio.
+ */
 data class TeamResponse (
     val id: Long,
     val name: String,

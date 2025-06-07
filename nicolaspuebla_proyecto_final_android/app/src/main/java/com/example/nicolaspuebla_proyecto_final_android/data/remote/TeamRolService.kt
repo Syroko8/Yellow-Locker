@@ -11,10 +11,27 @@ import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
 
+/**
+ * Interfaz que se intercambia información con el microservicio relacionada con la entidad TeamRol.
+ *
+ */
 interface TeamRolService {
+
+    /**
+     * Función que realiza una petición para recibir el nivel de rol de cierta posición.
+     *
+     * @param teamRolPK Identificador de la asignación del rol.
+     */
     @POST("api/team_rol/level")
     fun getRolLevel(@Body teamRolPK: TeamRolPK): Call<TeamRolLevelResponse>
 
+    /**
+     * Función que realiza un apetición para actualizar el rol de un miembro de un equipo.
+     *
+     * @param userId Identificador del usuario.
+     * @param teamId Identificador del equipo al que pertenece el usuario.
+     * @param rolType Nuevo rol a asignar.
+     */
     @PUT("api/team_rol/change")
     fun changeUserRol(
         @Query("userId") userId: Long,

@@ -1,7 +1,8 @@
 package com.example.nicolaspuebla_proyecto_final_android.data.model.dto
 
-import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Team
-
+/**
+ * Clase empleada en la petición para la creación de un entrenamiento.
+ */
 data class TrainingCreation (
     override val event_type: String = "match",
     override val teamId: Long,

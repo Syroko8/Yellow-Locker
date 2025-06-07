@@ -7,6 +7,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Singleton
 
+/**
+ * Objeto en el que se almacena información durante el registro del usuario.
+ */
 @Singleton
 class SignUpData {
     private var _nameTextFieldVal = MutableStateFlow("")
@@ -56,6 +59,9 @@ class SignUpData {
         _passwdTextField2Val.value = passwd
     }
 
+    /**
+     * Función que comprueba que el usuario haya introducido toda la información necesaria.
+     */
     fun filledFields(): Boolean {
         if(
             _nameTextFieldVal.value == "" ||

@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -27,11 +26,15 @@ import com.example.nicolaspuebla_proyecto_final_android.ui.components.TopBar
 import com.example.nicolaspuebla_proyecto_final_android.ui.theme.Nicolaspuebla_proyecto_final_androidTheme
 import com.example.nicolaspuebla_proyecto_final_android.utils.ButtonItemLists
 import com.example.nicolaspuebla_proyecto_final_android.utils.SessionManager
-import com.example.nicolaspuebla_proyecto_final_android.utils.TeamRoles
 import com.google.android.libraries.places.api.Places
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+/**
+ * @author Nicolás Puebla Martín
+ *
+ * Actividad principal de la aplicación.
+ */
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +42,9 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         Places.initialize(applicationContext, "AIzaSyAyC3hxTl_mDCifxGrWTCT2i8De9U2piC4")
 
+        /**
+         * Función que realiza un cambio de actividad.
+         */
         fun logout() {
             SessionManager.setLogOut(false)
             val intent = Intent(this, LoginActivity::class.java)
@@ -62,7 +68,7 @@ fun App(onLogOutIntent: () ->Unit, viewModel: PreferencesViewModel = hiltViewMod
     val currentRoute = remember { mutableStateOf<String?>(null) }
 
     /**
-     * Efecto para actualizar la ruta actual siempre que cambie el destino de navegación.
+     * LaunchedEffect para actualizar la ruta actual siempre que cambie el destino de navegación.
      */
     LaunchedEffect(navController) {
         navController.addOnDestinationChangedListener { _, destination, _ ->
@@ -110,13 +116,6 @@ fun App(onLogOutIntent: () ->Unit, viewModel: PreferencesViewModel = hiltViewMod
             )
         }
     ) { innerPadding ->
-        /**
-         * Gráfico de navegación de la aplicación, manejando las transiciones de pantalla.
-         *
-         * @param navController La instancia de NavController para la navegación.
-         * @param innerPadding Relleno que se aplica alrededor del área de contenido.
-         * @param onNav Callback invocado para navegar a una ruta específica.
-         */
         AppNavGraph(
             navController = navController,
             innerPadding = innerPadding,

@@ -2,6 +2,9 @@ package com.example.nicolaspuebla_proyecto_final_android.data.model.dto
 
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Team
 
+/**
+ * Clase que recibe la información de un partido del microservicio.
+ */
 data class MatchReceiver (
     val event_type: String,
     val id: Long,

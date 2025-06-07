@@ -1,11 +1,10 @@
 package com.example.nicolaspuebla_proyecto_final_android.data.remote
 
-import com.example.nicolaspuebla_proyecto_final_android.data.model.dto.MemberListElement
-import com.example.nicolaspuebla_proyecto_final_android.data.model.dto.TeamNameListReciever
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.MobileUser
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Team
+import com.example.nicolaspuebla_proyecto_final_android.data.model.dto.MemberListElement
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dto.TeamCreation
-import com.example.nicolaspuebla_proyecto_final_android.data.model.dto.TeamExtended
+import com.example.nicolaspuebla_proyecto_final_android.data.model.dto.TeamNameListReciever
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -13,6 +12,9 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 
+/**
+ * Interfaz que se intercambia información con el microservicio relacionada con la entidad Team.
+ */
 interface TeamService {
 
     @GET("/api/team/{id}")

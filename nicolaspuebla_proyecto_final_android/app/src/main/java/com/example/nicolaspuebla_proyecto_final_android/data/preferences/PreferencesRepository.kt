@@ -10,6 +10,9 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
+/**
+ * Clase que interactúa con el almacenamiento local.
+ */
 @Singleton
 class PreferencesRepository @Inject constructor(
     private val dataStore: DataStore<Preferences>
@@ -25,7 +28,6 @@ class PreferencesRepository @Inject constructor(
 
     suspend fun saveToken(newToken: String) {
         dataStore.edit { preferences ->
-            println(">>>>>>>>><<<Almacenando token")
             preferences[TOKEN] = newToken
         }
     }
@@ -37,7 +39,6 @@ class PreferencesRepository @Inject constructor(
 
     suspend fun saveUserId(userId: Long){
         dataStore.edit { preferences ->
-            println(">>>>>>>>>>>Almacenando id")
             preferences[USERID] = userId
         }
     }
