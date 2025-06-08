@@ -104,10 +104,11 @@ class TeamWelcomeScreenViewModel @Inject constructor(
 
         if(list.isNotEmpty()){
             list.forEach {
+                println(">>>>>>>>>><<${it}")
                 matches.value++
                 when {
-                    (it.ownGoals ?: 0) > (it.opponentGoals ?: 0) -> victories.value++
-                    (it.ownGoals ?: 0) < (it.opponentGoals ?: 0) -> loses.value++
+                    (it.ownGoals ?: 0) > (it.opponentGoals ?: 0) -> if(it.team.id == _team.value?.id) victories.value++ else loses.value++
+                    (it.ownGoals ?: 0) < (it.opponentGoals ?: 0) -> if(it.team.id == _team.value?.id) loses.value++ else victories.value++
                     else -> draws.value++
                 }
             }

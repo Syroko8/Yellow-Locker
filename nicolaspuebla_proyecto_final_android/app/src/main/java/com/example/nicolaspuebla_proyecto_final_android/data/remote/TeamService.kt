@@ -17,25 +17,57 @@ import retrofit2.http.Query
  */
 interface TeamService {
 
+    /**
+     * Función que realiza una petición para obtener la información de un equipo.
+     *
+     * @param id Identificador del equipo.
+     */
     @GET("/api/team/{id}")
     fun getTeam(@Path("id")id:Long): Call<Team>
 
+    /**
+     * Función que realiza una petición para obtener todos los equipos.
+     *
+     * @return Una lista con todos los equipos.
+     */
     @GET("api/team")
     fun getAllTeams(): Call<List<Team>>
 
+    /**
+     * Función que realiza una petición de unión de un usuario a un equipo.
+     *
+     * @param teamId Identificador del equipo.
+     * @param userId Identificador del usuario.
+     * @return la información del usuario.
+     */
     @POST("api/team/join")
     fun joinTeam(@Query("teamId")teamId: Long, @Query("userId")userId: Long): Call<MobileUser>
 
-
+    /**
+     * Función que realiza una petición para recibir una lista formada por los miembros de un equipo.
+     *
+     * @param id Identificador del equipo.
+     * @return Una lista con los miembros del equipo y sus roles en él.
+     */
     @GET("api/team/members/{id}")
     fun getMembers(@Path("id")id: Long): Call<List<MemberListElement>>
 
-    @GET("/api/team/names")
-    fun getTeamNames(): Call<TeamNameListReciever>
-
+    /**
+     * Función que realiza la petición de creación de un equipo.
+     *
+     * @param teamCreation Información de creación del equipo.
+     * @return La información del equipo.
+     */
     @POST("api/team/create")
     fun createTeam(@Body teamCreation: TeamCreation): Call<Team>
 
+    /**
+     * Función que realiza la petición de abandono de un equipo.
+     *
+     * @param userId Identificador del usuario.
+     * @param teamId Identificador del equipo.
+     * @return La información del equipo.
+     */
     @POST("api/team/leave")
     fun leaveTeam(
         @Query("userId") userId: Long,

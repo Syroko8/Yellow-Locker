@@ -8,8 +8,18 @@ import com.example.nicolaspuebla_proyecto_final_android.utils.SessionManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
+/**
+ * Repositorio a través del cual los view models pueden ejecutar las peticiones necesarias al microservicio sobre la autenticación
+ * de usuarios.
+ */
 class AuthRepository {
 
+    /**
+     * Función que ejecuta la peción para realizar un login mediante el servicio.
+     *
+     * @param request Información para el login.
+     * @return La respuesta del servidor al login, conteniendo el token e información de usuario.
+     */
     @Throws(Exception::class)
     suspend fun login(request: LoginRequest): LoginResponse? {
         return withContext(Dispatchers.IO) {
@@ -32,6 +42,11 @@ class AuthRepository {
         }
     }
 
+    /**
+     * Función que ejecuta la petición de logout mediante el servicio.
+     *
+     * @param token Token a dar de baja.
+     */
     suspend fun logout(token: String = SessionManager.bearerToken?:""): Unit{
         return withContext(Dispatchers.IO){
             try{
@@ -51,6 +66,13 @@ class AuthRepository {
         }
     }
 
+    /**
+     * Función que ejecuta la comprobación de un token a través del servicio.
+     *
+     * @param userId Identificador del usuario asociado al token.
+     * @param token Token a comprobar.
+     * @return Información sobre el usuario, será nulo si el resultado de la comprobación es negativo.
+     */
     suspend fun checkToken(userId: Long, token: String): MobileUser?{
         return withContext(Dispatchers.IO){
             try{

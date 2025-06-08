@@ -24,7 +24,7 @@ public class NicolaspueblaProyectoFinalApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(NicolaspueblaProyectoFinalApplication.class, args);	
 	}
- /* 
+  /* 
  	@Bean
     public CommandLineRunner init(TeamService ts, UserService rs, LocalityService ls, MessageService messageService, EventService eventService) {
         return args -> {

@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit
  * Objeto en el que gestiona el envío de las peticiones al microservicio.
  */
 object RetrofitInstance {
-    private const val BASE_URL = "http://192.168.0.25:8080"
+    private const val BASE_URL = "http://192.168.0.22:8080"
 
     private val client = OkHttpClient.Builder()
         .connectTimeout(10, TimeUnit.SECONDS) // Tiempo de conexión

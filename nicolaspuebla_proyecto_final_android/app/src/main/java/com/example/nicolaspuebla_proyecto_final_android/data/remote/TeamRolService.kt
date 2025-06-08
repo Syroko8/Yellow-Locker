@@ -21,6 +21,7 @@ interface TeamRolService {
      * Función que realiza una petición para recibir el nivel de rol de cierta posición.
      *
      * @param teamRolPK Identificador de la asignación del rol.
+     * @return La información sobre el nivel de rol del usuario.
      */
     @POST("api/team_rol/level")
     fun getRolLevel(@Body teamRolPK: TeamRolPK): Call<TeamRolLevelResponse>
@@ -31,6 +32,7 @@ interface TeamRolService {
      * @param userId Identificador del usuario.
      * @param teamId Identificador del equipo al que pertenece el usuario.
      * @param rolType Nuevo rol a asignar.
+     * @return La unformación sobre el nuevo rol.
      */
     @PUT("api/team_rol/change")
     fun changeUserRol(

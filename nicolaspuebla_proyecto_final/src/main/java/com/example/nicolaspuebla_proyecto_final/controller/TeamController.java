@@ -97,6 +97,17 @@ public class TeamController {
         }
     }    
 
+    @PostMapping("/join_cap")
+    public ResponseEntity<MobileUser> joinTeamCap(@RequestParam Long teamId, @RequestParam Long userId) {
+        try {
+            TeamRolHolder trh = teamService.addUser(teamId, userId);
+            teamRolService.createTeamRol(new Captain(trh.getUser(), trh.getTeam()));
+            return ResponseEntity.ok().body(trh.getUser());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }   
+
     @GetMapping("/members/{id}")
     public ResponseEntity<List<MemberListElement>> getTeamMembersWithRoles(@PathVariable Long id) {
         try {

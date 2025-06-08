@@ -103,7 +103,7 @@ fun Title(){
 
 @Composable
 fun List(viewModel: TeamMatchesScreenViewModel){
-
+    val actualTeamId by SessionManager.actualTeamId.collectAsState()
     val matches by viewModel.matches.collectAsState()
 
     LazyColumn(
@@ -133,14 +133,7 @@ fun List(viewModel: TeamMatchesScreenViewModel){
                         )
                     }
                 }
-                MatchCard(
-                    match = it,
-                    onClick = {
-                        if(SessionManager.actualTeamRole.value == TeamRoles.Captain){
-
-                        }
-                    }
-                )
+                actualTeamId?.let { id -> MatchCard(match = it, id) }
                 lastMatch = it
             }
         } else {

@@ -6,8 +6,17 @@ import com.example.nicolaspuebla_proyecto_final_android.data.remote.RetrofitInst
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
+/**
+ * Repositorio a través del cual los view models pueden ejecutar las peticiones necesarias al microservicio sobre la entidad User.
+ */
 class UserRepository {
 
+    /**
+     * Función que obtiene la información de un usuario a través del servicio.
+     *
+     * @param id Identificador del usuario.
+     * @return Información del usuario.
+     */
     suspend fun getUser(id: Long): MobileUser?{
         return withContext(Dispatchers.IO) {
             try {
@@ -29,6 +38,12 @@ class UserRepository {
         }
     }
 
+    /**
+     * Función que ejecuta la petición de registro de usuario a través del servicio.
+     *
+     * @param user Información de registro de usuario.
+     * @return Información del usuario registrado.
+     */
     suspend fun signUp(user: UserSignUp): MobileUser?{
         return withContext(Dispatchers.IO) {
             try {

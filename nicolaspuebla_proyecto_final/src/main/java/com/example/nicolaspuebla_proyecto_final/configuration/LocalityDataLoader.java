@@ -22,6 +22,7 @@ public class LocalityDataLoader {
     @Bean
     public ApplicationRunner loadLocalities(){
         return args -> {
+
             if(!localityService.getAllLocalities().isEmpty()){
                 return;
             }

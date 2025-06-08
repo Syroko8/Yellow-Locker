@@ -5,9 +5,17 @@ import com.example.nicolaspuebla_proyecto_final_android.data.remote.RetrofitInst
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
+/**
+ * Repositorio a través del cual los view models pueden ejecutar las peticiones necesarias al microservicio sobre la entidad Locality.
+ */
 class LocalityRepository {
 
-    suspend fun getTeamMatches(): LocalityListResponse?{
+    /**
+     * Función que ejecuta la petición para obtener todas las localidades.
+     *
+     * @return Una lista con todas las localidades de la base de datos.
+     */
+    suspend fun getTeamLocalities(): LocalityListResponse?{
         return withContext(Dispatchers.IO){
             try {
                 val call = RetrofitInstance.yellowLockerLocalityService.getLocalities()

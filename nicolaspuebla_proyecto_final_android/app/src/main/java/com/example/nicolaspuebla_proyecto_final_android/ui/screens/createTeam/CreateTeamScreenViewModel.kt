@@ -113,7 +113,7 @@ class CreateTeamScreenViewModel @Inject constructor(
 
             try {
                 println(">>>>>>>>><<requesting")
-                val result = localityRepository.getTeamMatches()
+                val result = localityRepository.getTeamLocalities()
                 result?.let { _localityList.value = it.localities }
                 println(">>>>>>>>>>>>>${result}")
             } catch (e: Exception){

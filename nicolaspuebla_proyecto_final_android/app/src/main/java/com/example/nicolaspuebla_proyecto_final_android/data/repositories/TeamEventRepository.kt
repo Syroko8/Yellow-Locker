@@ -12,8 +12,17 @@ import com.example.nicolaspuebla_proyecto_final_android.data.remote.RetrofitInst
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
+/**
+ * Repositorio a través del cual los view models pueden ejecutar las peticiones necesarias al microservicio sobre la entidad Event.
+ */
 class TeamEventRepository {
 
+    /**
+     * Función para parsear objetos MatchReciever a Match.
+     *
+     * @param match El objeto MatchReciever.
+     * @return El objeto Match parseado.
+     */
     fun matchRecieverToMatch(match: MatchReceiver): Match{
         return Match(
             match.event_type,
@@ -28,6 +37,12 @@ class TeamEventRepository {
         )
     }
 
+    /**
+     * Función para parsear objetos TrainingReceiver a Training.
+     *
+     * @param training El objeto TrainingReceiver.
+     * @return El objeto Training parseado.
+     */
     fun trainingRecieverToTraining(training: TrainingReceiver): Training{
         return Training(
             training.event_type,
@@ -39,6 +54,12 @@ class TeamEventRepository {
         )
     }
 
+    /**
+     * Función que ejecuta la petición de obtención de los partidos de un equipo a través del servicio.
+     *
+     * @param teamId Identificador del equipo.
+     * @return Lista de los partidos del equipo.
+     */
     suspend fun getTeamMatches(teamId: Long): List<Match>{
         return withContext(Dispatchers.IO){
             try {
@@ -60,6 +81,12 @@ class TeamEventRepository {
         }
     }
 
+    /**
+     * Función que ejecuta la petición de obtención de los entrenamientos de un equipo a través del servicio.
+     *
+     * @param teamId Identificador del equipo.
+     * @return Lista de los entrenamientos del equipo.
+     */
     suspend fun getTeamTrainings(teamId: Long): List<Training>{
         return withContext((Dispatchers.IO)){
             try {
@@ -81,10 +108,15 @@ class TeamEventRepository {
         }
     }
 
+    /**
+     * Función que ejecuta la actualización de la información de un evento a través del servicio.
+     *
+     * @param event Información nueva del evento.
+     * @return La información del evento actualizado.
+     */
     suspend fun updateEvent(event: Event): Event{
         return withContext((Dispatchers.IO)){
             try {
-                println(">>>>>>>>>>>>${event}")
                 val call = if(event is Match) RetrofitInstance.yellowLockerTeamEventService.updateEvent(
                     event,
                     event.opponent.id,
@@ -106,6 +138,12 @@ class TeamEventRepository {
         }
     }
 
+    /**
+     * Función que ejecuta la petición de eliminación de un evento a través del servicio.
+     *
+     * @param eventId Identificador del evento.
+     * @return El identificador del evento eliminado.
+     */
     suspend fun deleteEvent(eventId: Long): Long?{
         return withContext((Dispatchers.IO)){
             try {
@@ -124,6 +162,12 @@ class TeamEventRepository {
         }
     }
 
+    /**
+     * Función para crear un evento a través del servicio.
+     *
+     * @param newEvent Información de creación del evento.
+     * @return Información del evento creado.
+     */
     suspend fun createEvent(newEvent: EventCreation): Event? {
         return withContext((Dispatchers.IO)){
             try {

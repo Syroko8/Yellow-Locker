@@ -160,7 +160,7 @@ fun CalendarWithEvents(
     viewModel: TeamCalendarScreenViewModel
 ) {
     val pagerState = rememberPagerState(initialPage = Int.MAX_VALUE / 2)
-    val initialMonth = remember { Calendar.getInstance() } // Mes base de referencia
+    val initialMonth = remember { Calendar.getInstance() }
 
     HorizontalPager(
         count = Int.MAX_VALUE,
@@ -171,9 +171,9 @@ fun CalendarWithEvents(
             .padding(top = 20.dp),
         verticalAlignment = Alignment.Top
     ) { page ->
-        // Calcula el mes actual EN TIEMPO REAL basado en la página
+
         val currentMonth = initialMonth.clone() as Calendar
-        val pageOffset = page - (Int.MAX_VALUE / 2) // Diferencia respecto a la página inicial
+        val pageOffset = page - (Int.MAX_VALUE / 2)
         currentMonth.add(Calendar.MONTH, pageOffset)
 
         Column(
@@ -195,7 +195,6 @@ fun CalendarWithEvents(
                     fontFamily = FontFamily(Font(R.font.jura_regular)),
                     fontSize = 24.sp
                 )
-                // Controles del calendario
                 CalendarControls(pagerState)
             }
             HorizontalDivider(
@@ -204,7 +203,6 @@ fun CalendarWithEvents(
                 modifier = Modifier.fillMaxWidth().padding(top = 20.dp, bottom = 10.dp)
             )
 
-            // Grid del calendario (pasa currentMonth calculado)
             CalendarGrid(
                 events,
                 currentMonth,
@@ -237,7 +235,6 @@ fun CalendarControls(pagerState: PagerState) {
 
         IconButton(onClick = {
             scope.launch {
-                // Avanza 1 mes
                 pagerState.animateScrollToPage(pagerState.currentPage + 1)
             }
         }) {
@@ -279,7 +276,6 @@ fun CalendarGrid(
             val day = weekInitials[index]
             val textColor = Color.Black
 
-            // Display the day initials
             Column(
                 modifier = Modifier
                     .padding(2.dp),
@@ -299,7 +295,6 @@ fun CalendarGrid(
             val day = allDays[index]
             var textColor = if (day <= 0) Color.Transparent else Color.Black
             val currentDay = if (day <= 0) "" else day.toString()
-            // Determine the events for this day
             val eventsForDay = events.filter { event ->
                 val eventCalendar = Calendar.getInstance()
                 eventCalendar.time = stringToDate(event.date)
@@ -312,7 +307,7 @@ fun CalendarGrid(
                 backgroundColor = Color(255, 181, 37)
                 textColor = Color.White
             }
-            // Display the day and events
+
             Column(
                 modifier = Modifier
                     .padding(8.dp)

@@ -8,8 +8,17 @@ import com.example.nicolaspuebla_proyecto_final_android.data.remote.RetrofitInst
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
+/**
+ * Repositorio a través del cual los view models pueden ejecutar las peticiones necesarias al microservicio sobre la entidad Team.
+ */
 class TeamRepository {
 
+    /**
+     * Función que obtiene la información de un equipo a través del servicio.
+     *
+     * @param id Identificador del equipo.
+     * @return Información del equipo.
+     */
     suspend fun getTeam(id: Long): Team? {
         return withContext(Dispatchers.IO) {
             try {
@@ -31,6 +40,11 @@ class TeamRepository {
         }
     }
 
+    /**
+     * Función que obtiene todos los equipos de la base de datos.
+     *
+     * @return Lista con la información de todos los equipos.
+     */
     @Throws(Exception::class)
     suspend fun getAllTeams(): List<Team>? {
         return withContext(Dispatchers.IO) {
@@ -53,6 +67,13 @@ class TeamRepository {
         }
     }
 
+    /**
+     * Función que realiza la unión de un usuario a un equipo a trvés del servicio.
+     *
+     * @param teamId Identificador del equipo.
+     * @param userId Identificador del usuario.
+     * @return Información del usuario.
+     */
     @Throws(Exception::class)
     suspend fun joinTeam(teamId: Long, userId: Long): MobileUser? {
         return withContext(Dispatchers.IO) {
@@ -75,6 +96,12 @@ class TeamRepository {
         }
     }
 
+    /**
+     * Función que obtiene los miembros de un equipo a través del servicio.
+     *
+     * @param teamId Identificador del equipo.
+     * @return Lista de la información de los miembros del equipo.
+     */
     suspend fun getMembers(teamId: Long): List<MemberListElement> {
         return withContext(Dispatchers.IO) {
             try {
@@ -94,6 +121,12 @@ class TeamRepository {
         }
     }
 
+    /**
+     * Función que crea un equipo a través del servicio.
+     *
+     * @param teamCreation Información de creación del equipo.
+     * @return Información del equipo creado.
+     */
     suspend fun createTeam(teamCreation: TeamCreation): Team? {
         return withContext(Dispatchers.IO) {
             try {
@@ -113,6 +146,13 @@ class TeamRepository {
         }
     }
 
+    /**
+     * Función que ejecuta la petición para abandonar un equipo a través del servicio.
+     *
+     * @param userId Identificador del usuario.
+     * @param teamId Identificador del equipo.
+     * @return Información del equipo que el usuario ha abandonado.
+     */
     suspend fun leaveTeam(userId: Long, teamId: Long): Team? {
         return withContext(Dispatchers.IO) {
             try {

@@ -5,8 +5,20 @@ import com.example.nicolaspuebla_proyecto_final_android.data.remote.RetrofitInst
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
+/**
+ * Repositorio a través del cual los view models pueden ejecutar las peticiones necesarias al microservicio sobre la entidad
+ * AssignedPosition.
+ */
 class AssignedPositionRepository {
 
+    /**
+     * Función que ejecuta la petición para realizar un cambio de posición para un miembro.
+     *
+     * @param userId Identificador del usuario afectado.
+     * @param teamId Identificador del equipo.
+     * @param newAssignedPositionId Nueva posición para el usuario.
+     * @return La nueva posición asignada.
+     */
     suspend fun changeAssignedPosition(userId: Long, teamId: Long,  newAssignedPositionId: Long): AssignedPosition?{
         return withContext((Dispatchers.IO)){
             try {

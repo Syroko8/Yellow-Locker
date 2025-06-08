@@ -7,8 +7,18 @@ import kotlinx.coroutines.withContext
 import java.sql.SQLException
 import java.sql.SQLIntegrityConstraintViolationException
 
+/**
+ * Repositorio a través del cual los view models pueden ejecutar las peticiones necesarias al microservicio sobre la entidad TeamPosition.
+ */
 class TeamPositionRepository {
 
+    /**
+     * Función que ejecuta la petición para crear una posición a través del servicio.
+     *
+     * @param teamId Identificador del equipo.
+     * @param name Nombre de la nueva posición.
+     * @return La información de la nueva posición creada.
+     */
     suspend fun createTeamPosition(teamId: Long, name: String): TeamPosition?{
         return withContext((Dispatchers.IO)){
             try {
@@ -28,6 +38,12 @@ class TeamPositionRepository {
         }
     }
 
+    /**
+     * Función que elimina una posición a través del servicio.
+     *
+     * @param teamPositionId Identidicador de la posición a eliminar.
+     * @return Identificador de la posición eliminada.
+     */
     suspend fun deleteTeamPosition(teamPositionId: Long): Long?{
         return withContext((Dispatchers.IO)){
             try {
@@ -49,6 +65,12 @@ class TeamPositionRepository {
         }
     }
 
+    /**
+     * Función que obtiene las posiciones existentes en un equipo.
+     *
+     * @param teamId Identificador del equipo.
+     * @return Lista de las posiciones existentes del equipo.
+     */
     suspend fun getTeamPositions(teamId: Long): List<TeamPosition>? {
         return withContext((Dispatchers.IO)){
             try {

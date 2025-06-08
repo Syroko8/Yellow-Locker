@@ -26,7 +26,7 @@ import com.example.nicolaspuebla_proyecto_final_android.R
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Match
 
 @Composable
-fun MatchCard(match: Match, onClick: (Match) -> Unit){
+fun MatchCard(match: Match, actualTeamId: Long){
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -34,7 +34,7 @@ fun MatchCard(match: Match, onClick: (Match) -> Unit){
         elevation = CardDefaults.cardElevation(5.dp),
         shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White),
-        onClick = { onClick(match) }
+        onClick = { }
     ){
         Column(
             modifier = Modifier
@@ -44,14 +44,14 @@ fun MatchCard(match: Match, onClick: (Match) -> Unit){
             verticalArrangement = Arrangement.Center
         ) {
             Text(
-                text = match.team.name,
+                text = if(match.team.id == actualTeamId) match.team.name else match.opponent.name,
                 fontFamily = FontFamily(Font(R.font.jura_semi_bold)),
                 color = Color.Black,
                 fontSize = 16.sp
             )
-            Goals(match)
+            Goals(match, actualTeamId)
             Text(
-                text = match.opponent.name,
+                text = if(match.team.id == actualTeamId) match.opponent.name else match.team.name,
                 fontFamily = FontFamily(Font(R.font.jura_semi_bold)),
                 color = Color.Black,
                 fontSize = 16.sp
@@ -61,8 +61,7 @@ fun MatchCard(match: Match, onClick: (Match) -> Unit){
 }
 
 @Composable
-fun Goals(match: Match){
-    println(">>>>>>>>>${match}")
+fun Goals(match: Match, actualTeamId: Long){
     Row(
         modifier = Modifier
             .clip(RoundedCornerShape(25.dp))
@@ -74,13 +73,13 @@ fun Goals(match: Match){
         horizontalArrangement = Arrangement.Center
     ){
         Text(
-            text = "${match.ownGoals} -",
+            text = "${if(match.team.id == actualTeamId) match.ownGoals else match.opponentGoals} -",
             fontFamily = FontFamily(Font(R.font.jura_semi_bold)),
             color = Color(61,147,247),
             fontSize = 14.sp
         )
         Text(
-            text = match.opponentGoals.toString(),
+            text = " ${if(match.team.id == actualTeamId) match.opponentGoals else match.ownGoals}",
             fontFamily = FontFamily(Font(R.font.jura_semi_bold)),
             color = Color(61,147,247),
             fontSize = 14.sp
