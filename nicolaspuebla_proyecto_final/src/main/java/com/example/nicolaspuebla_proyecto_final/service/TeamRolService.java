@@ -5,9 +5,7 @@ import org.springframework.stereotype.Service;
 import com.example.nicolaspuebla_proyecto_final.repository.TeamRepository;
 import com.example.nicolaspuebla_proyecto_final.repository.TeamRolRepository;
 import com.example.nicolaspuebla_proyecto_final.repository.UserRepository;
-
 import jakarta.persistence.NoResultException;
-
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.MobileUser;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Team;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.TeamRol;
@@ -15,6 +13,9 @@ import com.example.nicolaspuebla_proyecto_final.model.dataModels.TeamRolPK;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Coach;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Captain;
 
+/**
+ * Servicio que maneja los roles de los usuarios en los equipos.
+ */
 @Service
 public class TeamRolService {
 
@@ -25,6 +26,11 @@ public class TeamRolService {
     @Autowired 
     UserRepository userRepository;
 
+    /**
+     * Crea un nuevo rol de equipo.
+     * @param teamRol El rol de equipo a crear.
+     * @throws Exception Si ocurre un error al crear el rol.
+     */
     public void createTeamRol(TeamRol teamRol) throws Exception{
         try{
             teamRolRepository.save(teamRol);
@@ -38,6 +44,11 @@ public class TeamRolService {
         }
     }
 
+    /**
+     * Obtiene un rol de equipo por su clave primaria.
+     * @param teamRolPK La clave primaria del rol de equipo.
+     * @return El rol de equipo correspondiente a la clave primaria.
+     */
     public TeamRol getTeamRol(TeamRolPK teamRolPK) throws Exception{
         try{
             Team team = teamRepository.findById(teamRolPK.getTeamId())
@@ -52,6 +63,12 @@ public class TeamRolService {
         }
     }
 
+    /**
+     * Actualiza un rol de equipo existente.
+     * @param teamRol El rol de equipo con los nuevos datos.
+     * @return El rol de equipo actualizado.
+     * @throws Exception Si ocurre un error al actualizar el rol.
+     */
     public TeamRol updateTeamRol(TeamRol teamRol) throws Exception{
         try{
             teamRolRepository.save(teamRol);
@@ -61,6 +78,11 @@ public class TeamRolService {
         }
     }
 
+    /**
+     * Obtiene el nivel de rol de un usuario en un equipo.
+     * @param teamRolPK La clave primaria del rol de equipo.
+     * @return El nivel de rol del usuario en el equipo.
+     */
     public String getRolLevel(TeamRolPK teamRolPK) throws Exception{
         try {
             TeamRol tr = getTeamRol(teamRolPK);
@@ -77,6 +99,10 @@ public class TeamRolService {
         }
     }
 
+    /**
+     * Elimina un rol de equipo.
+     * @param role El rol de equipo a eliminar.
+     */
     public void removeRol(TeamRol role) throws Exception {
         try {
             teamRolRepository.delete(role);

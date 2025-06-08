@@ -13,12 +13,20 @@ import com.example.nicolaspuebla_proyecto_final.repository.EventRepository;
 
 import jakarta.persistence.NoResultException;
 
+/**
+ * Servicio que maneja las operaciones relacionadas con los eventos.
+ */
 @Service
 public class EventService {
 
     @Autowired
     private EventRepository eventRepository;
 
+    /**
+     * Obtiene un evento por su ID.
+     * @param id Identificador del evento.
+     * @return El evento correspondiente al ID.
+     */
     public Event getEventById(Long id) throws NoResultException, Exception{
         try {
             return eventRepository.findById(id)
@@ -28,6 +36,11 @@ public class EventService {
         }
     }
 
+    /**
+     * Obtiene todos los eventos de un equipo.
+     * @param team Equipo del cual se desean obtener los eventos.
+     * @return Lista de todos los eventos del equipo.
+     */
     public List<Event> getTeamEvents(Team team) throws Exception{
         try {
             return eventRepository.findTeamEvents(team);    
@@ -37,6 +50,11 @@ public class EventService {
         }
     }
 
+    /**
+     * Obtiene todos los partidos de un equipo.
+     * @param team Equipo del cual se desean obtener los partidos.
+     * @return Lista de todos los partidos del equipo.
+     */
     public List<Match> getTeamMatches(Team team) throws Exception{
         try {
             List<Event> events = eventRepository.findTeamEvents(team);  
@@ -53,6 +71,11 @@ public class EventService {
         }
     }
 
+    /**
+     * Obtiene todos los entrenamientos de un equipo.
+     * @param team Equipo del cual se desean obtener los entrenamientos.
+     * @return Lista de todos los entrenamientos del equipo.
+     */
     public List<Training> getTeamTrainings(Team team) throws Exception{
         try {
             List<Event> events = eventRepository.findTeamEvents(team);  
@@ -69,10 +92,20 @@ public class EventService {
         }
     }
 
+    /**
+     * Crea un nuevo evento.
+     * @param newEvent El nuevo evento a crear.
+     * @return El evento creado.
+     */
     public Event createEvent(Event newEvent){
         return eventRepository.save(newEvent);
     }
 
+    /**
+     * Actualiza un evento existente.
+     * @param event El evento con los nuevos datos.
+     * @return El evento actualizado.
+     */
     public Event updateEvent(Event event) throws Exception{
         try {
             return eventRepository.save(event);
@@ -81,6 +114,10 @@ public class EventService {
         }
     }
 
+    /**
+     * Elimina un evento por su ID.
+     * @param id Identificador del evento a eliminar.
+     */
     public void deleteEvent(Long id){
         eventRepository.deleteById(id);
     }

@@ -26,7 +26,7 @@ public class LocalityController {
     @GetMapping()
     public ResponseEntity<LocalityListResponse> getLocalities() {
         try {
-            return ResponseEntity.ok().body(new LocalityListResponse(localityService.findAll()));   
+            return ResponseEntity.ok().body(new LocalityListResponse(localityService.getAllLocalities()));   
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
