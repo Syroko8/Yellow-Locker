@@ -28,6 +28,9 @@ enum TeamRoles{
     Captain
 }
 
+/**
+ * Controlador que maneja las peticiones relacionadas con la entidad TeamRol.
+ */
 @Controller
 @RequestMapping("api/team_rol")
 public class TeamRolController {
@@ -39,7 +42,11 @@ public class TeamRolController {
     @Autowired
     TeamService teamService;
 
-
+    /**
+     * Método que maneja las peticiones para obtener el nivel de rol de un equipo. 
+     * @param teamRolPK Identificador del rol.
+     * @return El nivel del rol en el equipo.
+     */
     @PostMapping("/level")
     public ResponseEntity<TeamRolLevelResponse> getTeamRolLevel(@RequestBody TeamRolPK teamRolPK) {
         try {
@@ -50,6 +57,13 @@ public class TeamRolController {
         }
     }
 
+    /**
+     * Método para manejar las peticiones que pretenden cambiar el rol de un miembro en un equipo.
+     * @param userId Identificador del usuario cuyo rol se va a cambiar.
+     * @param teamId Identificador del equipo al que pertenece el usuario.
+     * @param rolType Nuevo tipo de rol que se le va a asignar al usuario.
+     * @return El objeto del nuevo rol asignado al usuario.
+     */
     @PutMapping("/change")
     public ResponseEntity<TeamRol> changeTeamRol(@RequestParam Long userId, @RequestParam Long teamId, @RequestParam TeamRoles rolType) {
         try {

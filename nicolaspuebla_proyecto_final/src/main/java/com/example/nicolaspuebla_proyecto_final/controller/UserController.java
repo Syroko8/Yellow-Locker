@@ -30,7 +30,9 @@ import jakarta.persistence.NoResultException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
-
+/**
+ * Controlador que maneja las peticiones relacionadas con los usuarios.
+ */
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
@@ -41,6 +43,11 @@ public class UserController {
     @Autowired
     TokenService tokenService;
     
+    /**
+     * Genera un token JWT para el usuario especificado.
+     * @param username El nombre de usuario para el cual se generará el token.
+     * @return El token JWT generado.
+     */
     private String getJWTToken(String username) {
 		SecretKey secretKey = Jwts.SIG.HS256.key().build();
 		List<GrantedAuthority> grantedAuthorities = AuthorityUtils
@@ -60,6 +67,11 @@ public class UserController {
 		return "Bearer " + token;
 	}
 
+    /**
+     * Genera un token JWT para el usuario móvil y lo guarda en la base de datos.
+     * @param user El usuario móvil para el cual se generará el token.
+     * @return El token generado y los datos del usuario.
+     */
     private ResponseEntity<LoginResponse> logUser(MobileUser user){
         try {
             String newToken = getJWTToken(user.getName());
@@ -67,11 +79,15 @@ public class UserController {
             tokenService.saveToken(token);
             return ResponseEntity.ok().body(new LoginResponse(user, token.getToken()));
         } catch (Exception e) {
-            System.err.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 
+    /**
+     * Método que maneja las peticiones de inicio de sesión.
+     * @param loginRequest Objeto que contiene los datos de inicio de sesión del usuario.
+     * @return El token de acceso e información del usuario.
+     */
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> logIn(@RequestBody LoginRequest loginRequest) {
         try {
@@ -79,7 +95,6 @@ public class UserController {
             loginRequest.setPasswd(loginRequest.getPasswd().trim());
 
             MobileUser user = (MobileUser) userService.getUserByEmail(loginRequest.getEmail());
-            System.out.println("\n\n/>>>>>>>>>>>>>>>>:" + user);
             Boolean auth = (user.getPassword().equals(loginRequest.getPasswd())) && (!user.isDisabled()) ? true : false;
             ResponseEntity<LoginResponse> response = auth ? 
                 logUser(user) : 
@@ -88,11 +103,15 @@ public class UserController {
         } catch (NoResultException e){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 
+    /**
+     * Método que maneja las peticiones de registro.
+     * @param newUser Objeto que contiene los datos del nuevo usuario a registrar.
+     * @return El usuario creado.
+     */
     @PostMapping("/signup")
     public ResponseEntity<User> signUp(@RequestBody UserSignUp newUser) {
         try {
@@ -104,6 +123,11 @@ public class UserController {
         }
     }
 
+    /**
+     * Método que parsea un objeto UserSignUp a un objeto User.
+     * @param user Objeto UserSignUp a parsear.
+     * @return Objeto User parseado.
+     */
     private User parseSignUpUser(UserSignUp user){
         User parsed = new User(
             user.getName(), 
@@ -115,6 +139,11 @@ public class UserController {
         return parsed;
     }
 
+    /**
+     * Método que maneja las peticiones de registro para usuarios móviles.
+     * @param newUser Objeto que contiene los datos del nuevo usuario móvil a registrar.
+     * @return El usuario creado.
+     */
     @PostMapping("/signup_mobile")
     public ResponseEntity<User> signUpMobileUser(@RequestBody UserSignUp newUser) {
         try {
@@ -126,6 +155,12 @@ public class UserController {
         }
     }
 
+    /**
+     * Método que parsea un objeto UserSignUp a un objeto MobileUser.
+     * @param user Objeto UserSignUp a parsear.
+     * @return Objeto MobileUser parseado.
+     * @throws Exception
+     */
     private MobileUser parseSignUpUserToMobile(UserSignUp user) throws Exception {
         try {
             MobileUser parsed = new MobileUser(
@@ -142,7 +177,12 @@ public class UserController {
         }
     }
 
-    private java.sql.Date  strToDate(String date) throws Exception{
+    /**
+     * Método que parsea una cadena de texto a un objeto Date.
+     * @param date La cadena de texto que representa la fecha.
+     * @return El objeto Date correspondiente a la fecha.
+     */
+    private java.sql.Date strToDate(String date) throws Exception{
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         try {
             java.util.Date utilDate = sdf.parse(date);
@@ -154,6 +194,11 @@ public class UserController {
         }
     }
 
+    /**
+     * Método que maneja las peticiones para deshabilitar un usuario.
+     * @param userId El identificador del usuario a deshabilitar.
+     * @return El usuario deshabilitado.
+     */
     @PutMapping("/disable/{id}")
     public ResponseEntity<User> disableUser(@PathVariable Long userId) {
         try{
@@ -169,6 +214,11 @@ public class UserController {
         }
     } 
     
+    /**
+     * Método que maneja las peticiones para obtener los usuarios de un equipo.
+     * @param userIdList Lista de identificadores de usuarios.
+     * @return Lista de usuarios del equipo.
+     */
     @GetMapping("/team_users")
     public ResponseEntity<List<User>> getTeamUsers(@RequestBody List<Long> userIdList) {
         try {
@@ -185,6 +235,11 @@ public class UserController {
         }
     }
 
+    /**
+     * Método que maneja las peticiones para obtener un usuario por su ID.
+     * @param userId El identificador del usuario a obtener.
+     * @return El usuario correspondiente al ID proporcionado.
+     */
     @GetMapping("/{userId}")
     public ResponseEntity<User> getUser(@PathVariable Long userId) {
         

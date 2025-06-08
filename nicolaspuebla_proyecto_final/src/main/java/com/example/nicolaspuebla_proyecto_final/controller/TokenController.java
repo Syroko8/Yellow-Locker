@@ -7,19 +7,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.MobileUser;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Token;
 import com.example.nicolaspuebla_proyecto_final.model.dto.TokenCheckResponse;
 import com.example.nicolaspuebla_proyecto_final.service.TokenService;
 import com.example.nicolaspuebla_proyecto_final.service.UserService;
-
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+/**
+ * Controlador que maneja las peticiones relacionadas con los tokens de usuario.
+ */
 @RestController
 @RequestMapping("api/token")
 public class TokenController {
@@ -29,11 +30,20 @@ public class TokenController {
     @Autowired
     UserService userService;
 
+    /**
+     * Método que maneja las peticiones para obtener todos los tokens.
+     * @return Una lista con todos los tokens registrados.
+     */
     @GetMapping("/all")
     public ResponseEntity<List<Token>> getAllTokens() {
         return ResponseEntity.ok().body(tokenService.getAll());
     }
     
+    /**
+     * Método que maneja las peticiones para eliminar un token.
+     * @param token_id Identificador del token a eliminar.
+     * @return Una cadena indicando el resultado de la operación.
+     */
     @DeleteMapping("/delete/{token_id}")
     public ResponseEntity<String> deleteToken(@PathVariable Long token_id ){
         try {
@@ -44,6 +54,11 @@ public class TokenController {
         }
     }
 
+    /**
+     * Método que maneja las peticiones para eliminar un token por su valor.
+     * @param token El valor del token a eliminar.
+     * @return El valor del token eliminado.
+     */
     @DeleteMapping("/deleteByT/{token}")
     public ResponseEntity<String> deleteTokenByToken(@PathVariable String token ){
         try {
@@ -54,6 +69,12 @@ public class TokenController {
         }
     }
 
+    /**
+     * Método que maneja las peticiones para verificar un token.
+     * @param userId Identificador del usuario asociado al token.
+     * @param token El valor del token a verificar.
+     * @return El objeto del usuario asociado al token, si es válido.
+     */
     @GetMapping("/token_check")
     public ResponseEntity<TokenCheckResponse> tokenCheck(@RequestParam Long userId, @RequestParam String token) {
         try {
@@ -69,11 +90,16 @@ public class TokenController {
         }
     }    
 
+    /**
+     * Método que maneja las peticiones para realizar un logout.
+     * @param token El valor del token a eliminar.
+     * @return El valor del token eliminado.
+     */
     @PostMapping("/logout")
     public ResponseEntity<String> logout(@RequestBody String token) {
         try {
             tokenService.deleteTokenByToken(token); 
-            return ResponseEntity.ok().body(null);
+            return ResponseEntity.ok().body(token);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }

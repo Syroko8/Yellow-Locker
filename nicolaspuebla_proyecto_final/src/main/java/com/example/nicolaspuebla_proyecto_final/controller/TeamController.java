@@ -34,6 +34,9 @@ import com.example.nicolaspuebla_proyecto_final.model.dataModels.Captain;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Coach;
 import org.springframework.web.bind.annotation.RequestBody;
 
+/**
+ * Controlador que maneja las peticiones relacionadas con la entidad Team.
+ */
 @RestController
 @RequestMapping("api/team")
 public class TeamController {
@@ -49,6 +52,11 @@ public class TeamController {
     @Autowired
     AssignedPositionService assignedPositionService;
 
+    /**
+     * Método que maneja las peticiones para obtener un equipo por su ID.
+     * @param id Identificador del equipo.
+     * @return El objeto con la información del equipo solicitado.
+     */
    @GetMapping("/{id}")
     public ResponseEntity<Team> getTeam(@PathVariable long id) {
         try {
@@ -62,6 +70,11 @@ public class TeamController {
         }
     }
 
+    /**
+     * Método que maneja las peteticiones para obtener un equipo con información extendida.
+     * @param id Identificador del equipo.
+     * @return Un objeto con el equipo y una lista de eventos asociados.
+     */
     @GetMapping("/ex/{id}")
     public ResponseEntity<TeamInfo> getTeamExtended(@PathVariable Long id) {
         try {
@@ -74,6 +87,10 @@ public class TeamController {
         }
     }
 
+    /**
+     * Método que maneja las peticiones para obtener todos los equipos.
+     * @return Una lisra con todos los equipos registrados.
+     */
     @GetMapping()
     public ResponseEntity<List<Team>> getTeams() {
         try {
@@ -86,6 +103,12 @@ public class TeamController {
         }
     }
 
+    /**
+     * Método que maneja las peticiones para unirse a un equipo.
+     * @param teamId Identificador del equipo al que se quiere unir.
+     * @param userId Identificador del usuario que quiere unirse al equipo.
+     * @return El objeto del usuario que se ha unido al equipo.
+     */
     @PostMapping("/join")
     public ResponseEntity<MobileUser> joinTeam(@RequestParam Long teamId, @RequestParam Long userId) {
         try {
@@ -97,6 +120,12 @@ public class TeamController {
         }
     }    
 
+    /**
+     * Método que maneja las peticiones para unirse a un equipo como capitán.
+     * @param teamId Identificador del equipo al que se va a unir.
+     * @param userId Identificador del usuario que se va a unir como capitán.
+     * @return El objeto del usuario que se ha unido al equipo.
+     */
     @PostMapping("/join_cap")
     public ResponseEntity<MobileUser> joinTeamCap(@RequestParam Long teamId, @RequestParam Long userId) {
         try {
@@ -108,6 +137,11 @@ public class TeamController {
         }
     }   
 
+    /**
+     * Método que maneja las peticiones para obtener los miembros de un equipo con sus roles.
+     * @param id Identificador del equipo del que se quieren obtener los miembros.
+     * @return Una lista con los miembros del equipo y sus roles.
+     */
     @GetMapping("/members/{id}")
     public ResponseEntity<List<MemberListElement>> getTeamMembersWithRoles(@PathVariable Long id) {
         try {
@@ -133,6 +167,10 @@ public class TeamController {
         }     
     }
 
+    /**
+     * Método que maneja las peticiones para obtener los nombres de los equipos registrados.
+     * @return Una lista con los nombres de todos los equipos.
+     */
     @GetMapping("/names")
     public ResponseEntity<TeamNameListResponse> getTeamNames() {
         try {
@@ -143,6 +181,11 @@ public class TeamController {
         }
     }
 
+    /**
+     * Método que maneja las peticiones para crear un nuevo equipo.
+     * @param teamCreation Objeto con la información necesaria para crear un equipo.
+     * @return El objeto del equipo creado.
+     */
     @PostMapping("/create")
     public ResponseEntity<Team> createTeam(@RequestBody TeamCreation teamCreation) {
         try {
@@ -167,6 +210,12 @@ public class TeamController {
         }    
     }
 
+    /**
+     * Método que maneja las peticiones para el abandono de un equipo.
+     * @param userId Identificador del usuario que desea abandonar el equipo.
+     * @param teamId Identificador del equipo del que se desea abandonar.
+     * @return El objeto del equipo del que se ha abandonado.
+     */
     @PostMapping("/leave")
     public ResponseEntity<Team> leaveTeam(@RequestParam Long userId, @RequestParam Long teamId) {
         try {

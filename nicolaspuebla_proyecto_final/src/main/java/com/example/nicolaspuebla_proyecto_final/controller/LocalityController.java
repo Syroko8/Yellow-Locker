@@ -9,6 +9,9 @@ import com.example.nicolaspuebla_proyecto_final.service.LocalityService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * Controlador que maneja las peticiones correspondientes a la entidad Locality.
+ */
 @Controller
 @RequestMapping("api/locality")
 public class LocalityController {
@@ -16,6 +19,10 @@ public class LocalityController {
     @Autowired
     LocalityService localityService;
 
+    /**
+     * Método que maneja las peticiones para obtener todas las localidades.
+     * @return Una lista con todas las localidades existentes.
+     */
     @GetMapping()
     public ResponseEntity<LocalityListResponse> getLocalities() {
         try {

@@ -117,6 +117,11 @@ public class EventController {
         }
     }
 
+    /**
+     * Función que maneja las peticiones para eliminar un evento.
+     * @param eventId Identificador del evento a eliminar.
+     * @return El identificador del evento eliminado.
+     */
     @DeleteMapping("delete/{eventId}")
     public ResponseEntity<Long> deleteEvent(@PathVariable Long eventId){
         try {
@@ -127,6 +132,12 @@ public class EventController {
         }
     }
 
+    /**
+     * Función que manej alas peticiones de creación de eventos.
+     * @param newEvent Objeto que contiene los datos necesarios para crear un nuevo evento.
+     * @param opponentId Identificador del oponente, si es un evento de tipo Match.
+     * @return El evento creado.
+     */
     @PostMapping("create")
     public ResponseEntity<EventResponse> createEvent(@RequestBody EventCreation newEvent, 
         @RequestParam(required = false) Long opponentId) {
@@ -139,6 +150,12 @@ public class EventController {
         }
     }
     
+    /**
+     * Función que convierte un objeto de creación de evento a un objeto de evento.
+     * @param eventCreationObject Objeto que contiene los datos necesarios para crear un nuevo evento.
+     * @param opponentId Identificador del oponente, si es un evento de tipo Match.
+     * @return Un objeto de tipo event para ser creado.
+     */
     public Event parseCreationToEvent(EventCreation eventCreationObject, Long opponentId){
 
         Team team = teamService.getTeam(eventCreationObject.getTeamId());
