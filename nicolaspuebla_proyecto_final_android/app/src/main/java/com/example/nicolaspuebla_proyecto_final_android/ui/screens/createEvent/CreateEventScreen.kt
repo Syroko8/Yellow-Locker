@@ -65,6 +65,12 @@ import java.time.ZoneOffset
 import java.util.Calendar
 import java.util.TimeZone
 
+/**
+ * Pantalla para la creación de eventos.
+ *
+ * @param onNav Función de navegación a utilizar cuando se requiera cambiar de pantalla.
+ * @param viewModel ViewModel asociado a esta pantalla, por defecto inyectado con Hilt.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CreateEventScreen(onNav: (String) -> Unit, viewModel: CreateEventScreenViewModel = hiltViewModel()){
@@ -137,6 +143,9 @@ fun CreateEventScreen(onNav: (String) -> Unit, viewModel: CreateEventScreenViewM
     }
 }
 
+/**
+ * Muestra el título de la pantalla de creación de evento con una línea horizontal.
+ */
 @Composable
 fun Title(){
     Row(
@@ -162,6 +171,11 @@ fun Title(){
     }
 }
 
+/**
+ * Contenedor del formulario de creación de evento.
+ *
+ * @param viewModel ViewModel asociado con los datos del formulario.
+ */
 @Composable
 fun Form(viewModel: CreateEventScreenViewModel){
     Column(
@@ -186,6 +200,11 @@ fun Form(viewModel: CreateEventScreenViewModel){
     }
 }
 
+/**
+ * Selector de tipo de evento, permite elegir entre partido y entrenamiento.
+ *
+ * @param viewModel ViewModel con el estado actual del tipo de evento.
+ */
 @Composable
 fun EventTypeInput(viewModel: CreateEventScreenViewModel){
     Row(
@@ -211,6 +230,14 @@ fun EventTypeInput(viewModel: CreateEventScreenViewModel){
     }
 }
 
+/**
+ * Botón de selección para los tipos de eventos (partido o entrenamiento).
+ *
+ * @param text Texto del botón.
+ * @param selected Indica si está seleccionado.
+ * @param onClick Callback al hacer clic.
+ * @param side Define si es el botón izquierdo (true) o derecho (false).
+ */
 @Composable
 fun ToggleButton(text: String, selected: Boolean, onClick: () -> Unit, side: Boolean) {
     val selectedColor =  Color(124, 154, 231)
@@ -232,7 +259,11 @@ fun ToggleButton(text: String, selected: Boolean, onClick: () -> Unit, side: Boo
         Text(text = text)
     }
 }
-
+/**
+ * Sección del formulario para seleccionar la fecha del evento.
+ *
+ * @param viewModel ViewModel que maneja la lógica de fecha.
+ */
 @Composable
 fun DateRow(viewModel: CreateEventScreenViewModel){
 
@@ -281,6 +312,11 @@ fun DateRow(viewModel: CreateEventScreenViewModel){
         }
 }
 
+/**
+ * Sección del formulario para seleccionar la hora del evento.
+ *
+ * @param viewModel ViewModel que maneja la lógica de hora.
+ */
 @Composable
 fun TimeRow(viewModel: CreateEventScreenViewModel){
     Row(
@@ -323,6 +359,11 @@ fun TimeRow(viewModel: CreateEventScreenViewModel){
     }
 }
 
+/**
+ * Sección para seleccionar el oponente en caso de evento tipo partido.
+ *
+ * @param viewModel ViewModel con la información del oponente.
+ */
 @Composable
 fun OpponentRow(viewModel: CreateEventScreenViewModel){
     Row(
@@ -359,6 +400,11 @@ fun OpponentRow(viewModel: CreateEventScreenViewModel){
     }
 }
 
+/**
+ * Sección para definir la ubicación del evento.
+ *
+ * @param viewModel ViewModel con la lógica de ubicación.
+ */
 @Composable
 fun DirectionRow(viewModel: CreateEventScreenViewModel){
     Row(
@@ -406,6 +452,11 @@ fun DirectionRow(viewModel: CreateEventScreenViewModel){
     }
 }
 
+/**
+ * Muestra una vista previa de la ubicación seleccionada en el mapa.
+ *
+ * @param viewModel ViewModel que contiene la ubicación seleccionada.
+ */
 @Composable
 fun DirectionPreview(viewModel: CreateEventScreenViewModel){
     Row(
@@ -423,6 +474,11 @@ fun DirectionPreview(viewModel: CreateEventScreenViewModel){
     }
 }
 
+/**
+ * Botón para guardar el evento creado. Realiza validaciones antes de guardar.
+ *
+ * @param viewModel ViewModel encargado de guardar el evento.
+ */
 @Composable
 fun SaveButton(viewModel: CreateEventScreenViewModel){
     val loading by viewModel.isLoading.collectAsState()
@@ -480,6 +536,11 @@ fun SaveButton(viewModel: CreateEventScreenViewModel){
     }
 }
 
+/**
+ * Diálogo con el selector de fecha utilizando DatePicker.
+ *
+ * @param viewModel ViewModel que recibe la fecha seleccionada.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CreationDatePicker(viewModel: CreateEventScreenViewModel) {
@@ -508,6 +569,11 @@ fun CreationDatePicker(viewModel: CreateEventScreenViewModel) {
     }
 }
 
+/**
+ * Diálogo con el selector de hora utilizando TimePicker.
+ *
+ * @param viewModel ViewModel que recibe la hora seleccionada.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CreationTimePicker(viewModel: CreateEventScreenViewModel) {
@@ -544,6 +610,12 @@ fun CreationTimePicker(viewModel: CreateEventScreenViewModel) {
     )
 }
 
+/**
+ * Convierte una fecha seleccionada desde el DatePickerState a un OffsetDateTime en UTC.
+ *
+ * @param date Estado del DatePicker con la fecha seleccionada.
+ * @return Fecha convertida en formato OffsetDateTime en UTC.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 fun getOffsetDate(date: DatePickerState): OffsetDateTime{
     val millis = date.selectedDateMillis!!
@@ -551,6 +623,13 @@ fun getOffsetDate(date: DatePickerState): OffsetDateTime{
     return OffsetDateTime.ofInstant(Instant.ofEpochMilli(millis), ZoneOffset.UTC)
 }
 
+/**
+ * Establece la hora en un OffsetDateTime basado en la hora seleccionada.
+ *
+ * @param timePickerState Estado del TimePicker con la hora seleccionada.
+ * @param viewModel ViewModel que puede tener una fecha ya existente para aplicar la hora.
+ * @return Fecha y hora combinadas en formato OffsetDateTime en UTC.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 fun getDateWithNewTime(timePickerState: TimePickerState, viewModel: CreateEventScreenViewModel): OffsetDateTime{
     val calendar = Calendar.getInstance()

@@ -17,6 +17,12 @@ import retrofit2.HttpException
 import java.util.regex.Pattern
 import javax.inject.Inject
 
+/**
+ * ViewModel para la segunda pantalla de registro.
+ * Gestiona el estado de los campos del formulario y se comunica con SignUpData.
+ *
+ * @property signUpData Objeto que retiene los datos del registro durante el flujo.
+ */
 @HiltViewModel
 class SignUp2ScreenViewModel @Inject constructor(
     private val signUpData: SignUpData,
@@ -55,6 +61,9 @@ class SignUp2ScreenViewModel @Inject constructor(
         _errorMessage.value = err
     }
 
+    /**
+     * Función que realiza el registro del usuario mediante el repositorio.
+     */
     fun signUp(){
         viewModelScope.launch {
             _isLoading.value = true
@@ -79,6 +88,11 @@ class SignUp2ScreenViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Función que genera un objeto UserSignUp a partir de los datos obtenidos del SignUpData.
+     *
+     * @return Objeto con la información del usuario para su registro.
+     */
     private fun buildUser(): UserSignUp{
         return UserSignUp(
             name = signUpData.nameTextFieldVal.value,
@@ -93,6 +107,11 @@ class SignUp2ScreenViewModel @Inject constructor(
         return signUpData.filledFields()
     }
 
+    /**
+     * Función que valida el formato del correo.
+     *
+     * @return Devuelve true si el correo es válido, false en el caso contrario.
+     */
     fun validateEmail(): Boolean{
         val email = signUpData.mailTextFieldVal.value
         val customEmailRegex: Pattern =  Pattern.compile("^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")

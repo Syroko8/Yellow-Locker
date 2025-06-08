@@ -18,6 +18,13 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * ViewModel para la pantalla de creación de equipos.
+ *
+ * @property teamRepository Repositorio responsable de las operaciones relacionadas con equipos.
+ * @property context Contexto de la aplicación para acceder a recursos como strings.
+ * @property localityRepository Repositorio responsable de las localidades.
+ */
 @HiltViewModel
 class CreateTeamScreenViewModel @Inject constructor(
     private val teamRepository: TeamRepository,
@@ -58,8 +65,10 @@ class CreateTeamScreenViewModel @Inject constructor(
 
     private var filterJob: Job? = null
 
+    /**
+     * Filtra la lista de localidades basándose en la consulta ingresada en la barra de búsqueda.
+     */
     fun filterLocalities() {
-        println(">>>>>>>>>>>>>>>>><<${_localityList.value}")
         filterJob?.cancel()
         filterJob = viewModelScope.launch {
             delay(300)
@@ -71,6 +80,11 @@ class CreateTeamScreenViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Envía los datos del nuevo equipo al repositorio para su creación.
+     *
+     * @param userId Identificador del usuario que crea el equipo.
+     */
     fun createTeam(userId: Long){
         viewModelScope.launch {
             _errorMessage.value = ""
@@ -106,16 +120,17 @@ class CreateTeamScreenViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Recupera la lista de localidades desde el repositorio.
+     */
     fun getLocalities(){
         viewModelScope.launch {
             _errorMessage.value = ""
             _isLoading.value = true
 
             try {
-                println(">>>>>>>>><<requesting")
                 val result = localityRepository.getTeamLocalities()
                 result?.let { _localityList.value = it.localities }
-                println(">>>>>>>>>>>>>${result}")
             } catch (e: Exception){
                 if(e.message == "401"){
                     _logout.value = true

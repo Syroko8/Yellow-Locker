@@ -60,6 +60,12 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
+/**
+ * Pantalla del calendario de eventos del equipo.
+ *
+ * @param onNav Función de navegación.
+ * @param viewModel ViewModel que gestiona la lógica del calendario.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TeamCalendarScreen(onNav: (String) -> Unit, viewModel: TeamCalendarScreenViewModel = hiltViewModel()){
@@ -133,6 +139,9 @@ fun TeamCalendarScreen(onNav: (String) -> Unit, viewModel: TeamCalendarScreenVie
     }
 }
 
+/**
+ * Función que muestra el título para la pantalla de calendario.
+ */
 @Composable
 fun Title(){
     Row(
@@ -153,6 +162,12 @@ fun Title(){
     }
 }
 
+/**
+ * Calendario interactivo con paginación mensual.
+ *
+ * @param events Lista de eventos a mostrar.
+ * @param viewModel ViewModel para manejar interacciones.
+ */
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun CalendarWithEvents(
@@ -212,6 +227,11 @@ fun CalendarWithEvents(
     }
 }
 
+/**
+ * Controles de navegación entre meses.
+ *
+ * @param pagerState Estado del paginador para controlar animaciones
+ */
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun CalendarControls(pagerState: PagerState) {
@@ -247,16 +267,25 @@ fun CalendarControls(pagerState: PagerState) {
     }
 }
 
+/**
+ * Cuadrícula de días del mes con eventos destacados.
+ *
+ * @param events Lista completa de eventos.
+ * @param currentMonth Mes actual siendo mostrado.
+ * @param viewModel ViewModel para manejar selección de eventos.
+ */
 @Composable
 fun CalendarGrid(
     events: List<Event>,
     currentMonth: Calendar,
     viewModel: TeamCalendarScreenViewModel
 ) {
+    // Cálculo de estructura del calendario.
     val daysInMonth = currentMonth.getActualMaximum(Calendar.DAY_OF_MONTH)
     val firstDayOfMonth = currentMonth.clone() as Calendar
     firstDayOfMonth.set(Calendar.DAY_OF_MONTH, 1)
     val startingDayOfWeek = (firstDayOfMonth.get(Calendar.DAY_OF_WEEK) + 5) % 7
+    // Listas para días del mes y relleno.
     val days = (1..daysInMonth).toList()
     val paddingDaysBefore = List(startingDayOfWeek) { -1 }
     val paddingDaysAfter = List((7 - (startingDayOfWeek + daysInMonth) % 7) % 7) { -1 }
@@ -271,6 +300,7 @@ fun CalendarGrid(
         stringResource(R.string.sunday_initials)
     )
 
+    // Encabezado con días de la semana
     LazyVerticalGrid(GridCells.Fixed(7)) {
         items(weekInitials.size) { index ->
             val day = weekInitials[index]
@@ -335,6 +365,12 @@ fun CalendarGrid(
     }
 }
 
+/**
+ * Botón para acceder a la modificación de eventos.
+ * Visible solo para capitanes/entrenadores.
+ *
+ * @param onNav Función de navegación.
+ */
 @Composable
 fun ModifyEvents(onNav: () -> Unit){
     Row(
@@ -364,13 +400,20 @@ fun ModifyEvents(onNav: () -> Unit){
     }
 }
 
+/**
+ * Convierte cadena de fecha a objeto Date.
+ *
+ * @param date Cadena en formato "yyyy-MM-dd".
+ * @return Objeto Date correspondiente.
+ * @throws Exception Si hay error en el parseo.
+ */
 fun stringToDate(date: String): Date {
     val formated = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
     return try {
         formated.parse(date)!!
     } catch (e: Exception) {
         e.printStackTrace()
-        throw Error(e.message)
+        throw Exception(e.message)
     }
 }
 
@@ -379,4 +422,3 @@ fun stringToDate(date: String): Date {
 fun TeamCalendarScreenPreview(){
     TeamCalendarScreen(onNav = {})
 }
-

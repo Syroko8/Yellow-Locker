@@ -24,6 +24,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PostMapping;
 
+/**
+ * Controlador para manejar las peticiones relacionadas con la entidad Event.
+ */
 @RestController
 @RequestMapping("/api/event")
 public class EventController {
@@ -33,6 +36,11 @@ public class EventController {
     @Autowired
     TeamService teamService;
 
+    /**
+     * Función que maneja las peticiones que buscan obtener todos los eventos.
+     * @param teamId Identificador del equipo cuyos eventos se desean obtener.
+     * @return Una lista de eventos del equipo especificado.
+     */
     @GetMapping("/team_matches/{teamId}")
     public ResponseEntity<List<Match>> getTeamMatches(@PathVariable Long teamId) {
         try {
@@ -43,6 +51,11 @@ public class EventController {
         }
     }
 
+    /**
+     * Función que maneja las peticiones para obtener todos los entrenamientos de un equipo.
+     * @param teamId Identificador del equipo cuyos entrenamientos se desean recuperar.
+     * @return Una lista de entrenamientos del equipo especificado.
+     */
     @GetMapping("/team_trainings/{teamId}")
     public ResponseEntity<List<Training>> getTeamTrainings(@PathVariable Long teamId) {
         try {
@@ -53,6 +66,11 @@ public class EventController {
         }
     }
 
+    /**
+     * Función que maneja las peticiones para obtener todos los eventos de un equipo.
+     * @param teamId Identificador del equipo cuyos eventos se desean recuperar.
+     * @return Una lista de eventos del equipo especificado.
+     */
     @GetMapping("/team/{teamId}")
     public ResponseEntity<List<Event>> getTeamEvents(@PathVariable Long teamId) {
         try {
@@ -63,6 +81,14 @@ public class EventController {
         }
     }
 
+    /**
+     * Función que maneha las peticiones para actualizar un evento existente.
+     * @param event Evento a actualizar.
+     * @param opponentId Identificador del oponente, si es un evento de tipo Match.
+     * @param ownGoals Goles proprios, si es un evento de tipo Match.
+     * @param opponentGoals Goles del oponente, si es un evento de tipo Match.
+     * @return El evento actualizado.
+     */
     @PutMapping("update")
     public ResponseEntity<EventResponse> updateEvent(
         @RequestBody Event event, 

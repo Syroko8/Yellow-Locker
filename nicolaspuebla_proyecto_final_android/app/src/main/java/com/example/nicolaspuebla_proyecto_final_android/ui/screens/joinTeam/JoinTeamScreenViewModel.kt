@@ -15,6 +15,12 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * ViewModel para la pantalla de unión a equipos.
+ *
+ * @property teamRepository Repositorio para operaciones con equipos.
+ * @property context Contexto de aplicación Android.
+ */
 @HiltViewModel
 class JoinTeamScreenViewModel @Inject constructor(
     private val teamRepository: TeamRepository,
@@ -50,6 +56,10 @@ class JoinTeamScreenViewModel @Inject constructor(
         _errorMessage.value = ""
     }
 
+    /**
+     * Obtiene todos los equipos disponibles desde el repositorio.
+     * Actualiza los estados de carga y errores.
+     */
     fun getTeams(){
         viewModelScope.launch {
             _loading.value = true
@@ -70,6 +80,9 @@ class JoinTeamScreenViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Filtra equipos basados en el nombre ingresado.
+     */
     fun filterTeams() {
         viewModelScope.launch {
             val newFilteredList = teamList.value.filter {
@@ -79,6 +92,11 @@ class JoinTeamScreenViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Une al usuario actual a un equipo específico.
+     *
+     * @param teamId Identificador del equipo al que unirse.
+     */
     fun joinTeam(teamId: Long) {
         viewModelScope.launch {
             _loading.value = true
@@ -118,6 +136,11 @@ class JoinTeamScreenViewModel @Inject constructor(
         _successfullyJoined.value = false
     }
 
+    /**
+     * Verifica si el usuario ya pertenece al equipo seleccionado.
+     *
+     * @return true si el usuario ya es miembro, false en caso contrario
+     */
     fun checkAlreadyBelong(): Boolean {
         val userTeamList = SessionManager.user?.teamList
 

@@ -17,6 +17,13 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * ViewModel para la pantalla de login.
+ *
+ * @property authRepository Repositorio para operaciones de autenticación.
+ * @property context Contexto de aplicación Android.
+ * @property preferencesRepository Repositorio para la gestión de preferencias.
+ */
 @HiltViewModel
 class LoginScreenViewModel @Inject constructor(
     private val authRepository: AuthRepository,
@@ -40,6 +47,9 @@ class LoginScreenViewModel @Inject constructor(
     var passwdTextFieldVal= mutableStateOf<String>("")
     var passwdVisibility = mutableStateOf<Boolean>(false)
 
+    /**
+     *  Función que realiza la petición de inicio de sesión.
+     */
     fun login(){
         viewModelScope.launch {
             try {
@@ -81,6 +91,12 @@ class LoginScreenViewModel @Inject constructor(
         _mustFill.value = value
     }
 
+    /**
+     * Verifica la validez de un token almacenado para el login automático.
+     *
+     * @param userId Identificador del usuario almacenado en preferencias.
+     * @param token Token de autenticación almacenado.
+     */
     fun checkToken(userId:Long?, token: String) {
         if(userId != null && token != ""){
             viewModelScope.launch {

@@ -22,6 +22,13 @@ import kotlinx.coroutines.launch
 import java.time.OffsetDateTime
 import javax.inject.Inject
 
+/**
+ * ViewModel para la pantalla de modificación de eventos.
+ *
+ * @property teamEventRepository Repositorio para operaciones con los eventos.
+ * @property context Contexto de la aplicación para recursos y strings.
+ * @property teamRepository Repositorio para operaciones relacionadas con equipos.
+ */
 @HiltViewModel
 class ModifyEventsScreenViewModel @Inject constructor(
     private val teamEventRepository: TeamEventRepository,
@@ -76,6 +83,11 @@ class ModifyEventsScreenViewModel @Inject constructor(
         _datePickerVisibility.value = value
     }
 
+    /**
+     * Actualiza la fecha del evento seleccionado con la nueva fecha seleccionada.
+     *
+     * @param time Nueva fecha y hora seleccionada.
+     */
     fun setSelectedDate(time: OffsetDateTime){
         if(_chosenEventToEdit.value != null){
             val modified: Event = when(_chosenEventToEdit.value){
@@ -106,6 +118,11 @@ class ModifyEventsScreenViewModel @Inject constructor(
         _changeOpponentVisibility.value = false
     }
 
+    /**
+     * Actualiza el oponente del partido seleccionado.
+     *
+     * @param newOpponent Nuevo equipo oponente.
+     */
     fun setChosenOpponent(newOpponent: Team){
         val chosenEvent = _chosenEventToEdit.value
         if(chosenEvent != null && chosenEvent is Match){
@@ -116,6 +133,12 @@ class ModifyEventsScreenViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Cambia la ubicación del evento.
+     *
+     * @param event Evento a modificar.
+     * @param newLocation Nueva ubicación geográfica.
+     */
     fun setEventLocation(event: Event, newLocation: LatLng) {
         val list = _events.value.toMutableList()
         val index = list.indexOfFirst { it.id == event.id }
@@ -130,6 +153,13 @@ class ModifyEventsScreenViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Actualiza los resultados de un partido.
+     *
+     * @param event Partido a modificar.
+     * @param newOwnGoals Nuevos goles a favor.
+     * @param newOpponentGoals Nuevos goles del oponente.
+     */
     fun setNewScore(event: Match, newOwnGoals: Int, newOpponentGoals: Int) {
         val modified = event.copy(ownGoals = newOwnGoals, opponentGoals = newOpponentGoals)
         val list = _events.value.toMutableList()
@@ -140,6 +170,12 @@ class ModifyEventsScreenViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Obtiene los eventos de un equipo.
+     *
+     * @param teamId Identificador del equipo.
+     * @return Devuelve el trabajo de la operación asícrona.
+     */
     fun getEvents(teamId: Long): Job {
         return viewModelScope.launch {
             _isLoading.value = true
@@ -182,6 +218,12 @@ class ModifyEventsScreenViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Guarda los cambios realizados en un evento.
+     *
+     * @param event Evento modificado.
+     * @param list Lista actualizada de eventos para actualizar el estado.
+     */
     private fun saveModified(event: Event, list: List<Event>){
         viewModelScope.launch {
             _isLoading.value = true
@@ -203,6 +245,9 @@ class ModifyEventsScreenViewModel @Inject constructor(
 
     private var filterJob: Job? = null
 
+    /**
+     * Filtra la lista de equipos basándose en el texto de búsqueda con un retardo para evitar exceso de búsquedas.
+     */
     fun filterTeams() {
         filterJob?.cancel()
         filterJob = viewModelScope.launch {
@@ -217,6 +262,11 @@ class ModifyEventsScreenViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Función que elimina un evento.
+     *
+     * @param eventId Identificador del evento a eliminar.
+     */
     fun deleteEvent(eventId: Long) {
         viewModelScope.launch {
             _isLoading.value = true

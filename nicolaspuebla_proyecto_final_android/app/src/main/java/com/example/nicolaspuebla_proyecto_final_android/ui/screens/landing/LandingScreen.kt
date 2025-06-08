@@ -28,8 +28,13 @@ import com.example.laboratorio_b.ui.navigation.Destinations
 import com.example.nicolaspuebla_proyecto_final_android.R
 import com.example.nicolaspuebla_proyecto_final_android.ui.components.ErrorDialog
 import com.example.nicolaspuebla_proyecto_final_android.ui.components.TeamCard
-import com.example.nicolaspuebla_proyecto_final_android.utils.SessionManager
 
+/**
+ * Pantalla principal que muestra los equipos del usuario.
+ *
+ * @param onNav Función de navegación para cambiar de pantalla.
+ * @param viewModel ViewModel que gestiona la información.
+ */
 @Composable
 fun LandingScreen(onNav: (String, Int?) -> Unit, viewModel: LandingScreenViewModel = hiltViewModel()){
 
@@ -69,6 +74,9 @@ fun LandingScreen(onNav: (String, Int?) -> Unit, viewModel: LandingScreenViewMod
     }
 }
 
+/**
+ * Título para la pantalla de inicio.
+ */
 @Composable
 fun Title(){
     Column(
@@ -87,6 +95,12 @@ fun Title(){
     }
 }
 
+/**
+ * Función que muestra la lista de equipos del usuario.
+ *
+ * @param viewModel ViewModel que provee los datos de equipos
+ * @param onNav Función de navegación para equipos específicos
+ */
 @Composable
 fun TeamList(viewModel: LandingScreenViewModel, onNav: (String, Int?) -> Unit){
     LazyColumn(
@@ -112,6 +126,9 @@ fun TeamList(viewModel: LandingScreenViewModel, onNav: (String, Int?) -> Unit){
     }
 }
 
+/**
+ * Función que se muestra cuando el usuario no tiene equipos.
+ */
 @Composable
 fun NoTeams(){
     Column(

@@ -41,6 +41,13 @@ import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Te
 import com.example.nicolaspuebla_proyecto_final_android.utils.SessionManager
 import com.lightspark.composeqr.QrCodeView
 
+/**
+ * Pantalla de bienvenida que muestra información detallada de un equipo.
+ *
+ * @param onNav Función de navegación.
+ * @param teamId Identificador del equipo a mostrar.
+ * @param viewModel ViewModel que gestiona la lógica de la pantalla.
+ */
 @Composable
 fun TeamWelcomeScreen(
     onNav: (String) -> Unit,
@@ -92,6 +99,11 @@ fun TeamWelcomeScreen(
     }
 }
 
+/**
+ * Botón para generar y mostrar código QR del equipo.
+ *
+ * @param viewModel ViewModel que controla la visibilidad del QR.
+ */
 @Composable
 fun GenerateQR(viewModel: TeamWelcomeScreenViewModel){
     Row(
@@ -112,6 +124,11 @@ fun GenerateQR(viewModel: TeamWelcomeScreenViewModel){
     }
 }
 
+/**
+ * Función que contiene el título con nombre del equipo.
+ *
+ * @param team Datos del equipo actual.
+ */
 @Composable
 fun Title(team: Team?){
     Row(
@@ -132,6 +149,11 @@ fun Title(team: Team?){
     }
 }
 
+/**
+ * Logo del equipo.
+ *
+ * @param team Datos del equipo actual.
+ */
 @Composable
 fun Logo(team: Team?){
     Row(
@@ -150,6 +172,12 @@ fun Logo(team: Team?){
     }
 }
 
+/**
+ * Sección de información estadística del equipo.
+ *
+ * @param team Datos del equipo.
+ * @param viewModel ViewModel que proporciona estadísticas.
+ */
 @Composable
 fun TeamInfo(team: Team?, viewModel: TeamWelcomeScreenViewModel){
     Column(
@@ -190,6 +218,12 @@ fun TeamInfo(team: Team?, viewModel: TeamWelcomeScreenViewModel){
     }
 }
 
+/**
+ * Componente reutilizable para mostrar información en formato etiqueta: valor.
+ *
+ * @param label Texto descriptivo.
+ * @param value Valor a mostrar.
+ */
 @Composable
 fun InfoText(label: String, value: String){
     Row(
@@ -214,6 +248,12 @@ fun InfoText(label: String, value: String){
     }
 }
 
+/**
+ * Diálogo en el que se muestra el código QR del equipo.
+ *
+ * @param onDismiss Callback al cerrar el diálogo.
+ * @param teamName Nombre del equipo.
+ */
 @Composable
 fun QRDialog(
     onDismiss: () -> Unit,

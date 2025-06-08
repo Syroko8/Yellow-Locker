@@ -29,6 +29,13 @@ enum class EventType(){
     Training
 }
 
+/**
+ * ViewModel para la pantalla de creación de eventos. Maneja el estado de la interfaz y la lógica para crear partidos o entrenamientos.
+ *
+ * @property teamRepository Repositorio para obtener los equipos.
+ * @property teamEventRepository Repositorio para crear eventos.
+ * @property context Contexto de la aplicación inyectado por Hilt.
+ */
 @HiltViewModel
 class CreateEventScreenViewModel @Inject constructor(
     private val teamRepository: TeamRepository,
@@ -71,6 +78,11 @@ class CreateEventScreenViewModel @Inject constructor(
         _errorMessage.value = ""
     }
 
+    /**
+     * Guarda un nuevo evento, ya sea partido o entrenamiento.
+     *
+     * @param teamId Identificador del equipo que organiza el evento.
+     */
     fun saveEvent(teamId: Long){
         viewModelScope.launch {
             _errorMessage.value = ""
@@ -115,6 +127,9 @@ class CreateEventScreenViewModel @Inject constructor(
 
     private var filterJob: Job? = null
 
+    /**
+     * Filtra la lista de equipos según el texto ingresado en la barra de búsqueda.
+     */
     fun filterTeams() {
         filterJob?.cancel()
         filterJob = viewModelScope.launch {
@@ -126,6 +141,9 @@ class CreateEventScreenViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Obtiene todos los equipos disponibles desde el repositorio.
+     */
     fun getTeams(){
         viewModelScope.launch {
             _isLoading.value = true
@@ -146,6 +164,9 @@ class CreateEventScreenViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Guarda temporalmente la información del evento antes de seleccionar ubicación.
+     */
     fun setCreationInfoLocationChoosing() {
         val eventInfo = CreationInfo(
             date.value,
@@ -155,6 +176,9 @@ class CreateEventScreenViewModel @Inject constructor(
         LocationChoosingInfo.eventCreationInfo.value = eventInfo
     }
 
+    /**
+     * Recupera la información del evento después de seleccionar la ubicación.
+     */
     fun getLocationChoosingCreationInfo() {
         val info = LocationChoosingInfo.eventCreationInfo.value
         if(info != null){
@@ -166,6 +190,13 @@ class CreateEventScreenViewModel @Inject constructor(
     }
 }
 
+/**
+ * Data class que almacena la información necesaria para crear un evento.
+ *
+ * @property dateTime Fecha y hora del evento.
+ * @property opponent Equipo oponente (solo si es un partido).
+ * @property location Ubicación geográfica del evento.
+ */
 data class CreationInfo(
     val dateTime: OffsetDateTime?,
     val opponent: Team?,

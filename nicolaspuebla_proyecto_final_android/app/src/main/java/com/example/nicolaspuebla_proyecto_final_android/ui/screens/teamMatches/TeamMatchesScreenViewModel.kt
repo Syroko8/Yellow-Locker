@@ -13,6 +13,12 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * ViewModel para la pantalla de partidos del equipo.
+ *
+ * @property teamEventRepository Repositorio para acceso a datos de eventos.
+ * @property context Contexto de aplicación para recursos.
+ */
 @HiltViewModel
 class TeamMatchesScreenViewModel @Inject constructor(
     private val teamEventRepository: TeamEventRepository,
@@ -31,6 +37,12 @@ class TeamMatchesScreenViewModel @Inject constructor(
     private val _logout = MutableStateFlow(false)
     val logout: StateFlow<Boolean> get() = _logout
 
+    /**
+     * Obtiene los partidos del equipo desde el repositorio.
+     * Maneja estados de carga y posibles errores.
+     *
+     * @param teamId Identificador del equipo actual.
+     */
     fun getMatches(teamId: Long) {
         viewModelScope.launch {
             _isLoading.value = true

@@ -41,6 +41,12 @@ import com.example.nicolaspuebla_proyecto_final_android.ui.components.ErrorDialo
 import com.example.nicolaspuebla_proyecto_final_android.ui.components.LocalitySheet
 import com.example.nicolaspuebla_proyecto_final_android.utils.SessionManager
 
+/**
+ * Pantalla para la creación de equipos.
+ *
+ * @param onNav Función de navegación que se ejecuta tras la creación exitosa del equipo.
+ * @param viewModel ViewModel que maneja el estado de la pantalla.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CreateTeamScreen(onNav:(String) -> Unit, viewModel: CreateTeamScreenViewModel = hiltViewModel()){
@@ -50,7 +56,6 @@ fun CreateTeamScreen(onNav:(String) -> Unit, viewModel: CreateTeamScreenViewMode
     val sheetState = rememberModalBottomSheetState()
 
     LaunchedEffect(Unit) {
-        println(">>>>>>>>>>>>>getting")
         viewModel.getLocalities()
     }
 
@@ -95,6 +100,9 @@ fun CreateTeamScreen(onNav:(String) -> Unit, viewModel: CreateTeamScreenViewMode
     }
 }
 
+/**
+ * Muestra el título principal de la pantalla.
+ */
 @Composable
 fun Title(){
     Row(
@@ -120,6 +128,11 @@ fun Title(){
     }
 }
 
+/**
+ * Muestra el formulario de creación del equipo, que contiene etiquetas y campos correspondientes.
+ *
+ * @param viewModel ViewModel que proporciona los valores y acciones del formulario.
+ */
 @Composable
 fun Form(viewModel: CreateTeamScreenViewModel){
     Row(
@@ -135,6 +148,9 @@ fun Form(viewModel: CreateTeamScreenViewModel){
     }
 }
 
+/**
+ * Muestra la columna con las etiquetas para los campos del formulario.
+ */
 @Composable
 fun LabelsColumn(){
     Column(
@@ -180,6 +196,11 @@ fun LabelsColumn(){
     }
 }
 
+/**
+ * Muestra la columna con los campos editables del formulario.
+ *
+ * @param viewModel ViewModel que gestiona el estado de los campos.
+ */
 @Composable
 fun FieldsColumn(viewModel: CreateTeamScreenViewModel){
     Column(
@@ -196,6 +217,11 @@ fun FieldsColumn(viewModel: CreateTeamScreenViewModel){
     }
 }
 
+/**
+ * Campo de texto para ingresar el nombre del equipo.
+ *
+ * @param viewModel ViewModel que contiene el valor del campo y su modificador.
+ */
 @Composable
 fun NameTextField(viewModel: CreateTeamScreenViewModel){
     BasicTextField(
@@ -219,6 +245,11 @@ fun NameTextField(viewModel: CreateTeamScreenViewModel){
     )
 }
 
+/**
+ * Botón que abre el panel de selección de localidad.
+ *
+ * @param viewModel ViewModel que gestiona la visibilidad del panel y la localidad seleccionada.
+ */
 @Composable
 fun LocalityButton(viewModel: CreateTeamScreenViewModel){
     Button(
@@ -242,6 +273,11 @@ fun LocalityButton(viewModel: CreateTeamScreenViewModel){
     }
 }
 
+/**
+ * Campo de texto para ingresar el nombre del deporte del equipo.
+ *
+ * @param viewModel ViewModel que contiene el valor del campo y su modificador.
+ */
 @Composable
 fun SportTextField(viewModel: CreateTeamScreenViewModel){
     BasicTextField(
@@ -265,6 +301,11 @@ fun SportTextField(viewModel: CreateTeamScreenViewModel){
     )
 }
 
+/**
+ * Botón para seleccionar o cambiar el logo del equipo.
+ *
+ * @param viewModel ViewModel que maneja el estado de selección del logo.
+ */
 @Composable
 fun LogoButton(viewModel: CreateTeamScreenViewModel){
     Button(
@@ -289,6 +330,11 @@ fun LogoButton(viewModel: CreateTeamScreenViewModel){
     }
 }
 
+/**
+ * Botón que lanza la acción de crear el equipo.
+ *
+ * @param viewModel ViewModel que maneja la creación del equipo y el estado de carga.
+ */
 @Composable
 fun SaveButton(viewModel: CreateTeamScreenViewModel){
     val loading by viewModel.isLoading.collectAsState()

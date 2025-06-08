@@ -67,6 +67,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+/**
+ * Pantalla principal para unirse a equipos.
+ *
+ * @param viewModel ViewModel que gestiona la información.
+ */
 @Composable
 fun JoinTeamScreen(viewModel: JoinTeamScreenViewModel = hiltViewModel()){
 
@@ -136,6 +141,11 @@ fun JoinTeamScreen(viewModel: JoinTeamScreenViewModel = hiltViewModel()){
     }
 }
 
+/**
+ * Componente de barra de búsqueda con funcionalidad QR.
+ *
+ * @param viewModel ViewModel para gestionar el estado de búsqueda.
+ */
 @Composable
 fun SearchBar(viewModel: JoinTeamScreenViewModel){
 
@@ -219,6 +229,11 @@ fun SearchBar(viewModel: JoinTeamScreenViewModel){
     }
 }
 
+/**
+ * Componente que muestra la lista de equipos.
+ *
+ * @param viewModel ViewModel que provee los datos.
+ */
 @Composable
 fun List(viewModel: JoinTeamScreenViewModel) {
     val loading by viewModel.loading.collectAsState()
@@ -281,6 +296,12 @@ fun List(viewModel: JoinTeamScreenViewModel) {
     }
 }
 
+/**
+ * Tarjeta que representa un equipo.
+ *
+ * @param team Datos del equipo a mostrar.
+ * @param onClick Callback al seleccionar el equipo.
+ */
 @Composable
 fun TeamCard(team: Team, onClick: (Team) -> Unit){
     Card(
@@ -345,6 +366,13 @@ fun TeamCard(team: Team, onClick: (Team) -> Unit){
     }
 }
 
+/**
+ * Diálogo de confirmación para unirse a un equipo.
+ *
+ * @param viewModel ViewModel para acceder al equipo seleccionado.
+ * @param onDismiss Callback al cancelar la acción.
+ * @param onConfirm Callback al confirmar la unión al equipo.
+ */
 @Composable
 fun ChoiceDialog(
     viewModel: JoinTeamScreenViewModel,
@@ -421,6 +449,13 @@ fun ChoiceDialog(
     }
 }
 
+/**
+ * Muestra notificación toast personalizada al unirse exitosamente.
+ *
+ * @param scope CoroutineScope para manejar la duración del toast
+ * @param context Contexto Android
+ * @param viewModel ViewModel para resetear estados
+ */
 fun showAchievedToast(scope: CoroutineScope, context: Context, viewModel: JoinTeamScreenViewModel){
     val toast = Toast(context).apply {
         duration = Toast.LENGTH_LONG
@@ -434,6 +469,13 @@ fun showAchievedToast(scope: CoroutineScope, context: Context, viewModel: JoinTe
     }
 }
 
+/**
+ * Muestra el toast para cuando el usuario ya pertenece al equipo.
+ *
+ * @param scope CoroutineScope para manejar la duración del toast
+ * @param context Contexto Android
+ * @param viewModel ViewModel para resetear estados
+ */
 fun showAlreadyBelongToast(scope: CoroutineScope, context: Context, viewModel: JoinTeamScreenViewModel){
     val toast = Toast(context).apply {
         duration = Toast.LENGTH_LONG

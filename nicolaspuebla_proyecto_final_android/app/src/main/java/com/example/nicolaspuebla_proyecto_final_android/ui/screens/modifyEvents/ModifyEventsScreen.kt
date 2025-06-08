@@ -36,7 +36,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -52,15 +51,19 @@ import com.example.nicolaspuebla_proyecto_final_android.ui.components.ModifyEven
 import com.example.nicolaspuebla_proyecto_final_android.utils.LocationChoosingInfo
 import com.example.nicolaspuebla_proyecto_final_android.utils.MapAction
 import com.example.nicolaspuebla_proyecto_final_android.utils.SessionManager
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.selects.whileSelect
 import java.time.Instant
 import java.time.OffsetDateTime
 import java.time.ZoneId
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 
+/**
+ * Pantalla para la modificación de eventos.
+ *
+ * @param onNav Callback para navegación.
+ * @param viewModel ViewModel asociado a esta pantalla.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ModifyEventsScreen(onNav: (String) -> Unit, viewModel: ModifyEventsScreenViewModel = hiltViewModel()){
@@ -153,6 +156,9 @@ fun ModifyEventsScreen(onNav: (String) -> Unit, viewModel: ModifyEventsScreenVie
     }
 }
 
+/**
+ * Función que muestra el título de la pantalla.
+ */
 @Composable
 fun Title(){
     Row(
@@ -178,6 +184,11 @@ fun Title(){
     }
 }
 
+/**
+ * Función que muestra la lista de eventos a modificar.
+ *
+ * @param viewModel ViewModel que contiene la lista de eventos y funciones relacionadas.
+ */
 @Composable
 fun List(viewModel: ModifyEventsScreenViewModel){
 
@@ -244,6 +255,12 @@ fun List(viewModel: ModifyEventsScreenViewModel){
     }
 }
 
+/**
+ * Función para mostrar el selector de fecha para un evento.
+ *
+ * @param chosenEvent Evento que se está editando.
+ * @param viewModel ViewModel con estado y funciones para manejar el selector de fecha.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EventDatePicker(chosenEvent: Event, viewModel: ModifyEventsScreenViewModel){
@@ -271,6 +288,12 @@ fun EventDatePicker(chosenEvent: Event, viewModel: ModifyEventsScreenViewModel){
     }
 }
 
+/**
+ * Función para mostrar el selector de hora.
+ *
+ * @param event Evento que se está editando.
+ * @param viewModel ViewModel con estado y funciones para manejar el selector de hora.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EventTimePicker(event: Event, viewModel: ModifyEventsScreenViewModel){
@@ -310,6 +333,9 @@ fun EventTimePicker(event: Event, viewModel: ModifyEventsScreenViewModel){
     }
 }
 
+/**
+ * Función que muestra un mensaje cuando no hay eventos disponibles.
+ */
 @Composable
 fun NoEvents(){
     Column(
@@ -327,13 +353,24 @@ fun NoEvents(){
     }
 }
 
-
+/**
+ * Parsea la fecha del evento desde un String a un objeto OffsetDateTime.
+ *
+ * @param date Fecha a parsear.
+ * @return La fecha parseada en UTC.
+ */
 fun parseEventDate(date: String): OffsetDateTime{
     val formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME
     val eventDate = OffsetDateTime.parse(date, formatter)
     return  eventDate.withOffsetSameInstant(ZoneOffset.UTC)
 }
 
+/**
+ * Formatea una fecha para mostrarla como texto legible.
+ *
+ * @param dateString Fecha de la que partimos.
+ * @return String con el formato deseado o mensaje de fecha inválida.
+ */
 @Composable
 fun getFormatedDate(dateString: String): String {
     return try {
@@ -346,6 +383,12 @@ fun getFormatedDate(dateString: String): String {
     }
 }
 
+/**
+ * Convierte la fecha de un evento a milisegundos.
+ *
+ * @param event Evento con la fecha a convertir.
+ * @return Fecha en milisegundos desde epoch.
+ */
 fun dateToMillis(event: Event): Long {
     val formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME
     val dateTime = OffsetDateTime.parse(event.date, formatter)
@@ -353,6 +396,13 @@ fun dateToMillis(event: Event): Long {
     return dateTime.toInstant().toEpochMilli()
 }
 
+/**
+ * Obtiene la nueva fecha seleccionada en el DatePicker combinándola con la hora original del evento.
+ *
+ * @param event Evento original.
+ * @param state Estado del selector de fecha.
+ * @return Nueva fecha en formato  Offset Date Time.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 fun getChosenDate(event: Event, state: DatePickerState): OffsetDateTime{
     val newDate = OffsetDateTime.ofInstant(
@@ -366,6 +416,13 @@ fun getChosenDate(event: Event, state: DatePickerState): OffsetDateTime{
         .withSecond(0)
 }
 
+/**
+ * Obtiene la nueva fecha y hora combinando el tiempo seleccionado en TimePicker con la fecha original.
+ *
+ * @param event Evento original.
+ * @param state Estado del selector de hora.
+ * @return Nueva fecha y hora en formato Offset Date Time.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 fun getNewDate(chosenEvent: Event, timePickerState: TimePickerState): OffsetDateTime {
     val oldDateStr = chosenEvent.date

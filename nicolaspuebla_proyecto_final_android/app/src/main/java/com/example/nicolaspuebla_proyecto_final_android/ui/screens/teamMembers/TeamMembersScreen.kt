@@ -36,6 +36,11 @@ import com.example.nicolaspuebla_proyecto_final_android.ui.components.PositionCr
 import com.example.nicolaspuebla_proyecto_final_android.utils.SessionManager
 import com.example.nicolaspuebla_proyecto_final_android.utils.TeamRoles
 
+/**
+ * Pantalla que muestra los miembros del equipo.
+ *
+ * @param viewModel ViewModel que gestiona la lógica de la pantalla
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TeamMembersScreen(viewModel: TeamMembersScreenViewModel = hiltViewModel()){
@@ -99,6 +104,9 @@ fun TeamMembersScreen(viewModel: TeamMembersScreenViewModel = hiltViewModel()){
     }
 }
 
+/**
+ * Función que muestra el título para la pantalla de miembros.
+ */
 @Composable
 fun Title(){
     Row(
@@ -124,6 +132,11 @@ fun Title(){
     }
 }
 
+/**
+ * Lista interactiva de miembros del equipo.
+ *
+ * @param viewModel ViewModel que proporciona los datos de miembros.
+ */
 @Composable
 fun List(viewModel: TeamMembersScreenViewModel){
 
@@ -167,6 +180,9 @@ fun List(viewModel: TeamMembersScreenViewModel){
     }
 }
 
+/**
+ * Función que muestra un mensaje cuando no hay miembros en el equipo.
+ */
 @Composable
 fun NoMembers(){
     Column(

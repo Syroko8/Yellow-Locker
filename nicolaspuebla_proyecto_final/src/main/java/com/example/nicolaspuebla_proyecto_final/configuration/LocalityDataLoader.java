@@ -14,6 +14,9 @@ import com.example.nicolaspuebla_proyecto_final.service.LocalityService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * Clase para la carga de las localidades en la base de datos al inicial el microservicio.
+ */
 @Configuration
 public class LocalityDataLoader {
 

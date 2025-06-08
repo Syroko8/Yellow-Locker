@@ -53,7 +53,14 @@ import com.example.nicolaspuebla_proyecto_final_android.data.preferences.Prefere
 import com.example.nicolaspuebla_proyecto_final_android.ui.components.ErrorDialog
 import com.example.nicolaspuebla_proyecto_final_android.ui.components.MustFillDialog
 
-
+/**
+ * Pantalla de inicio de sesión.
+ *
+ * @param onNav Callback de navegación.
+ * @param viewModel ViewModel que gestiona la información y comunicación con el microservicio.
+ * @param onLogin Callback al iniciar sesión exitosamente.
+ * @param preferencesViewModel ViewModel para gestionar preferencias (token, userId).
+ */
 @Composable
 fun LoginScreen(
     onNav: (String) -> Unit,
@@ -107,6 +114,10 @@ fun LoginScreen(
     }
 }
 
+
+/**
+ * Función superior con logo y título de la aplicación.
+ */
 @Composable
 fun Upper(){
     Column(
@@ -148,6 +159,12 @@ fun Upper(){
     }
 }
 
+/**
+ * Función inferior que contiene el formulario de login.
+ *
+ * @param viewModel ViewModel para gestionar datos del formulario.
+ * @param onNav Función de navegación.
+ */
 @Composable
 fun Bottom(viewModel: LoginScreenViewModel, onNav: (String) -> Unit){
     Box(
@@ -162,6 +179,12 @@ fun Bottom(viewModel: LoginScreenViewModel, onNav: (String) -> Unit){
     }
 }
 
+/**
+ * Formulario de inicio de sesión con campos de entrada.
+ *
+ * @param viewModel ViewModel para vincular campos de texto.
+ * @param onNav Función de navegación para las vistas de registro.
+ */
 @Composable
 fun Formulary(viewModel: LoginScreenViewModel, onNav: (String) -> Unit) {
     Column(
@@ -178,6 +201,11 @@ fun Formulary(viewModel: LoginScreenViewModel, onNav: (String) -> Unit) {
     }
 }
 
+/**
+ * Campo de texto para el correo electrónico.
+ *
+ * @param viewModel ViewModel para gestionar valor del campo.
+ */
 @Composable
 fun MailTextField(viewModel: LoginScreenViewModel){
     Column(
@@ -220,6 +248,11 @@ fun MailTextField(viewModel: LoginScreenViewModel){
     }
 }
 
+/**
+ * Campo de texto para la contraseña con toggle de visibilidad.
+ *
+ * @param viewModel ViewModel para gestionar valor y visibilidad.
+ */
 @Composable
 fun PasswdTextField(viewModel: LoginScreenViewModel){
     Column(
@@ -269,6 +302,12 @@ fun PasswdTextField(viewModel: LoginScreenViewModel){
     }
 }
 
+/**
+ * Fila de botones para acciones de registro e inicio de sesión.
+ *
+ * @param viewModel ViewModel para acceder a estados de carga.
+ * @param onNav Callback de navegación para las vistas de registro.
+ */
 @Composable
 fun ButtonRow(viewModel: LoginScreenViewModel, onNav: (String) -> Unit){
 

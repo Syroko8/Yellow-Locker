@@ -7,6 +7,12 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
+/**
+ * ViewModel para la pantalla de registro.
+ * Gestiona el estado de los campos del formulario y se comunica con SignUpData.
+ *
+ * @property signUpData Objeto que retiene los datos del registro durante el flujo.
+ */
 @HiltViewModel
 class SignUpScreenViewModel @Inject constructor(
     private val signUpData: SignUpData

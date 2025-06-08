@@ -13,6 +13,12 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * ViewModel para la pantalla de calendario del equipo.
+ *
+ * @property teamEventRepository Repositorio para operaciones con eventos.
+ * @property context Contexto de aplicación para recursos.
+ */
 @HiltViewModel
 class TeamCalendarScreenViewModel @Inject constructor(
     private val teamEventRepository: TeamEventRepository,
@@ -53,6 +59,11 @@ class TeamCalendarScreenViewModel @Inject constructor(
         _errorMessage.value = ""
     }
 
+    /**
+     * Obtiene eventos del equipo desde el repositorio.
+     *
+     * @param teamId Identificador del equipo actual.
+     */
     fun getEvents(teamId: Long) {
         viewModelScope.launch {
             _isLoading.value = true

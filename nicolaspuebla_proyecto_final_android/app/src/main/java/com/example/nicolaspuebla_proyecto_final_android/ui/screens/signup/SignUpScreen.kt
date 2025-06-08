@@ -44,6 +44,12 @@ import com.example.laboratorio_b.ui.navigation.Destinations
 import com.example.nicolaspuebla_proyecto_final_android.R
 import com.example.nicolaspuebla_proyecto_final_android.ui.components.DateTextField
 
+/**
+ * Pantalla de registro que permite al usuario introducir sus datos.
+ *
+ * @param onNav Función de navegación para cambiar entre pantallas.
+ * @param viewModel ViewModel que gestiona el estado del formulario.
+ */
 @Composable
 fun SignUpScreen(
     onNav: (String) -> Unit,
@@ -65,6 +71,9 @@ fun SignUpScreen(
     }
 }
 
+/**
+ * Función que muestra el título de la aplicación.
+ */
 @Composable
 fun Upper(){
 
@@ -92,6 +101,12 @@ fun Upper(){
     }
 }
 
+/**
+ * Función que contiene el formulario con los campos de entrada.
+ *
+ * @param viewModel ViewModel para gestión de datos del formulario.
+ * @param onNav Función de navegación.
+ */
 @Composable
 fun Lower(viewModel: SignUpScreenViewModel, onNav: (String) -> Unit){
     Column(
@@ -116,6 +131,11 @@ fun Lower(viewModel: SignUpScreenViewModel, onNav: (String) -> Unit){
     }
 }
 
+/**
+ * Fila con botón para navegar a la pantalla de login.
+ *
+ * @param onNav Función de navegación
+ */
 @Composable
 fun LoginButtonRow(onNav: (String) -> Unit){
     Row(
@@ -148,6 +168,11 @@ fun LoginButtonRow(onNav: (String) -> Unit){
     }
 }
 
+/**
+ * Campo de texto para ingresar el nombre del usuario.
+ *
+ * @param viewModel ViewModel que gestiona el estado del campo
+ */
 @Composable
 fun NameTextField(viewModel: SignUpScreenViewModel){
 
@@ -193,6 +218,11 @@ fun NameTextField(viewModel: SignUpScreenViewModel){
     }
 }
 
+/**
+ * Campo de texto para ingresar el apellido del usuario.
+ *
+ * @param viewModel ViewModel que gestiona el estado del campo
+ */
 @Composable
 fun SurnameTextField(viewModel: SignUpScreenViewModel){
 
@@ -238,6 +268,11 @@ fun SurnameTextField(viewModel: SignUpScreenViewModel){
     }
 }
 
+/**
+ * Campo de texto para ingresar el correo electrónico del usuario.
+ *
+ * @param viewModel ViewModel que gestiona el estado del campo.
+ */
 @Composable
 fun MailTextField(viewModel: SignUpScreenViewModel){
 
@@ -281,6 +316,11 @@ fun MailTextField(viewModel: SignUpScreenViewModel){
     }
 }
 
+/**
+ * Campo de texto especializado para ingresar la fecha de nacimiento.
+ *
+ * @param viewModel ViewModel que gestiona el estado del campo.
+ */
 @Composable
 fun BirthDateTextField(viewModel: SignUpScreenViewModel){
 
@@ -310,6 +350,10 @@ fun BirthDateTextField(viewModel: SignUpScreenViewModel){
     }
 }
 
+/**
+ * Indicador de progresión que muestra dos círculos.
+ * El círculo negro indica el paso actual, el gris el siguiente.
+ */
 @Composable
 fun ProgressionCircles(){
     Row(
@@ -337,6 +381,12 @@ fun ProgressionCircles(){
     }
 }
 
+/**
+ * Botón para avanzar al siguiente paso del registro.
+ *
+ * @param viewModel ViewModel que contiene los datos del formulario.
+ * @param onNav Función de navegación.
+ */
 @Composable
 fun NextUpButton(viewModel: SignUpScreenViewModel, onNav: (String) -> Unit){
     Row(

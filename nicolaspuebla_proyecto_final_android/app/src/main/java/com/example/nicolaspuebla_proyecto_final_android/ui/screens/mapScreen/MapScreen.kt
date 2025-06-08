@@ -41,6 +41,11 @@ import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
 
+/**
+ * Pantalla de mapa interactivo para la selección de localizaciones.
+ *
+ * @param viewModel ViewModel que maneja el estado y lógica para la búsqueda y selección de lugares.
+ */
 @Composable
 fun MapScreen(viewModel: MapScreenViewModel = hiltViewModel()) {
     val selectedMapPosition by LocationChoosingInfo.selectedMapPosition.collectAsState()
@@ -106,6 +111,11 @@ fun MapScreen(viewModel: MapScreenViewModel = hiltViewModel()) {
     }
 }
 
+/**
+ * Barra de búsqueda de lugares.
+ *
+ * @param viewModel ViewModel que maneja el estado y acciones de búsqueda.
+ */
 @Composable
 private fun SearchBar(viewModel: MapScreenViewModel) {
     TextField(
@@ -128,6 +138,11 @@ private fun SearchBar(viewModel: MapScreenViewModel) {
     )
 }
 
+/**
+ * Lista desplegable que muestra sugerencias de lugares basadas en el texto de búsqueda.
+ *
+ * @param viewModel ViewModel que contiene la lista de predicciones y controla su visibilidad.
+ */
 @Composable
 private fun SuggestionsList(viewModel: MapScreenViewModel) {
 

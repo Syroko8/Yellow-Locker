@@ -4,9 +4,7 @@ import android.content.Context
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.nicolaspuebla_proyecto_final_android.R
-import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.AssignedPosition
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Team
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.TeamPosition
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dto.MemberListElement
@@ -21,10 +19,17 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import java.sql.SQLException
-import java.sql.SQLIntegrityConstraintViolationException
 import javax.inject.Inject
 
+/**
+ * ViewModel para la pantalla de miembros del equipo.
+ *
+ * @property teamRepository Repositorio para operaciones de equipo.
+ * @property teamRolRepository Repositorio para gestión de roles.
+ * @property teamPositionRepository Repositorio para operaciones con las posiciones del equipo.
+ * @property assignedPositionRepository Repositorio para asignación de posiciones.
+ * @property context Contexto de aplicación para recursos.
+ */
 @HiltViewModel
 class TeamMembersScreenViewModel @Inject constructor(
     private val teamRepository: TeamRepository,
@@ -68,6 +73,11 @@ class TeamMembersScreenViewModel @Inject constructor(
         _errorMessage.value = ""
     }
 
+    /**
+     * Obtiene los miembros de un equipo.
+     *
+     * @param teamId Identificador del equipo.
+     */
     fun getMembers(teamId: Long){
         viewModelScope.launch {
             _isLoading.value = true
@@ -88,6 +98,11 @@ class TeamMembersScreenViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Obtiene la información detallada de un equipo.
+     *
+     * @param teamId Identificador del equipo.
+     */
     fun getTeam(teamId: Long){
         viewModelScope.launch {
             _isLoading.value = true
@@ -108,6 +123,11 @@ class TeamMembersScreenViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Obtiene las posiciones disponibles en un equipo.
+     *
+     * @param teamId Identificador del equipo.
+     */
     fun getTeamPositions(teamId: Long){
         viewModelScope.launch {
             _isLoading.value = true
@@ -130,6 +150,11 @@ class TeamMembersScreenViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Guarda los cambios realizados a un miembro.
+     *
+     * @param teamId Identificador del equipo.
+     */
     fun saveChanges(teamId: Long){
         viewModelScope.launch {
             _errorMessage.value = ""
@@ -162,6 +187,11 @@ class TeamMembersScreenViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Crea una nueva posición en el equipo.
+     *
+     * @param teamId Ientificaor del equipo.
+     */
     fun createTeamPosition(teamId: Long){
         viewModelScope.launch {
             _errorMessage.value = ""
@@ -185,6 +215,11 @@ class TeamMembersScreenViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Elimina una posición del equipo.
+     *
+     * @param position Posición a eliminar.
+     */
     fun deletePosition(position: TeamPosition){
         viewModelScope.launch {
             _errorMessage.value = ""
@@ -211,6 +246,9 @@ class TeamMembersScreenViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Expulsa a un miembro del equipo.
+     */
     fun expelMember(){
         viewModelScope.launch {
             _errorMessage.value = ""

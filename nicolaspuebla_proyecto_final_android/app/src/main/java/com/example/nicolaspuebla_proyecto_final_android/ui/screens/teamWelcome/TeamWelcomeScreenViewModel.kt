@@ -20,6 +20,14 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * ViewModel para la pantalla de bienvenida al equipo.
+ *
+ * @property teamRepository Repositorio para operaciones de equipo.
+ * @property eventRepository Repositorio para manejar eventos del equipo.
+ * @property teamRolRepository Repositorio para operar con roles de equipo.
+ * @property context Contexto de aplicación para recursos.
+ */
 @HiltViewModel
 class TeamWelcomeScreenViewModel @Inject constructor(
     private val teamRepository: TeamRepository,
@@ -52,6 +60,11 @@ class TeamWelcomeScreenViewModel @Inject constructor(
     private val _loading = MutableStateFlow<Boolean>(false)
     val loading: StateFlow<Boolean> get() = _loading
 
+    /**
+     * Función que obtiene datos del equipo y estadísticas relacionadas.
+     *
+     * @param id Identificador del equipo a solicitar.
+     */
     fun getTeam(id:Long){
         viewModelScope.launch {
             _loading.value = true
@@ -75,6 +88,12 @@ class TeamWelcomeScreenViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Función para abandonar un equipo.
+     *
+     * @param userId Identificador del usuario.
+     * @param actualTeamId Identificador del equipo actual.
+     */
     fun leaveTeam(userId: Long, actualTeamId: Long) {
         viewModelScope.launch {
             _errMessage.value = ""
@@ -96,6 +115,11 @@ class TeamWelcomeScreenViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Calcula estadísticas de rendimiento del equipo.
+     *
+     * @param list Lista de partidos del equipo.
+     */
     private fun calculateStatistics(list: List<Match>){
         matches.value = 0
         victories.value = 0
@@ -104,7 +128,6 @@ class TeamWelcomeScreenViewModel @Inject constructor(
 
         if(list.isNotEmpty()){
             list.forEach {
-                println(">>>>>>>>>><<${it}")
                 matches.value++
                 when {
                     (it.ownGoals ?: 0) > (it.opponentGoals ?: 0) -> if(it.team.id == _team.value?.id) victories.value++ else loses.value++
@@ -115,6 +138,10 @@ class TeamWelcomeScreenViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Obtiene el nivel de rol del usuario en el equipo.
+     * Almacena el resultado en SessionManager.
+     */
     private fun getTeamRolLevel(){
         viewModelScope.launch {
             _loading.value = true

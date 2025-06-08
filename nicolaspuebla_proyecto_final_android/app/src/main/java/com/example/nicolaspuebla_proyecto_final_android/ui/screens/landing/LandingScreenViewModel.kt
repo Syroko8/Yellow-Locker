@@ -12,6 +12,11 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * ViewModel para la pantalla de inicio.
+ *
+ * @property userRepository Repositorio para operaciones con usuarios
+ */
 @HiltViewModel
 class LandingScreenViewModel @Inject constructor(
     private val userRepository: UserRepository
@@ -27,7 +32,10 @@ class LandingScreenViewModel @Inject constructor(
     private val _logout = MutableStateFlow<Boolean>(false)
     val logout: StateFlow<Boolean> get() = _logout
 
-
+    /**
+     * Obtiene los datos actualizados del usuario desde el repositorio.
+     * Actualiza la lista de equipos y gestiona estados de carga/error.
+     */
     fun getUser(){
         viewModelScope.launch{
             _loading.value = true

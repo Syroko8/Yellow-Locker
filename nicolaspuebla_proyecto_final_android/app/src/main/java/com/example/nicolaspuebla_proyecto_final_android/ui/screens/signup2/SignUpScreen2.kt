@@ -54,6 +54,12 @@ import com.example.laboratorio_b.ui.navigation.Destinations
 import com.example.nicolaspuebla_proyecto_final_android.R
 import kotlinx.coroutines.delay
 
+/**
+ * Segunda pantalla del proceso de registro donde el usuario establece su contraseña.
+ *
+ * @param onNav Función de navegación para cambiar entre pantallas.
+ * @param viewModel ViewModel que gestiona el estado de la pantalla y la lógica de registro.
+ */
 
 @Composable
 fun SignUp2Screen(onNav: (String) -> Unit, viewModel: SignUp2ScreenViewModel = hiltViewModel()){
@@ -80,6 +86,10 @@ fun SignUp2Screen(onNav: (String) -> Unit, viewModel: SignUp2ScreenViewModel = h
     }
 }
 
+
+/**
+ * Sección superior de la pantalla. Muestra el título de la aplicación.
+ */
 @Composable
 fun Upper2(){
     Column(
@@ -106,6 +116,12 @@ fun Upper2(){
     }
 }
 
+/**
+ * Sección inferior que contiene el formulario de contraseña y controles de navegación.
+ *
+ * @param viewModel ViewModel para gestión de datos y estado.
+ * @param onNav Función de navegación.
+ */
 @Composable
 fun Lower2(viewModel: SignUp2ScreenViewModel, onNav: (String) -> Unit){
 
@@ -144,6 +160,11 @@ fun Lower2(viewModel: SignUp2ScreenViewModel, onNav: (String) -> Unit){
     }
 }
 
+/**
+ * Función para navegar a la pantalla de login.
+ *
+ * @param onNav Función de navegación.
+ */
 @Composable
 fun LoginButtonRow2(onNav: (String) -> Unit){
     Row(
@@ -176,6 +197,11 @@ fun LoginButtonRow2(onNav: (String) -> Unit){
     }
 }
 
+/**
+ * Botón para regresar a la pantalla anterior de registro.
+ *
+ * @param onNav Función de navegación.
+ */
 @Composable
 fun ReturnButton(onNav: (String) -> Unit){
     Row(
@@ -206,7 +232,11 @@ fun ReturnButton(onNav: (String) -> Unit){
     }
 }
 
-
+/**
+ * Campo de texto para la contraseña principal con toggle de visibilidad.
+ *
+ * @param viewModel ViewModel que gestiona el estado del campo.
+ */
 @Composable
 fun PasswdTextField(viewModel: SignUp2ScreenViewModel){
 
@@ -260,6 +290,11 @@ fun PasswdTextField(viewModel: SignUp2ScreenViewModel){
     }
 }
 
+/**
+ * Campo de texto para confirmar contraseña con validación visual.
+ *
+ * @param viewModel ViewModel que gestiona el estado del campo.
+ */
 @Composable
 fun PasswdTextField2(viewModel: SignUp2ScreenViewModel){
 
@@ -316,6 +351,12 @@ fun PasswdTextField2(viewModel: SignUp2ScreenViewModel){
     }
 }
 
+/**
+ * Indicador de progresión que muestra dos círculos.
+ * El círculo negro indica el paso actual, el gris el anterior.
+ *
+ * @param viewModel ViewModel para controlar la visibilidad durante carga.
+ */
 @Composable
 fun ProgressionCircles2(viewModel: SignUp2ScreenViewModel){
 
@@ -349,6 +390,11 @@ fun ProgressionCircles2(viewModel: SignUp2ScreenViewModel){
     }
 }
 
+/**
+ * Botón final de registro que valida y envía los datos.
+ *
+ * @param viewModel ViewModel que gestiona la lógica de registro.
+ */
 @Composable
 fun SignUpButton(viewModel: SignUp2ScreenViewModel){
 
@@ -400,6 +446,12 @@ fun SignUpButton(viewModel: SignUp2ScreenViewModel){
     }
 }
 
+/**
+ *  Función que muestra un toast personalizado de registro exitoso.
+ *
+ * @param context Contexto de la aplicación.
+ * @param onNav Función de navegación para redirigir al login.
+ */
 suspend fun showToast(context: Context, onNav: (String) -> Unit) {
     val toast = Toast(context).apply {
         duration = Toast.LENGTH_LONG
@@ -409,6 +461,11 @@ suspend fun showToast(context: Context, onNav: (String) -> Unit) {
     returnToLoging(onNav = { onNav(it) })
 }
 
+/**
+ * Función que redirige a la pantalla de login después de un breve retraso.
+ *
+ * @param onNav Función de navegación.
+ */
 suspend fun returnToLoging(onNav: (String) -> Unit){
     delay(300)
     onNav(Destinations.LOGIN)

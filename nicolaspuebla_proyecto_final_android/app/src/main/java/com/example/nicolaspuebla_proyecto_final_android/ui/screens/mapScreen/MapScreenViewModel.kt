@@ -1,7 +1,6 @@
 package com.example.nicolaspuebla_proyecto_final_android.ui.screens.mapScreen
 
 import android.content.Context
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
@@ -17,6 +16,11 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
+/**
+ * ViewModel para la pantalla de mapa que gestiona la búsqueda de lugares y selección de posición.
+ *
+ * @param context Contexto de la aplicación para inicializar el cliente de Places.
+ */
 @HiltViewModel
 class MapScreenViewModel @Inject constructor(
     @ApplicationContext context: Context
@@ -27,6 +31,11 @@ class MapScreenViewModel @Inject constructor(
     var predictions = mutableStateListOf<AutocompletePrediction>()
     var showSuggestions by mutableStateOf(false)
 
+    /**
+     * Realiza una búsqueda de lugares basándose en la consulta proporcionada.
+     *
+     * @param query Texto de búsqueda introducido por el usuario.
+     */
     fun searchPlaces(query: String) {
         if (query.isEmpty()) {
             predictions.clear()
@@ -50,6 +59,11 @@ class MapScreenViewModel @Inject constructor(
             }
     }
 
+    /**
+     * Selecciona un lugar usando su placeId y actualiza la posición seleccionada en el mapa.
+     *
+     * @param placeId Identificador del lugar seleccionado.
+     */
     fun selectPlace(placeId: String) {
         val fields = listOf(Place.Field.LAT_LNG)
         val request = FetchPlaceRequest.newInstance(placeId, fields)

@@ -31,10 +31,14 @@ import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Ma
 import com.example.nicolaspuebla_proyecto_final_android.ui.components.ErrorDialog
 import com.example.nicolaspuebla_proyecto_final_android.ui.components.MatchCard
 import com.example.nicolaspuebla_proyecto_final_android.utils.SessionManager
-import com.example.nicolaspuebla_proyecto_final_android.utils.TeamRoles
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 
+/**
+ * Pantalla que muestra la lista de partidos jugados y sus resultados.
+ *
+ * @param viewModel ViewModel que gestiona la lógica de obtención de partidos.
+ */
 @Composable
 fun TeamMatchesScreen(viewModel: TeamMatchesScreenViewModel = hiltViewModel()) {
 
@@ -76,6 +80,9 @@ fun TeamMatchesScreen(viewModel: TeamMatchesScreenViewModel = hiltViewModel()) {
     }
 }
 
+/**
+ * Función que muestra el título para la pantalla de partidos.
+ */
 @Composable
 fun Title(){
     Row(
@@ -101,6 +108,11 @@ fun Title(){
     }
 }
 
+/**
+ * Función que crea la lista de partidos agrupados por fecha.
+ *
+ * @param viewModel ViewModel que proporciona los datos de partidos.
+ */
 @Composable
 fun List(viewModel: TeamMatchesScreenViewModel){
     val actualTeamId by SessionManager.actualTeamId.collectAsState()
@@ -144,6 +156,9 @@ fun List(viewModel: TeamMatchesScreenViewModel){
     }
 }
 
+/**
+ * Función visible si no hay partidos programados.
+ */
 @Composable
 fun NoMatches(){
     Column(
@@ -160,7 +175,12 @@ fun NoMatches(){
         )
     }
 }
-
+/**
+ * Formatea una cadena de fecha a un formato legible.
+ *
+ * @param dateString Cadena que se desea parsear..
+ * @return Cadena formateada como "Día - Mes - Día de la semana"
+ */
 @Composable
 fun getFormatedDate(dateString: String): String {
     return try {
