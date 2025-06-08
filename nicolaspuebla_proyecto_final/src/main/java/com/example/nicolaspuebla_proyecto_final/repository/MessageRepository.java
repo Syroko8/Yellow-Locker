@@ -8,6 +8,9 @@ import org.springframework.stereotype.Repository;
 
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Message;
 
+/**
+ * Repositorio que interactúa con la base de datos manejando los mensajes de los chats de equipo.
+ */
 @Repository
 public interface MessageRepository extends JpaRepository<Message, Long> {
 
