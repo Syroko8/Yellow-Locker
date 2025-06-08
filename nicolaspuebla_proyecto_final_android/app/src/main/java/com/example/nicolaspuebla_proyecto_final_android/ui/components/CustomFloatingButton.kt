@@ -42,11 +42,17 @@ import com.example.nicolaspuebla_proyecto_final_android.utils.LocationChoosingIn
 import com.example.nicolaspuebla_proyecto_final_android.utils.MapAction
 import com.example.nicolaspuebla_proyecto_final_android.utils.SessionManager
 
+/**
+ * Enum que representa los dos estados posibles del botón flotante de acción (FAB).
+ */
 enum class FabState{
     Expanded,
     Collapsed
 }
 
+/**
+ * Enum que identifica las distintas acciones que pueden realizarse desde el menú FAB.
+ */
 enum class Identifier{
     Settings,
     JoinGroup,
@@ -68,18 +74,40 @@ enum class Identifier{
     CreateTeamReturn
 }
 
+/**
+ * Clase que almacena la información un ítem del FAB.
+ *
+ * @param icon El icono que representa al ítem.
+ * @param label El recurso string ID que se usará como etiqueta del ítem.
+ * @param identifier Un identificador único del ítem como cadena.
+ */
 class FabItemData(
     val icon:ImageVector,
     val label: Int,
     val identifier: String
 )
 
+/**
+ * Representa un ítem del FAB ya convertido con su label.
+ *
+ * @param icon El icono que representa al ítem.
+ * @param label El texto que se mostrará como etiqueta.
+ * @param identifier Un identificador único del ítem como cadena.
+ */
 class FabItem(
     val icon:ImageVector,
     val label: String,
     val identifier: String
 )
 
+/**
+ * Composable que construye un menú FAB expandible.
+ *
+ * @param state El estado actual del FAB (expandido o colapsado).
+ * @param onFloatingStateChange Callback que permite cambiar el estado del FAB.
+ * @param items Lista de ítems que se mostrarán cuando el FAB esté expandido.
+ * @param onItemClick Callback invocado cuando se hace clic en un ítem.
+ */
 @Composable
 fun FabMenu(
     state: FabState,
@@ -263,6 +291,15 @@ fun FabMenu(
     }
 }
 
+/**
+ * Elemento para cada ítem del menú FAB.
+ *
+ * @param item Objeto que contiene la información del ítem.
+ * @param alpha Nivel de opacidad aplicado al ítem.
+ * @param itemScale Escala del ítem para animaciones.
+ * @param showLabel Si se debe mostrar la etiqueta junto al icono.
+ * @param onItemClick Callback que se ejecuta al hacer clic sobre el ítem.
+ */
 @Composable
 fun FabItemBuild(
     item: FabItem,

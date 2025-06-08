@@ -50,6 +50,13 @@ import com.example.nicolaspuebla_proyecto_final_android.R
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Team
 import com.example.nicolaspuebla_proyecto_final_android.ui.screens.modifyEvents.ModifyEventsScreenViewModel
 
+/**
+ * ModalBottomSheet desplegada cuando un usuario quiera cambiar el oponente en la página de modificación de eventos.
+ *
+ * @param dismiss Callback que se ejecutará al cerrarse el desplegable.
+ * @param state Estado que se le pasa al componente, indicando cuando debe hacerse visible.
+ * @param viewModel View model de la vista donde se almacena información relacionada al desplegable.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ChangeOpponentSheet(
@@ -73,6 +80,11 @@ fun ChangeOpponentSheet(
     }
 }
 
+/**
+ * Barra de búsqueda.
+ *
+ * @param viewModel View model de la vista donde se almacenará el input en el TextField.
+ */
 @Composable
 fun SearchBar(viewModel: ModifyEventsScreenViewModel){
     Row(
@@ -143,6 +155,11 @@ fun SearchBar(viewModel: ModifyEventsScreenViewModel){
     }
 }
 
+/**
+ * Lista de los equipos cuyos nombres contienen lo introducido en la barra de búsqueda.
+ *
+ * @param viewModel View model de la vista donde se almacena la lista a mostrar.
+ */
 @Composable
 fun List(viewModel: ModifyEventsScreenViewModel) {
     val loading by viewModel.isLoading.collectAsState()
@@ -205,6 +222,12 @@ fun List(viewModel: ModifyEventsScreenViewModel) {
     }
 }
 
+/**
+ * Elemento usado para mostrar la información individual de cada equipo.
+ *
+ * @param team Equipo cuya información se quiere mostrar.
+ * @param onClick Callback que se ejecutará al pulsar sobre el elemento.
+ */
 @Composable
 fun TeamCard(team: Team, onClick: (Team) -> Unit){
     Card(

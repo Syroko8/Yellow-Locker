@@ -21,6 +21,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.nicolaspuebla_proyecto_final_android.R
 
+/**
+ * Función que proporciona la barra superior de la aplicación.
+ */
 @Composable
 fun TopBar(){
     Row(

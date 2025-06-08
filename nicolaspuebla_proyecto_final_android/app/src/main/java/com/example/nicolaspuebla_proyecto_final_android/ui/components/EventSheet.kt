@@ -37,6 +37,13 @@ import java.time.OffsetDateTime
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 
+/**
+ * ModalBottomSheet empleada para mostrar la lista de eventos pertenecientes a una fecha en la vista TeamCalendar.
+ *
+ * @param dismiss Callback ejecutado al cerrar el desplegable.
+ * @param state Estado del desplegable.
+ * @param eventList Lista de eventos a mostrar.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EventSheet(
@@ -71,13 +78,19 @@ fun EventSheet(
                 )
             }
 
-           EventList(eventList, date)
+           EventList(eventList)
         }
     }
 }
 
+/**
+ * Lista en la que se muestran los eventos de la fecha seleccionada.
+ *
+ * @param eventList Lista de eventos a mostrar.
+ * @param date Fecha seleccionada parseada a OffsetDateTime.
+ */
 @Composable
-fun EventList(eventList: List<Event>, date: OffsetDateTime){
+fun EventList(eventList: List<Event>){
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
@@ -92,17 +105,24 @@ fun EventList(eventList: List<Event>, date: OffsetDateTime){
                 )
             ){
                 if(it is Match){
-                    Match(it, date)
+                    Match(it)
                 } else if(it is Training){
-                    Training(it, date)
+                    Training(it)
                 }
             }
         }
     }
 }
 
+/**
+ * Elemento para mostrar la información de un partido.
+ *
+ * @param match Información del partido a mostrar.
+ */
 @Composable
-fun Match(match: Match, date: OffsetDateTime){
+fun Match(match: Match){
+
+    val date = getEventDate(match)
 
     Column(
         modifier = Modifier
@@ -189,8 +209,16 @@ fun Match(match: Match, date: OffsetDateTime){
     }
 }
 
+/**
+ * Elemento para mostrar la información de un entrenamiento.
+ *
+ * @param training Información del entrenamiento a mostrar.
+ */
 @Composable
-fun Training(training: Training, date: OffsetDateTime){
+fun Training(training: Training){
+
+    val date = getEventDate(training)
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -216,7 +244,7 @@ fun Training(training: Training, date: OffsetDateTime){
             Text(
                 text = "${stringResource(R.string.hour)}: " +
                         "${date.hour} : " +
-                        if(date.minute == 0) "00" else "0",
+                        if(date.minute == 0) "00" else date.minute,
                 color = Color.White,
                 fontFamily = FontFamily(Font(R.font.jura_semi_bold)),
                 fontSize = 18.sp
@@ -250,12 +278,24 @@ fun Training(training: Training, date: OffsetDateTime){
     }
 }
 
+/**
+ * Función que obtiene la fecha de un evento y la parsea a OffsetDateTime.
+ *
+ * @param event Evento del que se encesita obtener la fecha.
+ * @return Fecha parseada a OffsetDateTime.
+ */
 fun parseEventDate(event: Event): OffsetDateTime{
     val formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME
     val dateTime = OffsetDateTime.parse(event.date, formatter)
     return dateTime.withOffsetSameInstant(ZoneOffset.UTC)
 }
 
+/**
+ * Función que devuelve el estado de un evento (Finalizado/Expectante).
+ *
+ * @param event Evento del que queremos conocer el estado.
+ * @return Estado del evento.
+ */
 @Composable
 fun getMatchStatus(event: Event): String {
     val formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME

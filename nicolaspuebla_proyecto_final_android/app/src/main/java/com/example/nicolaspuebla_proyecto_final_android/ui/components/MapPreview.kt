@@ -26,6 +26,13 @@ import coil.compose.AsyncImage
 import com.example.nicolaspuebla_proyecto_final_android.R
 import com.example.nicolaspuebla_proyecto_final_android.utils.MapUtils.generateStaticMapUrl
 
+/**
+ * Función que muestra la vista previa de una coordenada en el mapa.
+ *
+ * @param latitude Latud de la coordenada.
+ * @param longitude Longitud de la coordenada.
+ * @param context Contexto de la vista donde se pintará la imagen o con el que lanzaremos un intent.
+ */
 @Composable
 fun MapPreview(
     latitude: Double,
@@ -61,9 +68,14 @@ fun MapPreview(
     }
 }
 
+/**
+ * Función que ejecuta la aplicación de Google Maps o lo abre en el navegador.
+ *
+ * @param context Contexto con el que lanzaremos el intent.
+ */
 fun openGoogleMaps(context: Context, latitude: Double, longitude: Double) {
-    val gmmIntentUri = Uri.parse("geo:$latitude,$longitude?q=$latitude,$longitude")
-    val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+    val gmmIntentUri  = Uri.parse("geo:$latitude,$longitude?q=$latitude,$longitude")
+    val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri )
     mapIntent.setPackage("com.google.android.apps.maps")
 
     // Verificar si Google Maps manejará el intent.

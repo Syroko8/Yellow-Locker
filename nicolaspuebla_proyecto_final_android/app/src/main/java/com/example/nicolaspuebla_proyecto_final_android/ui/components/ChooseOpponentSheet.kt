@@ -44,6 +44,13 @@ import androidx.compose.ui.unit.sp
 import com.example.nicolaspuebla_proyecto_final_android.R
 import com.example.nicolaspuebla_proyecto_final_android.ui.screens.createEvent.CreateEventScreenViewModel
 
+/**
+ * ModalBottomSheet desplegada cuando un usuario quiera seleccionar el oponente en la página de creación de eventos.
+ *
+ * @param dismiss Callback que se ejecutará al cerrarse el desplegable.
+ * @param state Estado que se le pasa al componente, indicando cuando debe hacerse visible.
+ * @param viewModel View model de la vista donde se almacena información relacionada al desplegable.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ChooseOpponentSheet(
@@ -67,6 +74,11 @@ fun ChooseOpponentSheet(
     }
 }
 
+/**
+ * Barra de búsqueda.
+ *
+ * @param viewModel View model de la vista donde se almacenará el input en el TextField.
+ */
 @Composable
 fun SearchBar(viewModel: CreateEventScreenViewModel){
     Row(
@@ -137,6 +149,11 @@ fun SearchBar(viewModel: CreateEventScreenViewModel){
     }
 }
 
+/**
+ * Lista de los equipos cuyos nombres contienen lo introducido en la barra de búsqueda.
+ *
+ * @param viewModel View model de la vista donde se almacena la lista a mostrar.
+ */
 @Composable
 fun List(viewModel: CreateEventScreenViewModel) {
     val loading by viewModel.isLoading.collectAsState()

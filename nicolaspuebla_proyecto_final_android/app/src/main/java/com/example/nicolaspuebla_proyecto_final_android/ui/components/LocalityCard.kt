@@ -19,6 +19,12 @@ import androidx.compose.ui.unit.sp
 import com.example.nicolaspuebla_proyecto_final_android.R
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Locality
 
+/**
+ * Elemento que miestra el nombre de la localidad.
+ *
+ * @param locality Localidad cuyo nombre queremos mostrar.
+ * @param onClick Callback que se ejecuta al pulsar sobre el elemento.
+ */
 @Composable
 fun LocalityCard(locality: Locality, onClick: (Locality) -> Unit){
     Card(

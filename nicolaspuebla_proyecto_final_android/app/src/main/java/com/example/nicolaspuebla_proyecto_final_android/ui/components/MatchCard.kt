@@ -25,6 +25,12 @@ import androidx.compose.ui.unit.sp
 import com.example.nicolaspuebla_proyecto_final_android.R
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Match
 
+/**
+ * Función para mostrar el resultado de un partido en teamMatchesScreen.
+ *
+ * @param match Partido cuya información queremos mostrar.
+ * @param actualTeamId Id del equipo desde el que estamos accediendo a la vista.
+ */
 @Composable
 fun MatchCard(match: Match, actualTeamId: Long){
     Card(
@@ -60,6 +66,12 @@ fun MatchCard(match: Match, actualTeamId: Long){
     }
 }
 
+/**
+ * Función que muestra las puntuaciones resultantes del partido.
+ *
+ * @param match Partido cuyas puntuaciones serán mostradas.
+ * @param actualTeamId Equipo desde el que estamos accediendo a la vista.
+ */
 @Composable
 fun Goals(match: Match, actualTeamId: Long){
     Row(

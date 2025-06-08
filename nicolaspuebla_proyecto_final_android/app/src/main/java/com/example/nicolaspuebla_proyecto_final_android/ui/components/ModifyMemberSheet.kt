@@ -48,6 +48,13 @@ import com.example.nicolaspuebla_proyecto_final_android.ui.screens.teamMembers.T
 import com.example.nicolaspuebla_proyecto_final_android.utils.SessionManager
 import com.example.nicolaspuebla_proyecto_final_android.utils.TeamRoles
 
+/**
+ * Función que permite modificar el rol de un miembro, al iguál que su posición, en caso de ser jugador.
+ *
+ * @param dismiss Callback que se ejecuta al cerrar el desplegable.
+ * @param state Estado del desplegable.
+ * @param viewModel View model con que gestiona la información.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ModifyMemberSheet(
@@ -77,6 +84,11 @@ fun ModifyMemberSheet(
     }
 }
 
+/**
+ * Función que ofrece al usuario la posibilidad de guardar los cambios efectuados.
+ *
+ * @param viewModel View model que gestionará la eliminación del usuario.
+ */
 @Composable
 fun SaveButton(viewModel: TeamMembersScreenViewModel){
     val loading by viewModel.isLoading.collectAsState()

@@ -19,6 +19,13 @@ import androidx.compose.ui.unit.dp
 import com.example.nicolaspuebla_proyecto_final_android.R
 import com.example.nicolaspuebla_proyecto_final_android.ui.screens.teamMembers.TeamMembersScreenViewModel
 
+/**
+ * Diálogo que permite al usuario especificar el nombre de la nueva posición para el equipo.
+ *
+ * @param onDismiss Callback que se ejecuta cuando se cancela la acción.
+ * @param onConfirm Callback que se ejecuta al confirmar la acción.
+ * @param viewModel View model que gestiona la información.
+ */
 @Composable
 fun PositionCreationDialog(
     onDismiss: () -> Unit,

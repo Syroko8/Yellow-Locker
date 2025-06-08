@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CalendarMonth
@@ -30,12 +29,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusState
-import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -49,12 +45,21 @@ import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Ev
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Match
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Training
 import com.example.nicolaspuebla_proyecto_final_android.ui.screens.modifyEvents.ModifyEventsScreenViewModel
-import kotlinx.coroutines.launch
 import java.time.OffsetDateTime
-import java.time.ZoneId
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 
+/**
+ * Función que muestra la información de un evento permitiendo a un usuario modificarla.
+ *
+ * @param event El evento a modificar.
+ * @param viewModel ViewModel que gestiona la lógica de eventos.
+ * @param onShowDatePicker Función para mostrar el selector de fecha.
+ * @param onShowTimePicker Función para mostrar el selector de hora.
+ * @param onChangeOpponent Función que se ejecuta al cambiar el oponente (solo en Match).
+ * @param onDelete Función que se ejecuta al eliminar el evento.
+ * @param onLocationChange Función que se ejecuta al cambiar la ubicación del evento.
+ */
 @Composable
 fun ModifyEventCard(
     event: Event,
@@ -94,6 +99,17 @@ fun ModifyEventCard(
     }
 }
 
+/**
+ * Muestra el formulario para modificar un evento de tipo Match.
+ *
+ * @param event El partido a modificar.
+ * @param viewModel ViewModel con la lógica para guardar cambios.
+ * @param showDatePicker Callback para abrir el selector de fecha.
+ * @param showTimePicker Callback para abrir el selector de hora.
+ * @param changeOpponent Callback para cambiar el oponente.
+ * @param onDelete Callback para eliminar el partido.
+ * @param onLocationChange Callback para cambiar la ubicación.
+ */
 @Composable
 fun ModifyMatchCard(
     event: Match,
@@ -130,6 +146,15 @@ fun ModifyMatchCard(
     }
 }
 
+/**
+ * Muestra el formulario para modificar un evento de tipo Training.
+ *
+ * @param event El entrenamiento a modificar.
+ * @param showDatePicker Callback para abrir el selector de fecha.
+ * @param showTimePicker Callback para abrir el selector de hora.
+ * @param onDelete Callback para eliminar el entrenamiento.
+ * @param onLocationChange Callback para cambiar la ubicación.
+ */
 @Composable
 fun ModifyTrainingCard(
     event: Training,
@@ -159,6 +184,12 @@ fun ModifyTrainingCard(
     }
 }
 
+/**
+ * Muestra un botón para eliminar un evento, junto con su tipo (Match o Training).
+ *
+ * @param event El evento a eliminar.
+ * @param onDelete Callback a ejecutar al presionar el botón.
+ */
 @Composable
 fun DeleteButton(event: Event, onDelete: () -> Unit){
     Row(
@@ -188,6 +219,12 @@ fun DeleteButton(event: Event, onDelete: () -> Unit){
     }
 }
 
+/**
+ * Muestra la información del oponente para un partido, con opción de cambiarlo.
+ *
+ * @param event Partido del cual se muestra el oponente.
+ * @param changeOpponent Callback para modificar el oponente.
+ */
 @Composable
 fun OpponentBlock(event: Match, changeOpponent: () -> Unit){
     Row(
@@ -224,6 +261,13 @@ fun OpponentBlock(event: Match, changeOpponent: () -> Unit){
     }
 }
 
+/**
+ * Muestra los campos para modificar la fecha y hora del evento.
+ *
+ * @param event Evento cuya fecha y hora se muestran.
+ * @param showDatePicker Callback para abrir el selector de fecha.
+ * @param showTimePicker Callback para abrir el selector de hora.
+ */
 @Composable
 fun DateBlock(
     event: Event,
@@ -314,6 +358,12 @@ fun DateBlock(
     }
 }
 
+/**
+ * Muestra y permite modificar la ubicación del evento, incluyendo un botón y mapa.
+ *
+ * @param event Evento del cual se desea modificar la ubicación.
+ * @param onLocationChange Callback para seleccionar nueva ubicación.
+ */
 @Composable
 fun LocationBlock(event: Event, onLocationChange: () -> Unit){
     Column(
@@ -377,6 +427,12 @@ fun LocationBlock(event: Event, onLocationChange: () -> Unit){
     }
 }
 
+/**
+ * Muestra el bloque de puntaje del partido si este ya ha finalizado, permitiendo modificarlo.
+ *
+ * @param event Partido del cual se muestra y edita el puntaje.
+ * @param viewModel ViewModel donde se actualiza el puntaje.
+ */
 @Composable
 fun ScoreBlock(event: Match, viewModel: ModifyEventsScreenViewModel){
 
@@ -465,6 +521,13 @@ fun ScoreBlock(event: Match, viewModel: ModifyEventsScreenViewModel){
     }
 }
 
+/**
+ * Campo de texto personalizado para ingresar el puntaje de un equipo.
+ *
+ * @param text Etiqueta del campo.
+ * @param value Valor actual del puntaje.
+ * @param onValueChange Callback a ejecutar cuando el valor cambia.
+ */
 @Composable
 fun ScoreTextField(text: String, value: Int, onValueChange: (Int) -> Unit){
     var color by remember {
@@ -512,6 +575,12 @@ fun ScoreTextField(text: String, value: Int, onValueChange: (Int) -> Unit){
     }
 }
 
+/**
+ * Parsea la fecha del evento desde su formato en string a un objeto OffsetDateTime.
+ *
+ * @param event Evento cuya fecha será parseada.
+ * @return Fecha del evento en formato OffsetDateTime.
+ */
 fun getEventDate(event: Event): OffsetDateTime{
     val formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME
     val dateTime = OffsetDateTime.parse(event.date, formatter).withOffsetSameInstant(ZoneOffset.UTC)
@@ -519,6 +588,14 @@ fun getEventDate(event: Event): OffsetDateTime{
     return dateTime
 }
 
+/**
+ * Determina si debe habilitarse el botón de guardar, comparando puntajes actuales y temporales.
+ *
+ * @param event Partido a evaluar.
+ * @param tempOwnGoals Goles temporales del equipo propio.
+ * @param teamOpponentGoals Goles temporales del oponente.
+ * @return true si los puntajes han cambiado, false en caso contrario.
+ */
 fun setButtonState(event: Match, tempOwnGoals: Int, teamOpponentGoals: Int): Boolean{
     return if(event.ownGoals != tempOwnGoals || event.opponentGoals != teamOpponentGoals) true else false
 }

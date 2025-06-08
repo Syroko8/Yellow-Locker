@@ -38,6 +38,13 @@ import androidx.compose.ui.unit.sp
 import com.example.nicolaspuebla_proyecto_final_android.R
 import com.example.nicolaspuebla_proyecto_final_android.ui.screens.createTeam.CreateTeamScreenViewModel
 
+/**
+ * ModalBottomSheet que permite al usuario seleccionar una localidad para su equipo.
+ *
+ * @param onDismiss Callback que se ejecuta al cerrar el desplegable.
+ * @param state Estado del elemento.
+ * @param viewModel View model en el que se almacena la lista de localidades a mostrar y la opción seleccionada.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LocalitySheet(
@@ -61,6 +68,11 @@ fun LocalitySheet(
     }
 }
 
+/**
+ * Función que actúa como barra de búsqueda.
+ *
+ * @param viewModel View model en el que se almacena el nombre de la localidad buscada por el usuario.
+ */
 @Composable
 fun SearchBar(viewModel: CreateTeamScreenViewModel){
     Row(
@@ -110,6 +122,11 @@ fun SearchBar(viewModel: CreateTeamScreenViewModel){
     }
 }
 
+/**
+ * Función que representa la lista de localidades almacenadas en el view model.
+ *
+ * @param viewModel View model en el que se almacena la lista.
+ */
 @Composable
 fun List(viewModel: CreateTeamScreenViewModel) {
     val loading by viewModel.isLoading.collectAsState()

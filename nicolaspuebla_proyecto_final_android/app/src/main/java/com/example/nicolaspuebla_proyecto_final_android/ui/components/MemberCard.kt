@@ -30,6 +30,13 @@ import com.example.nicolaspuebla_proyecto_final_android.R
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dto.MemberListElement
 import com.example.nicolaspuebla_proyecto_final_android.utils.TeamRoles
 
+/**
+ * Función que muestra la información de los miembros de un equipo.
+ *
+ * @param member Miembro cuya información queremos mostrar.
+ * @param teamId Identificador del equipo actual.
+ * @param onClick Callback que se ejecuta al pulsar sobre el elemento.
+ */
 @Composable
 fun MemberCard(member: MemberListElement, teamId: Long, onClick: (MemberListElement) -> Unit){
     Card(
@@ -96,6 +103,12 @@ fun MemberCard(member: MemberListElement, teamId: Long, onClick: (MemberListElem
     }
 }
 
+/**
+ * Función que obtene la posición de un usuario en el equipo actual.
+ *
+ * @param member Miembro del que queremos conocer la posición.
+ * @param teamId Identificador del equipo donde el usuario tiene la posición asignada.
+ */
 fun getPosition(member: MemberListElement, teamId: Long): String?{
     val positionStr = member.user.assignedPositions.filter{it.id.team_id == teamId}
      return if(positionStr.isNotEmpty()){

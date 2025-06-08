@@ -4,7 +4,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
-import androidx.compose.material3.TextFieldColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -30,6 +29,13 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import java.util.TimeZone
 
+/**
+ * Campo de texto personalizado para ingresar fechas con formato dd-MM-yyyy.
+ *
+ * @param value Valor actual del campo de texto.
+ * @param modifier Modificador Compose para aplicar estilos y comportamiento.
+ * @param onValueChange Callback que se ejecuta cuando el contenido del campo cambia.
+ */
 @Composable
 fun DateTextField(
     value: TextFieldValue,
@@ -51,13 +57,9 @@ fun DateTextField(
             imeAction = ImeAction.Done
         ),
         onValueChange = {
-            // ex: "01-1M-yyyy" -> "011"
             val date = it.text.takeDigitString()
 
             if (date.length < 9) {
-
-                // if date length is 3 or 5, move cursor to index + 1
-                // ex: (| = cursor) "01-|1M-yyyy" to "01-1|M-yyyy"
                 val selection = if (!isBackspacePressed) {
                     when (date.length) {
                         3, 5 -> it.selection.start + 1
@@ -87,6 +89,11 @@ fun DateTextField(
     )
 }
 
+/**
+ * Transformación visual del texto para mostrar el contenido de fecha con estilo personalizado.
+ *
+ * @param textStyle Estilo de texto aplicado al campo.
+ */
 class DateFormatVisualTransformation(
     private val textStyle: TextStyle
 ): VisualTransformation {
@@ -110,13 +117,20 @@ class DateFormatVisualTransformation(
     }
 }
 
+/**
+ * Objeto utilitario para dar formato a fechas escritas en campos de texto.
+ */
 object TextFieldDateFormatter {
 
     private const val ddMMyyyy = "ddMMyyyy"
 
     /**
-     * format "ddMMyyyy" to "dd-MMM-yyyy"
-     * @return formatted string, ex: "11-01-2007" or "11-0M-YYYY"
+     * Da formato al contenido de un campo de texto, asegurando estructura dd-MM-yyyy.
+     *
+     * @param fieldValue Valor actual del campo.
+     * @param minYear Año mínimo permitido.
+     * @param maxYear Año máximo permitido.
+     * @return Cadena formateada como fecha.
      */
     fun format(
         fieldValue: TextFieldValue,
@@ -214,28 +228,20 @@ object TextFieldDateFormatter {
     }
 
     /**
-     * format time in milli second to formatted date
-     * @return formatted string, ex: "11-01-2007"
+     * Verifica si una cadena representa una fecha válida.
      *
-    fun format(timeInMillis: Long): String {
-        return SimpleDateFormat("dd-MM-yyyy", deviceLocale).format(timeInMillis)
-    }*/
-
-    /**
-     * check if formattedDate is valid
-     *
-     * "01-01-2000" -> valid
-     * "01-0M-YYYY" -> not valid
-     * @param formattedDate "01-01-2000"
+     * @param formattedDate Fecha formateada (ej. "01-01-2000").
+     * @return `true` si es válida, `false` en caso contrario.
      */
     fun isValid(formattedDate: String): Boolean {
         return formattedDate.takeDigitString().length == 8
     }
 
     /**
-     * convert formatted string date to time in millis
-     * @param formattedDate "01-01-2000"
-     * @return time in millis
+     * Parsea una fecha formateada a tiempo en milisegundos.
+     *
+     * @param formattedDate Fecha en formato "dd-MM-yyyy".
+     * @return Fecha como timestamp en milisegundos.
      */
     fun parse(formattedDate: String): Long {
         val date = "${formattedDate[6]}${formattedDate[7]}${formattedDate[8]}${formattedDate[9]}-"
@@ -252,11 +258,10 @@ object TextFieldDateFormatter {
 }
 
 /**
- * take a string that is a number
+ * Extrae solo los dígitos de una cadena.
  *
- * ex:
- * val s = "123a456b"
- * s.takeDigitString() => "123456"
+ * @receiver Cadena original.
+ * @return Cadena que contiene solo dígitos.
  */
 fun String.takeDigitString(): String {
     var builder = ""
@@ -267,7 +272,12 @@ fun String.takeDigitString(): String {
 }
 
 /**
- * add a new string before the given index
+ * Inserta una cadena antes de la posición especificada.
+ *
+ * @receiver Cadena original.
+ * @param s Cadena a insertar.
+ * @param index Posición donde insertar.
+ * @return Nueva cadena con la inserción.
  */
 fun String.addStringBefore(s: String, index: Int): String {
     val result = StringBuilder()
@@ -282,7 +292,13 @@ fun String.addStringBefore(s: String, index: Int): String {
 }
 
 /**
- * Returns a new string with all occurrences of oldValue replaced with newValue.
+ * Reemplaza múltiples valores en la cadena con otro valor.
+ *
+ * @receiver Cadena original.
+ * @param oldValue Lista de valores a reemplazar.
+ * @param newValue Valor por el que se reemplazan.
+ * @param ignoreCase Ignorar mayúsculas/minúsculas si es `true`.
+ * @return Cadena modificada.
  */
 fun String.replace(
     oldValue: List<String>,

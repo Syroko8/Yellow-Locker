@@ -29,6 +29,13 @@ import coil.compose.AsyncImage
 import com.example.nicolaspuebla_proyecto_final_android.R
 import com.example.nicolaspuebla_proyecto_final_android.data.model.dataClases.Team
 
+/**
+ * Función que muestra la información de un equipo.
+ *
+ * @param team Equipo cuya información va a ser mostrada.
+ * @param onNav Callback que se ejecuta al pulsar el elemento.
+ * @param destination Vista a la que se navegará al pulsar el componente ("TEAM_WELCOME")
+ */
 @Composable
 fun TeamCard(team: Team, onNav: (String, Int?) -> Unit, destination: String){
     Card(

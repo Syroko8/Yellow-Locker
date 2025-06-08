@@ -8,6 +8,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.window.DialogProperties
 import com.example.nicolaspuebla_proyecto_final_android.R
 
+/**
+ * Diálogo que le indica al usuario que debe rellenar todos los campos de un formulario.
+ *
+ * @param onOk Callback que se ejecuta al pulsar el confirmButton.
+ */
 @Composable
 fun MustFillDialog(onOk: () -> Unit) {
     AlertDialog(
