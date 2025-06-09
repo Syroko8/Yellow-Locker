@@ -14,6 +14,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Downloading
 import androidx.compose.material.icons.filled.Error
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.key
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,7 +25,6 @@ import androidx.compose.ui.unit.dp
 import coil.ImageLoader
 import coil.compose.AsyncImage
 import com.example.nicolaspuebla_proyecto_final_android.R
-import com.example.nicolaspuebla_proyecto_final_android.utils.MapUtils.generateStaticMapUrl
 
 /**
  * Función que muestra la vista previa de una coordenada en el mapa.
@@ -39,7 +39,9 @@ fun MapPreview(
     longitude: Double,
     context: Context
 ) {
-    val staticMapUrl = remember { generateStaticMapUrl(latitude,longitude) }
+    val key = stringResource(R.string.google_maps_key)
+    println(">>>>>>>>>>>>>>>>>>><<<${key}")
+    val staticMapUrl = remember { generateStaticMapUrl(latitude,longitude, key = key) }
 
     val imageLoader = ImageLoader.Builder(context)
         .crossfade(true)
@@ -89,4 +91,19 @@ fun openGoogleMaps(context: Context, latitude: Double, longitude: Double) {
         )
         context.startActivity(webIntent)
     }
+}
+
+/**
+ * Función que realiza la petición para obtener la vista previa.
+ *
+ * @param latitude Latitud de la posición de la que se desea recibir la vista previa.
+ * @param longitude Longitud de la posición de la que se desea recibir la vista previa.
+ */
+fun generateStaticMapUrl(latitude: Double, longitude: Double, key: String): String {
+    return "https://maps.googleapis.com/maps/api/staticmap?" +
+            "center=$latitude,$longitude" +
+            "&zoom=13" +
+            "&size=400x200" +
+            "&markers=color:red%7Clabel:A%7C$latitude,$longitude" +
+            "&key=${key}"
 }

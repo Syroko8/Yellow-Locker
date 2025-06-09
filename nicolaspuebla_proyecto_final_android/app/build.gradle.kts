@@ -8,6 +8,15 @@ plugins {
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
+val secrets = Properties().apply {
+    val secretsFile = rootProject.file("secrets.properties")
+    if (secretsFile.exists()) {
+        load(secretsFile.inputStream())
+    } else {
+        println("⚠️ secrets.properties not found at: ${secretsFile.absolutePath}")
+    }
+}
+
 android {
     namespace = "com.example.nicolaspuebla_proyecto_final_android"
     compileSdk = 35
@@ -20,6 +29,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        resValue("string", "google_maps_key", project.properties["MAPS_API_KEY"] as? String ?: "")
     }
 
     buildTypes {
