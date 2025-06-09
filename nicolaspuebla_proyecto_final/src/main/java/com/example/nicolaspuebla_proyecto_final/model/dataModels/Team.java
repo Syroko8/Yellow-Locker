@@ -1,5 +1,6 @@
 package com.example.nicolaspuebla_proyecto_final.model.dataModels;
 
+import java.beans.Transient;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.lang.NonNull;
@@ -13,7 +14,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.Transient;
 
 /**
  * Clase que representa un equipo, y contiene toda la información de relacionada.
