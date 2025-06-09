@@ -1,17 +1,17 @@
 package com.example.nicolaspuebla_proyecto_final.model.dataModels;
 
 import java.util.List;
-
 import org.springframework.lang.NonNull;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
+/**
+ * Clase que representa la entidad Localidad.
+ */
 @Entity
 public class Locality {
 

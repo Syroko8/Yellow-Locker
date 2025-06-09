@@ -3,6 +3,9 @@ package com.example.nicolaspuebla_proyecto_final.model.dto;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
+/**
+ * Clase que almacena la información de creación de un evento.
+ */
 @JsonTypeInfo(
     use = JsonTypeInfo.Id.NAME,
     property = "event_type",

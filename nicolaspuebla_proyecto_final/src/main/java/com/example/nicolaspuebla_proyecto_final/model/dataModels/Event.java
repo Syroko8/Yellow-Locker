@@ -16,6 +16,9 @@ import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
+/**
+ * Clase para la entidad Event, que representa un evento relacionado con uno o varios equipos.
+ */
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "event_type")
@@ -86,6 +89,11 @@ public class Event {
         this.date = date;
     }
 
+    /**
+     * Método para convertir una cadena de texto a una fecha en formato OffsetDataTime.
+     * @param dateTimeStr Cadena de texto que representa una fecha y hora.
+     * @return OffsetDateTime correspondiente a la cadena de texto proporcionada.
+     */
     public OffsetDateTime getOffsetDateTime(String dateTimeStr){
         DateTimeFormatter formater = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
         OffsetDateTime dateTime = OffsetDateTime.parse(dateTimeStr, formater);

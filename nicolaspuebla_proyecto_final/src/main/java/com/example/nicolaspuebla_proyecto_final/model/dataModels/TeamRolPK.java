@@ -2,10 +2,12 @@ package com.example.nicolaspuebla_proyecto_final.model.dataModels;
 
 import java.io.Serializable;
 import java.util.Objects;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
+/**
+ * Clase que representa la clave primaria compuesta para la entidad TeamRol.
+ */
 @Embeddable
 public class TeamRolPK implements Serializable {
 

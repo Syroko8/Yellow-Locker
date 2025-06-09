@@ -1,5 +1,8 @@
 package com.example.nicolaspuebla_proyecto_final.model.dto;
 
+/**
+ * Clase que contiene la información necesaria para realizar un registro de usuario.
+ */
 public class UserSignUp {
     private String name;
     private String surname;

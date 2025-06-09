@@ -1,9 +1,7 @@
 package com.example.nicolaspuebla_proyecto_final.model.dataModels;
 
-import java.beans.Transient;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.lang.NonNull;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -15,8 +13,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Transient;
 
-
+/**
+ * Clase que representa un equipo, y contiene toda la información de relacionada.
+ */
 @Entity
 public class Team {
 
@@ -64,6 +65,10 @@ public class Team {
         this.sport = sport;
     }
 
+    /**
+     * Método que obtiene todos los eventos asociados al equipo. La anotamos con @Transient para que no se persista en la base de datos.
+     * @return Lista de eventos del equipo.
+     */
     @Transient
     public List<Event> getAllEvents() {
         List<Event> allEvents = new ArrayList<>(eventList);
@@ -185,6 +190,4 @@ public class Team {
     public void removeRol(TeamRol oldRol){
         
     }
-    
-
 }

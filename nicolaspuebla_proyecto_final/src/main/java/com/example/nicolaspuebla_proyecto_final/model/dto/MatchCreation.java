@@ -2,6 +2,9 @@ package com.example.nicolaspuebla_proyecto_final.model.dto;
 
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Team;
 
+/**
+ * Clase que contiene la información necesaria para la creación de un partido.
+ */
 public class MatchCreation extends EventCreation {
     private Team opponent;
     private int ownGoals;

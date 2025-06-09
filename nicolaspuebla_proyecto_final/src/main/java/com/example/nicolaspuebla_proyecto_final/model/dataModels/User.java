@@ -11,6 +11,9 @@ import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.OneToMany;
 
+/**
+ * Clase que representa la entidad User, que es la clase base para los usuarios de la aplicación.
+ */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User {

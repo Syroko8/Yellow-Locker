@@ -3,6 +3,9 @@ package com.example.nicolaspuebla_proyecto_final.model.dataModels;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 
+/**
+ * Clase que representa la entidad Training, que hereda de Event.
+ */
 @Entity
 @DiscriminatorValue(value = "training")
 public class Training extends Event {

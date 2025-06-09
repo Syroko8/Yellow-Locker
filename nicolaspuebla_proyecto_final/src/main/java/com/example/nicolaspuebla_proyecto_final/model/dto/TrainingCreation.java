@@ -1,5 +1,8 @@
 package com.example.nicolaspuebla_proyecto_final.model.dto;
 
+/**
+ * Clase que contiene la información necesaria para crear un entrenamiento.
+ */
 public class TrainingCreation extends EventCreation {
 
     public TrainingCreation(){}

@@ -5,6 +5,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+/**
+ * Clase que representa un token de autenticación para un usuario.
+ */
 @Entity
 public class Token {
 

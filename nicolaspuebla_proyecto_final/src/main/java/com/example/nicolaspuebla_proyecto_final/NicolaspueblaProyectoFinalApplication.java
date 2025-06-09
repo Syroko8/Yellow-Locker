@@ -18,6 +18,11 @@ import com.example.nicolaspuebla_proyecto_final.service.TeamService;
 import com.example.nicolaspuebla_proyecto_final.service.UserService;
 import com.example.nicolaspuebla_proyecto_final.service.MessageService;
 */
+
+/**
+ * Clase principal del microservicio.
+ * @author Nicolas Puebla Martín
+ */
 @SpringBootApplication
 public class NicolaspueblaProyectoFinalApplication {
 

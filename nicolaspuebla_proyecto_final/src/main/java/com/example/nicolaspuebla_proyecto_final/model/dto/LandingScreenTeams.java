@@ -2,6 +2,9 @@ package com.example.nicolaspuebla_proyecto_final.model.dto;
 
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Locality;
 
+/**
+ * Clase que contiene la información necesaria para la representación de los equipos de la pantalla de inicio de la aplicación.
+ */
 public class LandingScreenTeams {
     private Long id;
     private String name;

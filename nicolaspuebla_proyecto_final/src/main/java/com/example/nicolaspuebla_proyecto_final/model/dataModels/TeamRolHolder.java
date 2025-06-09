@@ -1,5 +1,8 @@
 package com.example.nicolaspuebla_proyecto_final.model.dataModels;
 
+/**
+ * Clase empleada en el manejo de de la unión de un usuario a un equipo.
+ */
 public class TeamRolHolder {
     private MobileUser user;
     private Team team;

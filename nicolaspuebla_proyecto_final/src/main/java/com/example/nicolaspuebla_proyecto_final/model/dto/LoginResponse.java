@@ -2,6 +2,9 @@ package com.example.nicolaspuebla_proyecto_final.model.dto;
 
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.MobileUser;
 
+/**
+ * Clase que contiene la infomación de respuesta a la aplicación tras un intento de inicio de sesión.
+ */
 public class LoginResponse {
     private MobileUser user;
     private String token;

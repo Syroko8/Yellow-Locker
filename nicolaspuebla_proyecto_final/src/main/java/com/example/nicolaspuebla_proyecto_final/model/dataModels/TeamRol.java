@@ -11,6 +11,10 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 
+
+/**
+ * Clase que representa la entidad TeamRol, los roles que tendrán los usuarios dentro de un equipo.
+ */
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "rol_type")

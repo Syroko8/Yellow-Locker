@@ -8,6 +8,9 @@ import com.example.nicolaspuebla_proyecto_final.model.dataModels.TeamPosition;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.TeamRol;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.User;
 
+/**
+ * Clase que representa la respuesta de un equipo, con información específica empleadada en ciertas peticiones.
+ */
 public class TeamResponse {
     private Long id;
     private String name;

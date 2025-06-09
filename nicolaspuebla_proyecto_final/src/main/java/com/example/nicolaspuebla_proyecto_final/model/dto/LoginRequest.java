@@ -1,5 +1,8 @@
 package com.example.nicolaspuebla_proyecto_final.model.dto;
 
+/**
+ * Clase que contiene la información de inicio de sesión de un usuario.
+ */
 public class LoginRequest {
     private String email;
     private String passwd;

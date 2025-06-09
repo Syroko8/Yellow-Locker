@@ -7,6 +7,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 
+/**
+ * Clase para la entidad AssignedPosition, que representa la asignación de una posición a un usuario en un equipo.
+ */
 @Entity
 public class AssignedPosition {
     

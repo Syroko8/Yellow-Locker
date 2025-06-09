@@ -2,6 +2,9 @@ package com.example.nicolaspuebla_proyecto_final.model.dto;
 
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Locality;
 
+/**
+ * Clase que contiene la información necesaria para la creación de un equipo.
+ */
 public class TeamCreation {
     private Long userId;
     private String teamName;

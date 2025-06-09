@@ -15,6 +15,9 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 
+/**
+ * Clase que representa un usuario móvil en el sistema.
+ */
 @Entity
 public class MobileUser extends User {
 
@@ -96,12 +99,22 @@ public class MobileUser extends User {
         this.teamRoles.remove(oldRol);
     }
 
+    /**
+     * Método que calcula la edad del usuario a partir de su fecha de nacimiento
+     * @param fechaNacimiento Fecha de nacimiento del usuario.
+     * @return Edad del usuario en años.
+     */
     private int calcularEdad(Date fechaNacimiento) {
         LocalDate nacimiento = fechaNacimiento.toLocalDate();
         LocalDate ahora = LocalDate.now();
         return Period.between(nacimiento, ahora).getYears();
     }
 
+    /**
+     * Método que añade un rol a la lista de roles del usuario.
+     * @param newRol Nuevo rol a añadir al usuario.
+     * @return El usuario actual.
+     */
     public MobileUser addRol(TeamRol newRol){
         this.teamRoles.add(newRol);
         return this;

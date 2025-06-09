@@ -5,6 +5,9 @@ import java.sql.Date;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 
+/**
+ * Clase para la entidad Alert, que representa una notificación de alerta.
+ */
 @Entity
 @DiscriminatorValue(value = "alert")
 public class Alert extends Notification {

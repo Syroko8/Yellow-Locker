@@ -1,9 +1,13 @@
 package com.example.nicolaspuebla_proyecto_final.model.dataModels;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import jakarta.persistence.Embeddable;
 
+/**
+ * Clase para la clave primaria compuesta de AssignedPosition.
+ */
 @Embeddable
 public class AssignedPositionPK implements Serializable {
     
@@ -31,5 +35,19 @@ public class AssignedPositionPK implements Serializable {
 
     public void setTeam_id(Long team_id) {
         this.team_id = team_id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AssignedPositionPK)) return false;
+        AssignedPositionPK pk = (AssignedPositionPK) o;
+        return Objects.equals(user_id, pk.user_id) &&
+               Objects.equals(team_id, pk.team_id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(user_id, team_id);
     }
 }

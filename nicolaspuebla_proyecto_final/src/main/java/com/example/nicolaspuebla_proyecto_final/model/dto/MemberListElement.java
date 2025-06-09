@@ -2,6 +2,9 @@ package com.example.nicolaspuebla_proyecto_final.model.dto;
 
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.MobileUser;
 
+/**
+ * Clase que representa un elemento de la lista de miembros de un equipo, conteniendo el tipo de rol y el usuario asociado.
+ */
 public class MemberListElement {
     private String rolType;
     private MobileUser user;

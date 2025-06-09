@@ -1,9 +1,7 @@
 package com.example.nicolaspuebla_proyecto_final.model.dataModels;
 
 import java.sql.Date;
-
 import org.springframework.lang.NonNull;
-
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,6 +12,9 @@ import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
+/**
+ * Clase que representa una notificación en el sistema.
+ */
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "notification_type")

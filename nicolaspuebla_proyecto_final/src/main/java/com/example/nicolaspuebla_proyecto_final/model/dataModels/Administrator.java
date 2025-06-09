@@ -2,6 +2,9 @@ package com.example.nicolaspuebla_proyecto_final.model.dataModels;
 
 import jakarta.persistence.Entity;
 
+/**
+ * Clase que representa la entidad Administrador.
+ */
 @Entity
 public class Administrator extends User {
     

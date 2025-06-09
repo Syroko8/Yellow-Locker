@@ -1,10 +1,12 @@
 package com.example.nicolaspuebla_proyecto_final.model.dto;
 
 import java.util.List;
-
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Event;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Team;
 
+/**
+ * Clase que contiene información extendida sobre un equipo.
+ */
 public class TeamInfo {
     private Team team;
     private List<Event> events;

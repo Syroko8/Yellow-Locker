@@ -9,6 +9,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
+/**
+ * Clase que representa la entidad Message, que almacena mensajes enviados por los usuarios en el chat de un equipo.
+ */
 @Entity
 public class Message {
 

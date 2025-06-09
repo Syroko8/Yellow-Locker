@@ -1,9 +1,11 @@
 package com.example.nicolaspuebla_proyecto_final.model.dto;
 
 import java.util.List;
-
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Locality;
 
+/**
+ * Clase que representa la respuesta para la ista de localidades.
+ */
 public class LocalityListResponse {
     private List<Locality> localities;
 

@@ -12,6 +12,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
+/**
+ * Clase que representa una posición dentro de un equipo, y puese ser asignada a log jugadores del mismo.
+ */
 @Entity
 public class TeamPosition {
 

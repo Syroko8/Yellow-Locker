@@ -7,7 +7,10 @@ import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-
+ 
+/**
+ * Clase que representa la entidad Match, un tipo de evento que hereda de Event.
+ */
 @Entity
 @DiscriminatorValue(value = "match")
 public class Match extends Event {
