@@ -88,11 +88,11 @@ public class TokenService {
 
     /**
      * Elimina un token por su valor.
-     * @param token El valor del token a eliminar.
+     * @param userId El identificador del usuario cuyo token se elimina.
      */
-    public void deleteTokenByToken(String token){
+    public void deleteTokenByUserId(Long userId){
         try {
-            tokenRepository.deleteByToken(token);
+            tokenRepository.deleteByUserId(userId);
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }

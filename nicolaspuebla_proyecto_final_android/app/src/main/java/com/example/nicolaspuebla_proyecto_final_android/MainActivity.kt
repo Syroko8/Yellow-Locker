@@ -46,7 +46,6 @@ class MainActivity : ComponentActivity() {
          * Función que realiza un cambio de actividad.
          */
         fun logout() {
-            SessionManager.setLogOut(false)
             val intent = Intent(this, LoginActivity::class.java)
             this.startActivity(intent)
             finish()
@@ -60,8 +59,19 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+/**
+ * Función principal de la aplicación.
+ *
+ * @param onLogOutIntent Callback que se ejecuta cuando se realiza un logout.
+ * @param viewModel View model utilizado para eliminar los datos locales del usuario.
+ * @param authViewModel View model utilizado para realizar una petición de logout al microservicio.
+ */
 @Composable
-fun App(onLogOutIntent: () ->Unit, viewModel: PreferencesViewModel = hiltViewModel()){
+fun App(
+    onLogOutIntent: () ->Unit,
+    viewModel: PreferencesViewModel = hiltViewModel(),
+    authViewModel: AuthViewModel = hiltViewModel()
+){
 
     val scope = rememberCoroutineScope()
     val navController = rememberNavController()
@@ -82,6 +92,7 @@ fun App(onLogOutIntent: () ->Unit, viewModel: PreferencesViewModel = hiltViewMod
     LaunchedEffect(SessionManager.logOut){
         SessionManager.logOut.collect{ logOutVal ->
             if (logOutVal) {
+                authViewModel.logout()
                 viewModel.clearUserData()
                 onLogOutIntent()
             }

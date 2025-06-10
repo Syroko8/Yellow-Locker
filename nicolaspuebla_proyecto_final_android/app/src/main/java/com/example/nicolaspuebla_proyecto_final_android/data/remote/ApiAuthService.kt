@@ -25,10 +25,10 @@ interface ApiAuthService {
     /**
      * Función que realiza una petición de logout.
      *
-     * @param request Token del usuario que se dará de baja.
+     * @param userId Identificador del usuario cuyo token se dará de baja.
      */
     @POST("api/user/logout")
-    fun logout(@Body request: String): Call<String>
+    fun logout(@Query("userId") userId: Long): Call<String>
 
     /**
      * Función que realiza una petición de comprobación de validad de un token.

@@ -55,21 +55,6 @@ public class TokenController {
     }
 
     /**
-     * Método que maneja las peticiones para eliminar un token por su valor.
-     * @param token El valor del token a eliminar.
-     * @return El valor del token eliminado.
-     */
-    @DeleteMapping("/deleteByT/{token}")
-    public ResponseEntity<String> deleteTokenByToken(@PathVariable String token ){
-        try {
-            tokenService.deleteTokenByToken(token);
-            return ResponseEntity.ok().body(token);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-        }
-    }
-
-    /**
      * Método que maneja las peticiones para verificar un token.
      * @param userId Identificador del usuario asociado al token.
      * @param token El valor del token a verificar.
@@ -96,10 +81,10 @@ public class TokenController {
      * @return El valor del token eliminado.
      */
     @PostMapping("/logout")
-    public ResponseEntity<String> logout(@RequestBody String token) {
+    public ResponseEntity<Long> logout(@RequestParam Long userId) {
         try {
-            tokenService.deleteTokenByToken(token); 
-            return ResponseEntity.ok().body(token);
+            tokenService.deleteTokenByUserId(userId); 
+            return ResponseEntity.ok().body(userId);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }

@@ -44,20 +44,16 @@ class AuthRepository {
 
     /**
      * Función que ejecuta la petición de logout mediante el servicio.
-     *
-     * @param token Token a dar de baja.
      */
-    suspend fun logout(token: String = SessionManager.bearerToken?:""): Unit{
+    suspend fun logout(): Unit{
         return withContext(Dispatchers.IO){
             try{
-                val call = token.let { RetrofitInstance.yellowLockerAuth.logout(token)}
-                val response = call.execute()
+                val call = SessionManager.user?.id?.let { RetrofitInstance.yellowLockerAuth.logout(it)}
+                val response = call?.execute()
 
-                if (response.isSuccessful){
-                    response.body()
-                } else{
-                    println("Logout failed with code: ${response.code()} and message: ${response.message()}")
-                    throw Exception(response.message())
+                if (response?.isSuccessful != true){
+                    println("Logout failed with code: ${response?.code()} and message: ${response?.message()}")
+                    throw Exception(response?.message())
                 }
             } catch (e: Exception) {
                 println("Logout request failed: ${e.message}")

@@ -1,9 +1,12 @@
 package com.example.nicolaspuebla_proyecto_final.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import com.example.nicolaspuebla_proyecto_final.model.dataModels.Token;
+
+import jakarta.transaction.Transactional;
 
 /**
  * Repositorio que interactúa con la base de datos manejando los tokens de los usuarios.
@@ -29,9 +32,11 @@ public interface TokenRepository extends JpaRepository<Token, Long> {
 
     /**
      * Método que elimina un token por su valor.
-     * @param token El valor del token a eliminar.
+     * @param user_id El identificador del usuario cuyo token se elimina.
      * @return El token eliminado.
      */
-    @Query("delete from Token t where t.token = ?1")
-    Token deleteByToken(String token);
+    @Modifying
+    @Transactional
+    @Query("delete from Token t where t.user_id = ?1")
+    void deleteByUserId(Long user_id);
 }
