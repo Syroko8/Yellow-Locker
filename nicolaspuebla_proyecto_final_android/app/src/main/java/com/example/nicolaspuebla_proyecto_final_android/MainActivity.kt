@@ -92,6 +92,7 @@ fun App(
     LaunchedEffect(SessionManager.logOut){
         SessionManager.logOut.collect{ logOutVal ->
             if (logOutVal) {
+                SessionManager.setLogOut(false)
                 authViewModel.logout()
                 viewModel.clearUserData()
                 onLogOutIntent()

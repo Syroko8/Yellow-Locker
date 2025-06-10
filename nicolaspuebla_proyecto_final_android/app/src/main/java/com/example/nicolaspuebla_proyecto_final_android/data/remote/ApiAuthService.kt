@@ -27,7 +27,7 @@ interface ApiAuthService {
      *
      * @param userId Identificador del usuario cuyo token se dará de baja.
      */
-    @POST("api/user/logout")
+    @POST("api/token/logout")
     fun logout(@Query("userId") userId: Long): Call<String>
 
     /**

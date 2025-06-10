@@ -3,7 +3,6 @@ package com.example.nicolaspuebla_proyecto_final_android
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.nicolaspuebla_proyecto_final_android.data.repositories.AuthRepository
-import com.example.nicolaspuebla_proyecto_final_android.utils.SessionManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -23,7 +22,6 @@ class AuthViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 repository.logout()
-                SessionManager.setLogOut(false)
             } catch (e: Exception) {
                 println("Logout error: ${e.message}")
             }
